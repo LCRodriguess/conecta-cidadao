@@ -1,0 +1,243 @@
+/* ==========================================================================
+   CONECTA CIDADÃO - TEMA CLARO COM AZUL EXECUTIVO (GLOBAL)
+   ========================================================================== */
+
+:root {
+    /* Paleta Tema Claro & Azul Executivo */
+    --cor-fundo: #f8fafc;            /* Fundo suave e claro */
+    --cor-texto: #1e293b;            /* Texto escuro legível */
+    --cor-titulo: #0f2b5c;           /* Azul executivo profundo para títulos */
+    
+    --azul-executivo: #0f2b5c;       /* Azul marinho executivo na topbar */
+    --azul-acao: #1d4ed8;            /* Azul corporativo para destaque */
+    --azul-acao-hover: #1e40af;      /* Azul escuro no hover */
+    
+    --borda-suave: #e2e8f0;
+    --cor-footer-bg: #ffffff;
+    --cor-footer-texto: #64748b;
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Espaço superior para a navbar flutuante */
+    padding-top: 100px;
+    /* Espaço inferior para o footer */
+    padding-bottom: 60px;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGAÇÃO FLUTUANTE CENTRALIZADA (app-navbar)
+   ========================================================================== */
+
+app-navbar {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1140px;
+    z-index: 1000;
+    display: block;
+}
+
+.topbar {
+    background-color: var(--azul-executivo);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 25px -5px rgba(15, 43, 92, 0.3), 0 8px 10px -6px rgba(15, 43, 92, 0.2);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.topbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 1. Lado Esquerdo: Nome / Marca */
+.topbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: opacity 0.2s;
+}
+
+.brand-link:hover {
+    opacity: 0.9;
+}
+
+.brand-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.brand-name {
+    font-size: 19px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+.brand-name strong {
+    font-weight: 800;
+    color: #60a5fa; /* Azul claro em 'Cidadão' */
+}
+
+/* 2. Centro: Botões de Navegação e Dropdown de Serviços */
+.topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn,
+.topbar button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 7px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover,
+.topbar button:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.nav-btn a,
+.topbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* Select de Serviços */
+.nav-select,
+.topbar select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 7px;
+    padding: 7px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.nav-select:hover,
+.topbar select:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.nav-select option {
+    background-color: #ffffff;
+    color: var(--cor-texto);
+    font-weight: 500;
+    padding: 8px;
+}
+
+/* 3. Lado Direito: Minha Conta (Destaque) */
+.topbar-user {
+    display: flex;
+    align-items: center;
+}
+
+.btn-account {
+    background-color: var(--azul-acao) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 7px;
+    padding: 7px 18px !important;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-account:hover {
+    background-color: var(--azul-acao-hover) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-account a {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL (main)
+   ========================================================================== */
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--cor-titulo);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   RODAPÉ (app-footer)
+   ========================================================================== */
+
+app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    background-color: var(--cor-footer-bg);
+    border-top: 1px solid var(--borda-suave);
+    color: var(--cor-footer-texto);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.03);
+}
+
+app-footer p {
+    margin: 0;
+}
