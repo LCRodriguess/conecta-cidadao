@@ -17,3 +17,9 @@ logs/
 Thumbs.db
 .vscode/
 .idea/
+
+# Java / Spring Boot
+target/
+*.class
+.env
+.env.*
