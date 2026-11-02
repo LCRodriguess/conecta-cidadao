@@ -1,2 +1,584 @@
-/* accountPage.css */
+/* ==========================================================================
+   accountPage.css - Estilos da Página Minha Conta
+   Baseado nas referências oficiais do Conecta Cidadão
+   ========================================================================== */
+
 @import url('global.css');
+
+.page-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.breadcrumb a {
+  color: #1a56db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .current {
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Header da Página com Município */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.header-titles .page-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.header-titles .page-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Seletor de Município */
+.header-municipality {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  position: relative;
+  text-align: right;
+}
+
+.municipality-icon {
+  color: #1a56db;
+  margin-top: 0.2rem;
+}
+
+.municipality-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.muni-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.muni-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: inherit;
+  margin: 0.15rem 0;
+}
+
+.muni-toggle strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.muni-toggle .trocar-txt {
+  color: #1a56db;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.muni-toggle:hover .trocar-txt {
+  text-decoration: underline;
+}
+
+.muni-alt {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.muni-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 200px;
+  display: none;
+  z-index: 50;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.muni-dropdown.show {
+  display: flex;
+}
+
+.muni-opt {
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  color: #334155;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.muni-opt:hover {
+  background: #f1f5f9;
+  color: #1a56db;
+}
+
+.muni-opt.active {
+  background: #eff6ff;
+  color: #1a56db;
+  font-weight: 700;
+}
+
+/* Grid Principal */
+.account-layout-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .account-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Coluna da Esquerda: Cartão de Perfil */
+.profile-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.profile-avatar-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #1a56db;
+  border: 2px solid #bfdbfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.15rem 0;
+}
+
+.profile-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.profile-badge-row {
+  margin-top: 0.85rem;
+}
+
+.profile-role-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1a56db;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+  border: 1px solid #bfdbfe;
+}
+
+.profile-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 1.25rem 0;
+}
+
+.profile-info-group {
+  margin-bottom: 1.2rem;
+}
+
+.profile-info-group:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.info-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.25rem;
+}
+
+/* Coluna da Direita: Cartões de Configuração */
+.settings-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.setting-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.setting-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.4rem 0;
+}
+
+.setting-card-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+/* Município Setting Row */
+.municipality-setting-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.1rem 0 0.75rem 0;
+  background: #f8fafc;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid #f1f5f9;
+}
+
+.muni-setting-icon {
+  color: #1a56db;
+  margin-top: 0.2rem;
+}
+
+.muni-setting-content {
+  flex: 1;
+}
+
+.muni-setting-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.muni-setting-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.25rem 0 0.2rem 0;
+}
+
+.muni-setting-inline strong {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.btn-text-change {
+  background: none;
+  border: none;
+  color: #1a56db;
+  font-weight: 600;
+  font-size: 0.88rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-text-change:hover {
+  text-decoration: underline;
+}
+
+.muni-setting-avail {
+  display: block;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.setting-hint-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0.85rem 0 0 0;
+}
+
+/* Toggles de Notificação */
+.notification-toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.toggle-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.toggle-desc {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.toggle-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Switch Toggle CSS */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+  background-color: #1a56db;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.toggle-state-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a56db;
+  min-width: 48px;
+}
+
+.toggle-state-text.text-muted {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.steps-notice {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0 0 1.25rem 0;
+}
+
+.btn-save-prefs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a56db;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.6rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-save-prefs:hover {
+  background: #1546b5;
+  box-shadow: 0 4px 12px rgba(26, 86, 219, 0.15);
+}
+
+/* Quick links card */
+.quick-links-card {
+  padding: 1.25rem 1.75rem;
+}
+
+.quick-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #0f172a;
+  padding: 0.5rem 0;
+  transition: color 0.15s;
+}
+
+.quick-link-item:hover {
+  color: #1a56db;
+}
+
+.quick-link-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.shield-icon {
+  color: #1a56db;
+}
+
+.card-item-separator {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 0.5rem 0;
+}
+
+.logout-row {
+  padding-top: 0.5rem;
+}
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.88rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+/* Rodapé de Ações */
+.home-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.bottom-support-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #1a56db;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bottom-support-btn:hover {
+  background: #eff6ff;
+  border-color: #1a56db;
+}

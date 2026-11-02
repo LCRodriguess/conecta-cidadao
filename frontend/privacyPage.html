@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacidade e Dados - Conecta Cidadão</title>
+  <link rel="stylesheet" href="../css/privacyPage.css">
+  <script src="../js/cityManager.js"></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</head>
+
+<body>
+  <app-navbar></app-navbar>
+
+  <main class="page-container">
+    <!-- Breadcrumb e Cabeçalho -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <span class="current">Privacidade e dados</span>
+    </div>
+
+    <header class="page-header">
+      <div class="header-titles">
+        <h1 class="page-title">Privacidade e dados</h1>
+        <p class="page-subtitle">Entenda a finalidade dos dados e as permissões dos serviços.</p>
+      </div>
+
+      <!-- Seletor de Município -->
+      <div class="header-municipality">
+        <div class="municipality-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+            <circle cx="12" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="municipality-info">
+          <span class="muni-tag">SEU MUNICÍPIO</span>
+          <button type="button" class="muni-toggle" id="muni-toggle">
+            <strong id="muni-active-name">Rio das Ostras · RJ</strong>
+            <span class="trocar-txt">Trocar ⌵</span>
+          </button>
+          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+        </div>
+
+        <div class="muni-dropdown" id="muni-dropdown">
+          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
+          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout Grid de Privacidade -->
+    <section class="privacy-layout-grid">
+      <!-- Coluna da Esquerda: Navegação na Página e Dica de Acessibilidade -->
+      <aside class="privacy-sidebar">
+        <div class="sidebar-nav-card">
+          <h3 class="sidebar-title">Nesta página</h3>
+          <nav class="sidebar-nav">
+            <a href="#finalidade" class="nav-item active">
+              <span>Finalidade dos dados</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            <a href="#permissoes" class="nav-item">
+              <span>Localização e fotos</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            <a href="#preferencias" class="nav-item">
+              <span>Avisos e preferências</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            <a href="#orientacoes" class="nav-item">
+              <span>Orientações de uso</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-tip-card">
+          <p class="tip-body">Prefere uma leitura mais confortável? Veja as opções de acessibilidade.</p>
+          <a href="mainPage.html#acessibilidade" class="tip-link">
+            <span>Abrir acessibilidade</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Coluna da Direita: Cartões de Conteúdo -->
+      <div class="privacy-content-column">
+        <!-- Card 1: Para que serviriam os dados? -->
+        <article class="privacy-card" id="finalidade">
+          <h2 class="card-title">Para que serviriam os dados?</h2>
+          <p class="card-text">
+            Na proposta do Conecta Cidadão, um acesso único reuniria os serviços do município. Informações do perfil ajudariam a identificar o acesso; a escolha de município definiria o contexto dos serviços; e os dados de uma ocorrência ajudariam a descrever um problema.
+          </p>
+          <p class="card-text text-strong">
+            Compartilhe apenas os dados necessários para utilizar cada serviço. Nunca compartilhe sua senha.
+          </p>
+        </article>
+
+        <!-- Card 2: Você escolhe como informar -->
+        <article class="privacy-card" id="permissoes">
+          <h2 class="card-title">Você escolhe como informar</h2>
+
+          <div class="permission-item-row">
+            <div class="permission-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+                <circle cx="12" cy="11" r="2.5"/>
+              </svg>
+            </div>
+            <div class="permission-item-content">
+              <strong class="permission-title">Localização</strong>
+              <p class="permission-desc">Autorize o acesso à localização ou digite o endereço e um ponto de referência manualmente.</p>
+            </div>
+          </div>
+
+          <div class="card-inner-divider"></div>
+
+          <div class="permission-item-row">
+            <div class="permission-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <div class="permission-item-content">
+              <strong class="permission-title">Câmera e galeria</strong>
+              <p class="permission-desc">Anexe fotos do problema pela câmera ou galeria. Evite incluir rostos, documentos ou informações pessoais.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Avisos e preferências -->
+        <article class="privacy-card" id="preferencias">
+          <h2 class="card-title">Avisos e preferências</h2>
+          <p class="card-text">Consulte em Minha conta suas preferências de avisos por push e e-mail.</p>
+          <a href="accountPage.html" class="inline-action-link">
+            <span>Ver preferências em Minha conta</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- Card 4: Orientações importantes -->
+        <article class="privacy-card" id="orientacoes">
+          <span class="card-badge">Uso dos serviços</span>
+          <h2 class="card-title mt-xs">Orientações importantes</h2>
+          <p class="card-text">
+            Confira seus dados antes de enviar uma solicitação. Use o protocolo para acompanhar cada etapa e consulte os detalhes antes de emitir uma guia.
+          </p>
+          <div class="card-action-btn-row">
+            <a href="mainPage.html" class="btn-understand-return">Entendi · Voltar ao painel</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Rodapé de Ações -->
+    <footer class="home-bottom-links">
+      <button type="button" class="bottom-support-btn" onclick="alert('Encarregado de Proteção de Dados (DPO):\nE-mail: dpo@conectacidadao.gov.br\nTelefone: 156\nConformidade com a LGPD (Lei nº 13.709/2018)')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Precisa de ajuda?</span>
+      </button>
+
+      <a href="privacyPage.html" class="bottom-support-btn active-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Privacidade</span>
+      </a>
+    </footer>
+  </main>
+
+  <app-footer></app-footer>
+
+  <!-- Script da Página de Privacidade -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Seletor de Município
+      const muniToggle = document.getElementById('muni-toggle');
+      const muniDropdown = document.getElementById('muni-dropdown');
+      if (muniToggle && muniDropdown) {
+        muniToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          muniDropdown.classList.toggle('show');
+        });
+        document.querySelectorAll('.muni-opt').forEach(opt => {
+          opt.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (typeof setActiveCity === 'function') {
+              setActiveCity(opt.dataset.city);
+            }
+            muniDropdown.classList.remove('show');
+          });
+        });
+        document.addEventListener('click', () => muniDropdown.classList.remove('show'));
+      }
+
+      // Smooth scroll para links da sidebar
+      document.querySelectorAll('.sidebar-nav .nav-item').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.querySelectorAll('.sidebar-nav .nav-item').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

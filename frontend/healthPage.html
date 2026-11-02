@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>healthPage</title>
+  <title>Consultas e Saúde - Conecta Cidadão</title>
   <link rel="stylesheet" href="../css/healthPage.css">
+  <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
 </head>
@@ -13,11 +14,343 @@
 <body>
   <app-navbar></app-navbar>
 
-  <main>
-    <h1>healthPage</h1>
+  <main class="page-container">
+    <!-- Breadcrumb e Cabeçalho -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <a href="mainPage.html#servicos">Serviços</a>
+      <span>/</span>
+      <span class="current">Consultas e Saúde</span>
+    </div>
+
+    <header class="page-header">
+      <div class="header-titles">
+        <h1 class="page-title">Consultas e Saúde</h1>
+        <p class="page-subtitle">Consulte seus agendamentos no SUS, encontre postos de saúde e acompanhe a vacinação.</p>
+      </div>
+
+      <!-- Seletor de Município -->
+      <div class="header-municipality">
+        <div class="municipality-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+            <circle cx="12" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="municipality-info">
+          <span class="muni-tag">SEU MUNICÍPIO</span>
+          <button type="button" class="muni-toggle" id="muni-toggle">
+            <strong id="muni-active-name">Rio das Ostras · RJ</strong>
+            <span class="trocar-txt">Trocar ⌵</span>
+          </button>
+          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+        </div>
+
+        <div class="muni-dropdown" id="muni-dropdown">
+          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
+          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout Grid de Saúde -->
+    <section class="health-layout-grid">
+      <!-- Coluna da Esquerda: Agendamentos e Vacinação -->
+      <div class="health-main-column">
+        <!-- Card: Meus Agendamentos Ativos -->
+        <div class="health-section-card">
+          <div class="section-card-header">
+            <h2 class="section-card-title">Seus Agendamentos na Rede Municipal</h2>
+            <button type="button" class="btn-schedule-new" onclick="alert('Sistema de Marcação Integrada:\nPara agendar uma nova consulta ou exame, procure sua UBS de referência com o Cartão SUS e documento com foto.')">
+              + Solicitar Agendamento
+            </button>
+          </div>
+
+          <div class="appointments-list" id="appointments-container">
+            <!-- Renderizado dinamicamente via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Card: Campanhas de Vacinação -->
+        <div class="health-section-card">
+          <h2 class="section-card-title">Campanhas de Vacinação em Andamento</h2>
+          <div class="vaccine-grid">
+            <div class="vaccine-item">
+              <span class="vac-badge active">Em andamento</span>
+              <h4 class="vac-name">Gripe / Influenza</h4>
+              <p class="vac-target">Público-alvo: Todas as pessoas a partir de 6 meses de vida.</p>
+              <span class="vac-where" id="vac-city-where">Disponível em todas as UBSs do município</span>
+            </div>
+
+            <div class="vaccine-item">
+              <span class="vac-badge active">Em andamento</span>
+              <h4 class="vac-name">Dengue — Doses 1 e 2</h4>
+              <p class="vac-target">Público-alvo: Crianças e adolescentes de 10 a 14 anos.</p>
+              <span class="vac-where">Apresentar caderneta de vacinação da criança</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Unidades de Saúde e Plantão -->
+      <aside class="health-sidebar-column">
+        <div class="units-sidebar-card" id="units-container">
+          <!-- Renderizado dinamicamente via JavaScript -->
+        </div>
+
+        <div class="samu-card">
+          <div class="samu-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <div class="samu-info">
+            <span class="samu-title">SAMU — Emergência Médica</span>
+            <strong class="samu-number">192</strong>
+            <p class="samu-desc" id="samu-base-desc">Acione em casos de dor no peito súbita, convulsões, acidentes de trânsito ou falta de ar grave.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Rodapé de Ações -->
+    <footer class="home-bottom-links">
+      <button type="button" class="bottom-support-btn" onclick="alert('Central de Regulação da Saúde Municipal:\nTelefone: 156\nAtendimento via Secretaria Municipal de Saúde.')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Precisa de ajuda?</span>
+      </button>
+
+      <a href="privacyPage.html" class="bottom-support-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Privacidade</span>
+      </a>
+    </footer>
   </main>
 
   <app-footer></app-footer>
+
+  <!-- Script da Página de Saúde -->
+  <script>
+    const HEALTH_DATA_BY_CITY = {
+      'rio-das-ostras': {
+        cityName: 'Rio das Ostras · RJ',
+        vaccineNote: 'Disponível em todas as UBSs de Rio das Ostras',
+        samuDesc: 'Acione em casos de dor no peito súbita, convulsões ou falta de ar. Base Costa Azul · Rio das Ostras.',
+        appointments: [
+          {
+            badgeClass: 'confirmed',
+            badgeText: 'Confirmado',
+            cartaoSus: 'Cartão SUS: ***.****.****.08',
+            specialty: 'Consulta com Clínico Geral',
+            doctor: 'Dr. Marcos Vinícius · CRM 82451-RJ',
+            dateTime: '29 de outubro de 2026 às 09:30',
+            location: 'UBS Central · Sala 02 — Rua das Flores, 80',
+            actionLabel: 'Ver Orientações',
+            actionAlert: 'Orientações para Consulta em Rio das Ostras:\n1. Chegar com 15 minutos de antecedência.\n2. Trazer Cartão SUS, RG e exames anteriores se houver.'
+          },
+          {
+            badgeClass: 'scheduled',
+            badgeText: 'Agendado',
+            cartaoSus: 'Cartão SUS: ***.****.****.08',
+            specialty: 'Exame Laboratorial — Hemograma Completo e Glicemia',
+            doctor: 'Laboratório Municipal de Análises Clínicas de Rio das Ostras',
+            dateTime: '05 de novembro de 2026 às 07:30',
+            location: 'Policlínica Municipal · Guichê de Coleta',
+            actionLabel: 'Orientações de Jejum',
+            actionAlert: 'Preparo do Exame:\n- Jejum de 8 a 12 horas obrigatório.\n- Não ingerir bebidas alcoólicas nas 72h anteriores.'
+          }
+        ],
+        units: [
+          {
+            name: 'UPA 24h Costa Azul',
+            badge: 'Aberto 24h',
+            badgeClass: 'badge-open-24h',
+            type: 'Pronto Atendimento de Urgência e Emergência',
+            address: 'Av. Roberto Silveira, s/n · Costa Azul',
+            phone: 'Telefone: (22) 2764-1000'
+          },
+          {
+            name: 'UBS Central',
+            badge: '07h às 17h',
+            badgeClass: 'badge-open-hours',
+            type: 'Atenção Básica, Consultas e Vacinação',
+            address: 'Rua das Flores, 80 · Centro',
+            phone: 'Telefone: (22) 2764-2115'
+          },
+          {
+            name: 'Farmácia Municipal Popular',
+            badge: '08h às 16h',
+            badgeClass: 'badge-open-hours',
+            type: 'Dispensação gratuita de medicamentos básicos e especiais',
+            address: 'Rua Jandira Pimentel, 23 · Centro',
+            phone: 'Telefone: (22) 2764-3200'
+          }
+        ]
+      },
+      'sapucaia': {
+        cityName: 'Sapucaia do Sul · RS',
+        vaccineNote: 'Disponível em todas as UBSs de Sapucaia do Sul',
+        samuDesc: 'Acione em casos de dor no peito súbita, convulsões ou trauma grave. Base Central · Sapucaia do Sul.',
+        appointments: [
+          {
+            badgeClass: 'confirmed',
+            badgeText: 'Confirmado',
+            cartaoSus: 'Cartão SUS: ***.****.****.42',
+            specialty: 'Consulta com Cardiologista',
+            doctor: 'Dra. Camila Silveira · CREMERS 41890',
+            dateTime: '30 de outubro de 2026 às 10:15',
+            location: 'UBS Vargas · Sala 04 — Av. Cel. Theodomiro Porto da Fonseca, 450',
+            actionLabel: 'Ver Orientações',
+            actionAlert: 'Orientações para Consulta em Sapucaia do Sul:\n1. Chegar com 20 minutos de antecedência.\n2. Trazer receitas em uso, Cartão SUS e documento com foto.'
+          },
+          {
+            badgeClass: 'scheduled',
+            badgeText: 'Agendado',
+            cartaoSus: 'Cartão SUS: ***.****.****.42',
+            specialty: 'Raio-X de Tórax e Eletrocardiograma',
+            doctor: 'Centro de Diagnóstico por Imagem do HMGV',
+            dateTime: '06 de novembro de 2026 às 08:00',
+            location: 'Hospital Municipal Getúlio Vargas (HMGV) — Rua Pinheiro Machado, 331',
+            actionLabel: 'Preparo do Exame',
+            actionAlert: 'Preparo do Exame de Imagem:\n- Comparecer com roupas confortáveis sem botões metálicos.\n- Trazer solicitação médica autorizada.'
+          }
+        ],
+        units: [
+          {
+            name: 'Hospital Municipal Getúlio Vargas (HMGV)',
+            badge: 'Aberto 24h',
+            badgeClass: 'badge-open-24h',
+            type: 'Emergência Geral 24 Horas e Internação Hospitalar',
+            address: 'Rua Pinheiro Machado, 331 · Bairro Diehl',
+            phone: 'Telefone: (51) 3451-8200'
+          },
+          {
+            name: 'UPA 24h Sapucaia do Sul',
+            badge: 'Aberto 24h',
+            badgeClass: 'badge-open-24h',
+            type: 'Pronto Atendimento Clínico e Pediátrico',
+            address: 'Rodovia RS-118, km 3 · Bairro Nova Sapucaia',
+            phone: 'Telefone: (51) 3451-9100'
+          },
+          {
+            name: 'UBS Vargas',
+            badge: '07h às 17h',
+            badgeClass: 'badge-open-hours',
+            type: 'Estratégia de Saúde da Família e Vacinação',
+            address: 'Av. Cel. Theodomiro Porto da Fonseca, 450 · Vargas',
+            phone: 'Telefone: (51) 3451-6020'
+          },
+          {
+            name: 'Farmácia de Medicamentos Especiais',
+            badge: '08h às 16h30',
+            badgeClass: 'badge-open-hours',
+            type: 'Dispensação Farmacêutica do Estado e Município',
+            address: 'Av. Leônidas de Souza, 922 · Santa Catarina',
+            phone: 'Telefone: (51) 3451-7740'
+          }
+        ]
+      }
+    };
+
+    let activeHealthCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+
+    function renderHealth(cityKey) {
+      activeHealthCity = cityKey || ((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
+      const data = HEALTH_DATA_BY_CITY[activeHealthCity] || HEALTH_DATA_BY_CITY['rio-das-ostras'];
+
+      // Vacinação & SAMU
+      const vacWhere = document.getElementById('vac-city-where');
+      if (vacWhere) vacWhere.textContent = data.vaccineNote;
+
+      const samuDesc = document.getElementById('samu-base-desc');
+      if (samuDesc) samuDesc.textContent = data.samuDesc;
+
+      // Agendamentos
+      const appContainer = document.getElementById('appointments-container');
+      if (appContainer) {
+        appContainer.innerHTML = '';
+        data.appointments.forEach(app => {
+          const card = document.createElement('article');
+          card.className = `appointment-card ${app.badgeClass}`;
+          card.innerHTML = `
+            <div class="app-card-top">
+              <div class="app-type-badge ${app.badgeClass}">${app.badgeText}</div>
+              <span class="app-cartao-sus">${app.cartaoSus}</span>
+            </div>
+            <h3 class="app-specialty">${app.specialty}</h3>
+            <p class="app-doctor">${app.doctor}</p>
+            
+            <div class="app-meta-grid">
+              <div class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>${app.dateTime}</span>
+              </div>
+              <div class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+                  <circle cx="12" cy="11" r="2.5"/>
+                </svg>
+                <span>${app.location}</span>
+              </div>
+            </div>
+
+            <div class="app-card-actions">
+              <button type="button" class="btn-app-action" onclick="alert('${app.actionAlert.replace(/\n/g, '\\n')}')">
+                ${app.actionLabel}
+              </button>
+              <button type="button" class="btn-app-cancel" onclick="alert('Para cancelamento ou reagendamento sem bloqueio do prontuário, avise com antecedência mínima de 24h na recepção da UBS ou via 156.')">
+                Reagendar
+              </button>
+            </div>
+          `;
+          appContainer.appendChild(card);
+        });
+      }
+
+      // Unidades de Saúde
+      const unitsContainer = document.getElementById('units-container');
+      if (unitsContainer) {
+        unitsContainer.innerHTML = '<h3 class="units-card-title">Unidades de Saúde (UBS / UPA / Hospital)</h3>';
+        data.units.forEach(u => {
+          const div = document.createElement('div');
+          div.className = 'health-unit-card';
+          div.innerHTML = `
+            <div class="unit-top">
+              <strong class="unit-name">${u.name}</strong>
+              <span class="${u.badgeClass}">${u.badge}</span>
+            </div>
+            <p class="unit-type">${u.type}</p>
+            <p class="unit-address">${u.address}</p>
+            <span class="unit-phone">${u.phone}</span>
+          `;
+          unitsContainer.appendChild(div);
+        });
+      }
+    }
+
+    // Escuta troca de município vinda de qualquer aba
+    window.addEventListener('conectaCityChanged', (e) => {
+      if (e.detail && e.detail.cityKey) {
+        renderHealth(e.detail.cityKey);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHealth(activeHealthCity);
+    });
+  </script>
 </body>
 
 </html>

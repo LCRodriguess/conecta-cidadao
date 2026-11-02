@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>worksPage</title>
+  <title>Empregos - Conecta Cidadão</title>
   <link rel="stylesheet" href="../css/worksPage.css">
+  <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
 </head>
@@ -13,11 +14,465 @@
 <body>
   <app-navbar></app-navbar>
 
-  <main>
-    <h1>worksPage</h1>
+  <main class="page-container">
+    <!-- Breadcrumb e Cabeçalho -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <span class="current">Empregos</span>
+    </div>
+
+    <header class="page-header">
+      <div class="header-titles">
+        <h1 class="page-title">Empregos</h1>
+        <p class="page-subtitle">Explore oportunidades e entenda como seria uma candidatura.</p>
+      </div>
+
+      <!-- Seletor de Município -->
+      <div class="header-municipality">
+        <div class="municipality-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+            <circle cx="12" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="municipality-info">
+          <span class="muni-tag">SEU MUNICÍPIO</span>
+          <button type="button" class="muni-toggle" id="muni-toggle">
+            <strong id="muni-active-name">Rio das Ostras · RJ</strong>
+            <span class="trocar-txt">Trocar ⌵</span>
+          </button>
+          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+        </div>
+
+        <div class="muni-dropdown" id="muni-dropdown">
+          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
+          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Barra de Busca e Filtros -->
+    <section class="search-filter-card">
+      <div class="search-inputs-row">
+        <div class="search-field-group">
+          <label for="search-input">O que você procura?</label>
+          <div class="search-input-box">
+            <input type="text" id="search-input" placeholder="Cargo ou palavra-chave">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="modality-field-group">
+          <label for="modality-select">Modalidade</label>
+          <div class="select-box">
+            <select id="modality-select">
+              <option value="all">Todas as modalidades</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="Remoto">Remoto</option>
+              <option value="Estágio">Estágio</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" class="btn-search-jobs" id="btn-search-jobs">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Buscar
+        </button>
+      </div>
+
+      <!-- Filtro de Áreas -->
+      <div class="area-chips-row">
+        <button type="button" class="area-chip active" data-area="all">Todas as áreas</button>
+        <button type="button" class="area-chip" data-area="Administrativo">Administrativo</button>
+        <button type="button" class="area-chip" data-area="Comércio">Comércio</button>
+        <button type="button" class="area-chip" data-area="Serviços">Serviços</button>
+        <button type="button" class="area-chip" data-area="Tecnologia">Tecnologia</button>
+      </div>
+    </section>
+
+    <!-- Cabeçalho de Resultados -->
+    <div class="results-header">
+      <h2 class="results-count" id="jobs-count">4 oportunidades</h2>
+      <span class="results-sort">Mais recentes</span>
+    </div>
+
+    <!-- Layout de 2 Colunas: Lista de Vagas + Painel de Detalhes -->
+    <section class="jobs-layout-grid">
+      <!-- Coluna da Esquerda: Lista de Vagas Dinâmicas por Município -->
+      <div class="jobs-list-column" id="jobs-container"></div>
+
+      <!-- Coluna da Direita: Painel de Detalhes da Vaga -->
+      <div class="job-details-column">
+        <div class="job-details-card">
+          <span class="details-badge">Detalhes da vaga</span>
+          <h2 class="details-title" id="det-title">Assistente administrativo</h2>
+          <div class="details-company-row">
+            <span id="det-company">Organização A</span>
+            <span class="dot-separator">·</span>
+            <span id="det-location">Rio das Ostras · RJ</span>
+          </div>
+
+          <div class="details-grid-specs">
+            <div class="spec-block">
+              <span class="spec-label">Remuneração</span>
+              <strong class="spec-value" id="det-salary">R$ 1.900,00/mês</strong>
+            </div>
+            <div class="spec-block">
+              <span class="spec-label">Contrato</span>
+              <strong class="spec-value" id="det-contract">CLT · Presencial</strong>
+            </div>
+          </div>
+
+          <p class="details-workload" id="det-workload">40h semanais · 2 vagas</p>
+
+          <div class="details-section">
+            <h4 class="details-section-title">Atividades</h4>
+            <p class="details-section-text" id="det-activities">Organizar documentos, apoiar o atendimento e atualizar planilhas de rotina.</p>
+          </div>
+
+          <div class="details-section">
+            <h4 class="details-section-title">Requisitos</h4>
+            <ul class="details-list" id="det-requirements">
+              <li>Ensino médio completo</li>
+              <li>Conhecimentos básicos de planilhas</li>
+              <li>Organização e comunicação</li>
+            </ul>
+          </div>
+
+          <p class="details-advice">Confira seu perfil antes de continuar com a candidatura.</p>
+
+          <button type="button" class="btn-apply-job" id="btn-apply">Candidatar-se</button>
+
+          <span class="details-published-date" id="det-date">Publicado em 22 out 2026.</span>
+        </div>
+
+        <!-- Card de Orientação / Dica -->
+        <div class="job-tip-card">
+          <div class="tip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div class="tip-text">
+            <strong>Prepare-se com calma</strong>
+            <span>Leia as atividades e os requisitos antes de continuar.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé da Página -->
+    <footer class="home-bottom-links">
+      <button type="button" class="bottom-support-btn" onclick="alert('Central de Atendimento ao Trabalhador:\nHorário: 08h às 17h\nTelefone: 156\nWhatsApp: (22) 99876-5432')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Precisa de ajuda?</span>
+      </button>
+
+      <a href="privacyPage.html" class="bottom-support-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Privacidade</span>
+      </a>
+    </footer>
   </main>
 
   <app-footer></app-footer>
+
+  <!-- Script da Página de Empregos -->
+  <!-- Script da Página de Empregos -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const jobsByCity = {
+        'rio-das-ostras': [
+          {
+            id: 1,
+            title: 'Assistente administrativo',
+            company: 'Organização A',
+            location: 'Rio das Ostras · RJ',
+            salary: 'R$ 1.900,00/mês',
+            contract: 'CLT · Presencial',
+            workload: '40h semanais · 2 vagas',
+            activities: 'Organizar documentos, apoiar o atendimento e atualizar planilhas de rotina.',
+            requirements: ['Ensino médio completo', 'Conhecimentos básicos de planilhas', 'Organização e comunicação'],
+            date: 'Publicado em 22 out 2026.',
+            area: 'Administrativo',
+            modality: 'Presencial'
+          },
+          {
+            id: 2,
+            title: 'Atendente de comércio',
+            company: 'Comércio B',
+            location: 'Rio das Ostras · RJ',
+            salary: 'R$ 1.650,00/mês + VT',
+            contract: 'CLT · Presencial',
+            workload: '44h semanais · 3 vagas',
+            activities: 'Atendimento ao público presencial, operação de caixa e reposição de mercadorias.',
+            requirements: ['Ensino fundamental ou médio', 'Boa comunicação', 'Disponibilidade de horário'],
+            date: 'Publicado em 21 out 2026.',
+            area: 'Comércio',
+            modality: 'Presencial'
+          },
+          {
+            id: 3,
+            title: 'Auxiliar de serviços gerais',
+            company: 'Serviços C',
+            location: 'Rio das Ostras · RJ',
+            salary: 'R$ 1.580,00/mês + Insalubridade',
+            contract: 'CLT · Presencial',
+            workload: '40h semanais · 4 vagas',
+            activities: 'Limpeza e conservação predial de repartições públicas municipais.',
+            requirements: ['Experiência básica na área de limpeza', 'Pontualidade e responsabilidade'],
+            date: 'Publicado em 20 out 2026.',
+            area: 'Serviços',
+            modality: 'Presencial'
+          },
+          {
+            id: 4,
+            title: 'Estágio em suporte de informática',
+            company: 'Tecnologia D',
+            location: 'Rio das Ostras · RJ',
+            salary: 'Bolsa R$ 1.100,00/mês + Auxílio',
+            contract: 'Estágio · Híbrido',
+            workload: '20h semanais · 1 vaga',
+            activities: 'Apoio técnico a servidores municipais, instalação de softwares e suporte a impressoras.',
+            requirements: ['Cursando Técnico ou Superior em TI/Sistemas', 'Conhecimentos de redes e Windows'],
+            date: 'Publicado em 19 out 2026.',
+            area: 'Tecnologia',
+            modality: 'Híbrido'
+          }
+        ],
+        'sapucaia': [
+          {
+            id: 101,
+            title: 'Assistente de Logística e Expedição',
+            company: 'Polo Industrial Sul',
+            location: 'Sapucaia do Sul · RS',
+            salary: 'R$ 2.100,00/mês + Benefícios',
+            contract: 'CLT · Presencial',
+            workload: '44h semanais · 2 vagas',
+            activities: 'Controle de entrada e saída de materiais no centro de distribuição, conferência de notas fiscais e estoque.',
+            requirements: ['Ensino médio completo', 'Experiência em almoxarifado ou logística', 'Conhecimento em ERP'],
+            date: 'Publicado em 22 out 2026.',
+            area: 'Administrativo',
+            modality: 'Presencial'
+          },
+          {
+            id: 102,
+            title: 'Atendente de Farmácia e Balcão',
+            company: 'Drogaria Sapucaia',
+            location: 'Sapucaia do Sul · RS',
+            salary: 'R$ 1.780,00/mês + Comissão',
+            contract: 'CLT · Presencial',
+            workload: '40h semanais · 2 vagas',
+            activities: 'Atendimento e orientação a clientes, organização de prateleiras e controle de estoque de medicamentos.',
+            requirements: ['Ensino médio completo', 'Curso de atendente de farmácia é diferencial', 'Simpatia e proatividade'],
+            date: 'Publicado em 21 out 2026.',
+            area: 'Comércio',
+            modality: 'Presencial'
+          },
+          {
+            id: 103,
+            title: 'Operador de Máquinas e Manutenção',
+            company: 'Metalúrgica Gaúcha',
+            location: 'Sapucaia do Sul · RS',
+            salary: 'R$ 2.450,00/mês + Periculosidade',
+            contract: 'CLT · Presencial',
+            workload: '44h semanais · 3 vagas',
+            activities: 'Operação de tornos e prensas mecânicas, corte de peças e manutenção preventiva de maquinário.',
+            requirements: ['Ensino fundamental completo', 'Curso profissionalizante SENAI', 'Uso rigoroso de EPIs'],
+            date: 'Publicado em 20 out 2026.',
+            area: 'Serviços',
+            modality: 'Presencial'
+          },
+          {
+            id: 104,
+            title: 'Estágio em Desenvolvimento de Sistemas',
+            company: 'Inovação Digital Sul',
+            location: 'Sapucaia do Sul · RS',
+            salary: 'Bolsa R$ 1.350,00/mês + VT',
+            contract: 'Estágio · Híbrido',
+            workload: '30h semanais · 2 vagas',
+            activities: 'Desenvolvimento de APIs e páginas web em projetos de transformação digital da região metropolitana.',
+            requirements: ['Cursando Ciência da Computação, ADS ou Eng. Software', 'Conhecimento em JavaScript/HTML/CSS'],
+            date: 'Publicado em 19 out 2026.',
+            area: 'Tecnologia',
+            modality: 'Híbrido'
+          }
+        ]
+      };
+
+      let activeCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+      let activeArea = 'all';
+
+      const jobsContainer = document.getElementById('jobs-container');
+      const jobsCount = document.getElementById('jobs-count');
+
+      function selectJob(data) {
+        if (!data) return;
+
+        document.querySelectorAll('.job-card').forEach(c => {
+          c.classList.remove('selected');
+          const b = c.querySelector('.selected-badge');
+          if (b) b.remove();
+        });
+
+        const activeCard = document.querySelector(`.job-card[data-id="${data.id}"]`);
+        if (activeCard) {
+          activeCard.classList.add('selected');
+          const top = activeCard.querySelector('.job-card-top');
+          if (top && !top.querySelector('.selected-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'selected-badge';
+            badge.textContent = 'Selecionada';
+            top.appendChild(badge);
+          }
+        }
+
+        document.getElementById('det-title').textContent = data.title;
+        document.getElementById('det-company').textContent = data.company;
+        document.getElementById('det-location').textContent = data.location;
+        document.getElementById('det-salary').textContent = data.salary;
+        document.getElementById('det-contract').textContent = data.contract;
+        document.getElementById('det-workload').textContent = data.workload;
+        document.getElementById('det-activities').textContent = data.activities;
+        document.getElementById('det-date').textContent = data.date;
+        
+        const reqList = document.getElementById('det-requirements');
+        reqList.innerHTML = '';
+        data.requirements.forEach(req => {
+          const li = document.createElement('li');
+          li.textContent = req;
+          reqList.appendChild(li);
+        });
+
+        const btnApply = document.getElementById('btn-apply');
+        if (btnApply) {
+          btnApply.textContent = 'Candidatar-se';
+          btnApply.style.backgroundColor = '#1a56db';
+          btnApply.disabled = false;
+        }
+      }
+
+      function renderJobs() {
+        const list = jobsByCity[activeCity] || jobsByCity['rio-das-ostras'];
+        const searchVal = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+        const modalityVal = document.getElementById('modality-select')?.value || 'all';
+
+        const filtered = list.filter(job => {
+          const matchArea = activeArea === 'all' || job.area === activeArea;
+          const matchModality = modalityVal === 'all' || job.modality === modalityVal;
+          const matchSearch = !searchVal || 
+            job.title.toLowerCase().includes(searchVal) || 
+            job.company.toLowerCase().includes(searchVal) ||
+            job.activities.toLowerCase().includes(searchVal);
+
+          return matchArea && matchModality && matchSearch;
+        });
+
+        jobsContainer.innerHTML = '';
+        jobsCount.textContent = `${filtered.length} oportunidade${filtered.length === 1 ? '' : 's'}`;
+
+        if (filtered.length === 0) {
+          jobsContainer.innerHTML = `
+            <div style="background: white; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 2rem; text-align: center; color: #64748b;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Nenhuma vaga encontrada</p>
+              <p style="font-size: 0.88rem; margin: 0;">Tente alterar os filtros ou pesquisar por outra palavra-chave.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach((job, idx) => {
+          const card = document.createElement('article');
+          card.className = `job-card ${idx === 0 ? 'selected' : ''}`;
+          card.dataset.id = job.id;
+          card.dataset.area = job.area;
+          card.dataset.modality = job.modality;
+          card.innerHTML = `
+            <div class="job-card-top">
+              <div class="job-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <div class="job-card-header-info">
+                <h3 class="job-card-title">${job.title}</h3>
+                <span class="job-card-company">${job.company}</span>
+              </div>
+              ${idx === 0 ? '<span class="selected-badge">Selecionada</span>' : ''}
+            </div>
+            <div class="job-card-bottom">
+              <span class="job-card-meta">${job.modality} · ${job.contract.split('·')[0].trim()} · ${job.location.split('·')[0].trim()} · ${job.workload.split('·')[0].trim()}</span>
+              <svg class="job-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </div>
+          `;
+          card.addEventListener('click', () => selectJob(job));
+          jobsContainer.appendChild(card);
+        });
+
+        if (filtered.length > 0) {
+          selectJob(filtered[0]);
+        }
+      }
+
+      // Botão Candidatar-se
+      const btnApply = document.getElementById('btn-apply');
+      if (btnApply) {
+        btnApply.addEventListener('click', () => {
+          const title = document.getElementById('det-title').textContent;
+          const loc = document.getElementById('det-location').textContent;
+          alert(`Candidatura enviada com sucesso para a vaga: ${title} (${loc})!\nVocê poderá acompanhar as etapas do processo seletivo na aba Solicitações.`);
+          btnApply.textContent = 'Candidatura Enviada ✓';
+          btnApply.style.backgroundColor = '#16a34a';
+          btnApply.disabled = true;
+        });
+      }
+
+      // Filtros de área
+      document.querySelectorAll('.area-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.area-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeArea = chip.dataset.area;
+          renderJobs();
+        });
+      });
+
+      // Busca e modalidade
+      document.getElementById('search-input')?.addEventListener('input', renderJobs);
+      document.getElementById('modality-select')?.addEventListener('change', renderJobs);
+      document.getElementById('btn-search-jobs')?.addEventListener('click', renderJobs);
+
+      // Escuta troca de município global
+      window.addEventListener('conectaCityChanged', (e) => {
+        if (e.detail && e.detail.cityKey) {
+          activeCity = e.detail.cityKey;
+          renderJobs();
+        }
+      });
+
+      // Render Inicial
+      renderJobs();
+    });
+  </script>
 </body>
 
 </html>

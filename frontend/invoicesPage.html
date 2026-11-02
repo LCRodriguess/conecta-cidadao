@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>invoicesPage</title>
+  <title>Tributos e IPTU - Conecta Cidadão</title>
   <link rel="stylesheet" href="../css/invoicesPage.css">
+  <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
 </head>
@@ -13,11 +14,541 @@
 <body>
   <app-navbar></app-navbar>
 
-  <main>
-    <h1>invoicesPage</h1>
+  <main class="page-container">
+    <!-- Breadcrumb e Cabeçalho -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <a href="mainPage.html#servicos">Serviços</a>
+      <span>/</span>
+      <span class="current">Tributos e IPTU</span>
+    </div>
+
+    <header class="page-header">
+      <div class="header-titles">
+        <h1 class="page-title">Tributos e IPTU</h1>
+        <p class="page-subtitle">Consulte débitos, emita guias de arrecadação municipal (DAM) e pague com Pix.</p>
+      </div>
+
+      <!-- Seletor de Município -->
+      <div class="header-municipality">
+        <div class="municipality-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+            <circle cx="12" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="municipality-info">
+          <span class="muni-tag">SEU MUNICÍPIO</span>
+          <button type="button" class="muni-toggle" id="muni-toggle">
+            <strong id="muni-active-name">Rio das Ostras · RJ</strong>
+            <span class="trocar-txt">Trocar ⌵</span>
+          </button>
+          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+        </div>
+
+        <div class="muni-dropdown" id="muni-dropdown">
+          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
+          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Barra de Consulta do Contribuinte -->
+    <section class="tax-search-card">
+      <div class="tax-search-row">
+        <div class="tax-search-field">
+          <label for="tax-doc">Inscrição Imobiliária ou CPF do Titular</label>
+          <div class="search-input-box">
+            <input type="text" id="tax-doc" value="01.04.182.0294.001" placeholder="Digite a inscrição ou CPF">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="tax-year-field">
+          <label for="tax-year">Exercício</label>
+          <select id="tax-year">
+            <option value="2026" selected>2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-search-tax" id="btn-search-tax" onclick="alert('Consulta de débitos atualizada com sucesso.')">Consultar</button>
+      </div>
+      <p class="tax-search-hint" id="tax-search-hint">Imóvel: Rua das Gaivotas, 124 · Bairro Costa Azul · Contribuinte Identificado</p>
+    </section>
+
+    <!-- Resumo dos Débitos e Ações -->
+    <section class="invoices-layout-grid">
+      <!-- Coluna da Esquerda: Guias e Parcelas -->
+      <div class="invoices-list-column">
+        <h2 class="section-column-title">Parcelas e Guias em Aberto</h2>
+
+        <!-- Guia 1: Pendência Atual (A Vencer) -->
+        <article class="invoice-card pending-urgent">
+          <div class="invoice-card-header">
+            <div class="invoice-type-info">
+              <span class="invoice-badge urgent">Vencimento Próximo</span>
+              <h3 class="invoice-title" id="tax-current-title">IPTU 2026 — Parcela 04/10</h3>
+              <span class="invoice-property" id="tax-current-inscr">Inscrição: 01.04.182.0294.001</span>
+            </div>
+            <div class="invoice-amount-box">
+              <span class="amount-label">Valor a pagar</span>
+              <strong class="amount-val" id="tax-current-amount">R$ 142,50</strong>
+            </div>
+          </div>
+
+          <div class="invoice-due-row">
+            <div class="due-info">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Vencimento em <strong id="tax-current-due">28 out 2026</strong></span>
+            </div>
+            <span class="barcode-preview" id="tax-current-barcode">Linha digitável: 81670000001-4 42502124202-6...</span>
+          </div>
+
+          <div class="invoice-actions-row">
+            <button type="button" class="btn-pay-pix" id="btn-open-pix-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              <span>Pagar com Pix</span>
+            </button>
+
+            <button type="button" class="btn-emit-dam" id="btn-emit-dam-current">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Emitir DAM (PDF)</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Guia 2: Parcela Futura -->
+        <article class="invoice-card">
+          <div class="invoice-card-header">
+            <div class="invoice-type-info">
+              <span class="invoice-badge future">A Vencer</span>
+              <h3 class="invoice-title" id="tax-future-title">IPTU 2026 — Parcela 05/10</h3>
+              <span class="invoice-property" id="tax-future-inscr">Inscrição: 01.04.182.0294.001</span>
+            </div>
+            <div class="invoice-amount-box">
+              <span class="amount-label">Valor</span>
+              <strong class="amount-val" id="tax-future-amount">R$ 142,50</strong>
+            </div>
+          </div>
+
+          <div class="invoice-due-row">
+            <div class="due-info">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Vencimento em <strong id="tax-future-due">28 nov 2026</strong></span>
+            </div>
+          </div>
+
+          <div class="invoice-actions-row">
+            <button type="button" class="btn-emit-dam" onclick="alert('DAM antecipado emitido com sucesso.')">
+              Emitir DAM
+            </button>
+          </div>
+        </article>
+
+        <!-- Guia 3: Taxa de Coleta de Resíduos / Limpeza Urbana -->
+        <article class="invoice-card">
+          <div class="invoice-card-header">
+            <div class="invoice-type-info">
+              <span class="invoice-badge future">A Vencer</span>
+              <h3 class="invoice-title" id="tax-service-title">Taxa de Coleta de Resíduos (TCR) 2026</h3>
+              <span class="invoice-property" id="tax-service-desc">Serviço de limpeza e coleta urbana</span>
+            </div>
+            <div class="invoice-amount-box">
+              <span class="amount-label">Valor</span>
+              <strong class="amount-val" id="tax-service-amount">R$ 48,00</strong>
+            </div>
+          </div>
+
+          <div class="invoice-due-row">
+            <div class="due-info">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>Vencimento em <strong id="tax-service-due">10 nov 2026</strong></span>
+            </div>
+          </div>
+
+          <div class="invoice-actions-row">
+            <button type="button" class="btn-pay-pix" id="btn-open-pix-service">
+              <span>Pagar com Pix</span>
+            </button>
+            <button type="button" class="btn-emit-dam" onclick="alert('DAM do tributo emitido com sucesso.')">
+              Emitir DAM
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Coluna da Direita: Histórico e Informações de Regularidade -->
+      <aside class="invoices-sidebar-column">
+        <div class="info-sidebar-card">
+          <div class="cert-status-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Certidão Negativa de Débitos</span>
+          </div>
+          <h3 class="cert-title">Situação Fiscal Regular</h3>
+          <p class="cert-desc" id="tax-cnd-desc">O imóvel está em dia com os tributos anteriores. Mantenha os pagamentos para emitir certidões automaticamente.</p>
+          <button type="button" class="btn-emit-cnd" onclick="alert('Certidão Negativa de Débitos (CND) emitida com autenticidade eletrônica.')">
+            Emitir Certidão (CND)
+          </button>
+        </div>
+
+        <div class="info-sidebar-card">
+          <h3 class="cert-title">Parcelas Já Quitadas</h3>
+          <ul class="paid-installments-list" id="tax-paid-list">
+            <li class="paid-item">
+              <div class="paid-dot">✓</div>
+              <div class="paid-details">
+                <strong>Parcela 01/10 — IPTU</strong>
+                <span>Pago em 28 jul 2026 · R$ 142,50</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Modal Pix Interativo -->
+    <div class="pix-modal-overlay" id="pix-modal" style="display: none;">
+      <div class="pix-modal-dialog">
+        <div class="pix-modal-header">
+          <h3 class="pix-modal-title">Pagamento via Pix</h3>
+          <button type="button" class="btn-close-modal" id="btn-close-pix">&times;</button>
+        </div>
+
+        <div class="pix-modal-body">
+          <p class="pix-instructions">Escaneie o QR Code abaixo com o aplicativo do seu banco ou copie o código Pix Copia e Cola:</p>
+          
+          <div class="pix-qr-container">
+            <!-- QR Code visual SVG -->
+            <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="180" height="180" fill="white" rx="8"/>
+              <!-- Position markers -->
+              <rect x="15" y="15" width="45" height="45" stroke="#1a56db" stroke-width="6" fill="white"/>
+              <rect x="25" y="25" width="25" height="25" fill="#1a56db"/>
+              <rect x="120" y="15" width="45" height="45" stroke="#1a56db" stroke-width="6" fill="white"/>
+              <rect x="130" y="25" width="25" height="25" fill="#1a56db"/>
+              <rect x="15" y="120" width="45" height="45" stroke="#1a56db" stroke-width="6" fill="white"/>
+              <rect x="25" y="130" width="25" height="25" fill="#1a56db"/>
+              <!-- Data patterns -->
+              <rect x="75" y="15" width="10" height="25" fill="#0f172a"/>
+              <rect x="95" y="25" width="15" height="15" fill="#0f172a"/>
+              <rect x="75" y="75" width="30" height="30" fill="#1a56db"/>
+              <rect x="25" y="75" width="35" height="10" fill="#0f172a"/>
+              <rect x="25" y="95" width="15" height="15" fill="#0f172a"/>
+              <rect x="120" y="75" width="20" height="30" fill="#0f172a"/>
+              <rect x="150" y="85" width="15" height="20" fill="#0f172a"/>
+              <rect x="75" y="120" width="20" height="20" fill="#0f172a"/>
+              <rect x="105" y="135" width="25" height="20" fill="#0f172a"/>
+              <rect x="140" y="120" width="25" height="45" fill="#0f172a"/>
+            </svg>
+          </div>
+
+          <div class="pix-value-summary">
+            <span class="summary-label" id="pix-modal-desc">IPTU 2026 — Parcela 04/10</span>
+            <strong class="summary-price" id="pix-modal-val">R$ 142,50</strong>
+          </div>
+
+          <div class="pix-copy-box">
+            <input type="text" id="pix-copia-cola" value="00020126580014br.gov.bcb.pix0136conecta-cidadao-tributos@pmro.gov.br5204000053039865406142.505802BR5925PREFEITURA MUNICIPAL6009RIO DAS OSTRAS62070503***6304E2D1" readonly>
+            <button type="button" class="btn-copy-code" id="btn-copy-pix">Copiar Código</button>
+          </div>
+
+          <div class="pix-timer-row">
+            <span>Este código expira em: <strong id="pix-timer">15:00</strong></span>
+          </div>
+
+          <button type="button" class="btn-simulate-pix" id="btn-simulate-pix">
+            Simular Confirmação de Pagamento
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé de Ações -->
+    <footer class="home-bottom-links">
+      <button type="button" class="bottom-support-btn" onclick="alert('Secretaria de Fazenda e Tributação:\nTelefone: 156\nAtendimento presencial: Segunda a Sexta, 09h às 16h.')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Precisa de ajuda?</span>
+      </button>
+
+      <a href="privacyPage.html" class="bottom-support-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Privacidade</span>
+      </a>
+    </footer>
   </main>
 
   <app-footer></app-footer>
+
+  <!-- Script da Página de Tributos -->
+  <script>
+    const TAX_DATA_BY_CITY = {
+      'rio-das-ostras': {
+        cityName: 'Rio das Ostras · RJ',
+        docValue: '01.04.182.0294.001',
+        propertyHint: 'Imóvel: Rua das Gaivotas, 124 · Bairro Costa Azul · Rio das Ostras (Inscrição: 01.04.182.0294.001)',
+        currentInstallment: {
+          title: 'IPTU 2026 — Parcela 04/10',
+          inscription: 'Inscrição: 01.04.182.0294.001',
+          amount: 'R$ 142,50',
+          rawAmount: '142,50',
+          due: '28 out 2026',
+          barcode: 'Linha digitável: 81670000001-4 42502124202-6 89202610281-2 01041820294-8'
+        },
+        futureInstallment: {
+          title: 'IPTU 2026 — Parcela 05/10',
+          inscription: 'Inscrição: 01.04.182.0294.001',
+          amount: 'R$ 142,50',
+          due: '28 nov 2026'
+        },
+        serviceTax: {
+          title: 'Taxa de Coleta de Resíduos (TCR) 2026',
+          serviceDesc: 'Serviço de limpeza e coleta urbana · Rio das Ostras',
+          amount: 'R$ 48,00',
+          rawAmount: '48,00',
+          due: '10 nov 2026'
+        },
+        cndDesc: 'O imóvel situado na Rua das Gaivotas, 124 está em dia com os tributos municipais da Fazenda de Rio das Ostras.',
+        paidList: [
+          { name: 'Parcela 01/10 — IPTU', info: 'Pago em 28 jul 2026 · R$ 142,50' },
+          { name: 'Parcela 02/10 — IPTU', info: 'Pago em 28 ago 2026 · R$ 142,50' },
+          { name: 'Parcela 03/10 — IPTU', info: 'Pago em 26 set 2026 · R$ 142,50' }
+        ],
+        pixCopiaCola: '00020126580014br.gov.bcb.pix0136conecta-cidadao-tributos@pmro.gov.br5204000053039865406142.505802BR5925PREFEITURA MUNICIPAL6009RIO DAS OSTRAS62070503***6304E2D1'
+      },
+      'sapucaia': {
+        cityName: 'Sapucaia do Sul · RS',
+        docValue: '02.11.045.0118.001',
+        propertyHint: 'Imóvel: Av. Sapucaia, 850 · Bairro Centro · Sapucaia do Sul (Inscrição: 02.11.045.0118.001)',
+        currentInstallment: {
+          title: 'IPTU 2026 — Parcela 04/10',
+          inscription: 'Inscrição: 02.11.045.0118.001',
+          amount: 'R$ 162,30',
+          rawAmount: '162,30',
+          due: '28 out 2026',
+          barcode: 'Linha digitável: 81670000001-8 62302124202-1 89202610282-5 02110450118-3'
+        },
+        futureInstallment: {
+          title: 'IPTU 2026 — Parcela 05/10',
+          inscription: 'Inscrição: 02.11.045.0118.001',
+          amount: 'R$ 162,30',
+          due: '28 nov 2026'
+        },
+        serviceTax: {
+          title: 'Taxa de Coleta de Lixo Domiciliar (TCL) 2026',
+          serviceDesc: 'Serviço de recolhimento de resíduos urbanos · Sapucaia do Sul',
+          amount: 'R$ 54,00',
+          rawAmount: '54,00',
+          due: '10 nov 2026'
+        },
+        cndDesc: 'O imóvel situado na Av. Sapucaia, 850 está em dia com os tributos municipais da Fazenda de Sapucaia do Sul.',
+        paidList: [
+          { name: 'Parcela 01/10 — IPTU', info: 'Pago em 28 jul 2026 · R$ 162,30' },
+          { name: 'Parcela 02/10 — IPTU', info: 'Pago em 28 ago 2026 · R$ 162,30' },
+          { name: 'Parcela 03/10 — IPTU', info: 'Pago em 26 set 2026 · R$ 162,30' }
+        ],
+        pixCopiaCola: '00020126580014br.gov.bcb.pix0136tributos@sapucaiadosul.rs.gov.br5204000053039865406162.305802BR5925PREFEITURA MUNICIPAL6012SAPUCAIA DO SUL62070503***6304A1B2'
+      }
+    };
+
+    let activeTaxCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+
+    function openPixModal(desc, val, customPixCode) {
+      document.getElementById('pix-modal-desc').textContent = desc;
+      document.getElementById('pix-modal-val').textContent = `R$ ${val}`;
+      const codeInput = document.getElementById('pix-copia-cola');
+      if (customPixCode) {
+        codeInput.value = customPixCode;
+      } else {
+        const cityData = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+        codeInput.value = cityData.pixCopiaCola;
+      }
+      document.getElementById('pix-modal').style.display = 'flex';
+    }
+
+    function renderTaxes(cityKey) {
+      activeTaxCity = cityKey || ((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
+      const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+
+      // Documento e endereço
+      const docInput = document.getElementById('tax-doc');
+      if (docInput) docInput.value = data.docValue;
+
+      const hintEl = document.getElementById('tax-search-hint');
+      if (hintEl) hintEl.textContent = data.propertyHint;
+
+      // Parcela Atual
+      const curTitle = document.getElementById('tax-current-title');
+      const curInscr = document.getElementById('tax-current-inscr');
+      const curAmount = document.getElementById('tax-current-amount');
+      const curDue = document.getElementById('tax-current-due');
+      const curBarcode = document.getElementById('tax-current-barcode');
+
+      if (curTitle) curTitle.textContent = data.currentInstallment.title;
+      if (curInscr) curInscr.textContent = data.currentInstallment.inscription;
+      if (curAmount) curAmount.textContent = data.currentInstallment.amount;
+      if (curDue) curDue.textContent = data.currentInstallment.due;
+      if (curBarcode) curBarcode.textContent = data.currentInstallment.barcode;
+
+      // Parcela Futura
+      const futTitle = document.getElementById('tax-future-title');
+      const futInscr = document.getElementById('tax-future-inscr');
+      const futAmount = document.getElementById('tax-future-amount');
+      const futDue = document.getElementById('tax-future-due');
+
+      if (futTitle) futTitle.textContent = data.futureInstallment.title;
+      if (futInscr) futInscr.textContent = data.futureInstallment.inscription;
+      if (futAmount) futAmount.textContent = data.futureInstallment.amount;
+      if (futDue) futDue.textContent = data.futureInstallment.due;
+
+      // Taxa de Coleta de Resíduos / Limpeza
+      const srvTitle = document.getElementById('tax-service-title');
+      const srvDesc = document.getElementById('tax-service-desc');
+      const srvAmount = document.getElementById('tax-service-amount');
+      const srvDue = document.getElementById('tax-service-due');
+
+      if (srvTitle) srvTitle.textContent = data.serviceTax.title;
+      if (srvDesc) srvDesc.textContent = data.serviceTax.serviceDesc;
+      if (srvAmount) srvAmount.textContent = data.serviceTax.amount;
+      if (srvDue) srvDue.textContent = data.serviceTax.due;
+
+      // CND descrição
+      const cndDesc = document.getElementById('tax-cnd-desc');
+      if (cndDesc) cndDesc.textContent = data.cndDesc;
+
+      // Parcelas quitadas
+      const paidListEl = document.getElementById('tax-paid-list');
+      if (paidListEl) {
+        paidListEl.innerHTML = '';
+        data.paidList.forEach(p => {
+          const li = document.createElement('li');
+          li.className = 'paid-item';
+          li.innerHTML = `
+            <div class="paid-dot">✓</div>
+            <div class="paid-details">
+              <strong>${p.name}</strong>
+              <span>${p.info}</span>
+            </div>
+          `;
+          paidListEl.appendChild(li);
+        });
+      }
+
+      // Código Pix padrão
+      const codeInput = document.getElementById('pix-copia-cola');
+      if (codeInput) codeInput.value = data.pixCopiaCola;
+    }
+
+    // Escuta troca de município vinda de qualquer aba
+    window.addEventListener('conectaCityChanged', (e) => {
+      if (e.detail && e.detail.cityKey) {
+        renderTaxes(e.detail.cityKey);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTaxes(activeTaxCity);
+
+      const pixModal = document.getElementById('pix-modal');
+      const btnOpenPix1 = document.getElementById('btn-open-pix-1');
+      const btnOpenPixService = document.getElementById('btn-open-pix-service');
+      const btnClosePix = document.getElementById('btn-close-pix');
+      const btnCopyPix = document.getElementById('btn-copy-pix');
+      const btnSimulate = document.getElementById('btn-simulate-pix');
+      const btnEmitDam = document.getElementById('btn-emit-dam-current');
+
+      if (btnOpenPix1) {
+        btnOpenPix1.addEventListener('click', () => {
+          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+          openPixModal(data.currentInstallment.title, data.currentInstallment.rawAmount, data.pixCopiaCola);
+        });
+      }
+
+      if (btnOpenPixService) {
+        btnOpenPixService.addEventListener('click', () => {
+          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+          openPixModal(data.serviceTax.title, data.serviceTax.rawAmount, data.pixCopiaCola);
+        });
+      }
+
+      if (btnEmitDam) {
+        btnEmitDam.addEventListener('click', () => {
+          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+          alert(`Documento de Arrecadação Municipal (${data.cityName})\nGuia referente ao ${data.currentInstallment.title}\nInscrição: ${data.currentInstallment.inscription}\nCódigo de Barras: ${data.currentInstallment.barcode}\n\nO download do PDF foi iniciado com sucesso.`);
+        });
+      }
+
+      if (btnClosePix) {
+        btnClosePix.addEventListener('click', () => {
+          pixModal.style.display = 'none';
+        });
+      }
+
+      if (pixModal) {
+        pixModal.addEventListener('click', (e) => {
+          if (e.target === pixModal) pixModal.style.display = 'none';
+        });
+      }
+
+      if (btnCopyPix) {
+        btnCopyPix.addEventListener('click', () => {
+          const codeInput = document.getElementById('pix-copia-cola');
+          codeInput.select();
+          navigator.clipboard.writeText(codeInput.value);
+          btnCopyPix.textContent = 'Copiado! ✓';
+          setTimeout(() => btnCopyPix.textContent = 'Copiar Código', 2000);
+        });
+      }
+
+      if (btnSimulate) {
+        btnSimulate.addEventListener('click', () => {
+          btnSimulate.textContent = 'Processando com o Banco Central...';
+          setTimeout(() => {
+            alert('Pagamento via Pix confirmado com sucesso!\nO comprovante foi emitido e sua guia foi baixada nos registros municipais da Fazenda.');
+            pixModal.style.display = 'none';
+            btnSimulate.textContent = 'Simular Confirmação de Pagamento';
+          }, 1200);
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

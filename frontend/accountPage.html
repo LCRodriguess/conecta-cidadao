@@ -2,22 +2,360 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Conta</title>
-    <link rel="stylesheet" href="../css/accountPage.css">
-    <script src="../js/navbar.js" defer></script>
-    <script src="../js/footer.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta - Conecta Cidadão</title>
+  <link rel="stylesheet" href="../css/accountPage.css">
+  <script src="../js/cityManager.js"></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
 </head>
 
 <body>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-    <main>
-        <h1>Minha Conta</h1>
-    </main>
+  <main class="page-container">
+    <!-- Breadcrumb e Cabeçalho -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <span class="current">Minha conta</span>
+    </div>
 
-    <app-footer></app-footer>
+    <header class="page-header">
+      <div class="header-titles">
+        <h1 class="page-title">Minha conta</h1>
+        <p class="page-subtitle">Seu perfil e suas preferências, de um jeito simples.</p>
+      </div>
+
+      <!-- Seletor de Município -->
+      <div class="header-municipality">
+        <div class="municipality-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+            <circle cx="12" cy="11" r="2.5"/>
+          </svg>
+        </div>
+        <div class="municipality-info">
+          <span class="muni-tag">SEU MUNICÍPIO</span>
+          <button type="button" class="muni-toggle" id="muni-toggle">
+            <strong id="muni-active-name">Rio das Ostras · RJ</strong>
+            <span class="trocar-txt">Trocar ⌵</span>
+          </button>
+          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+        </div>
+
+        <div class="muni-dropdown" id="muni-dropdown">
+          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
+          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout Grid da Minha Conta -->
+    <section class="account-layout-grid">
+      <!-- Coluna da Esquerda: Cartão de Perfil -->
+      <aside class="profile-card-column">
+        <div class="profile-card">
+          <div class="profile-avatar-box">
+            <div class="avatar-circle">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="avatar-details">
+              <h2 class="profile-name">Meu perfil</h2>
+              <span class="profile-sub">Informações pessoais</span>
+            </div>
+          </div>
+
+          <div class="profile-badge-row">
+            <span class="profile-role-badge">Minha conta</span>
+          </div>
+
+          <div class="profile-divider"></div>
+
+          <div class="profile-info-group">
+            <span class="info-label">CPF</span>
+            <strong class="info-value">Não informado (Acesso Municipal)</strong>
+          </div>
+
+          <div class="profile-info-group">
+            <span class="info-label">Município de Residência</span>
+            <strong class="info-value" id="profile-citizen-city">Rio das Ostras · RJ</strong>
+          </div>
+
+          <div class="profile-info-group">
+            <span class="info-label">Endereço Declarado</span>
+            <strong class="info-value" id="profile-citizen-addr">Rua das Gaivotas, 124 — Costa Azul</strong>
+          </div>
+
+          <div class="profile-info-group">
+            <span class="info-label">Matrícula de Cadastro Cidadão</span>
+            <strong class="info-value" id="profile-citizen-id">RO-2026-9812</strong>
+          </div>
+
+          <div class="profile-info-group">
+            <span class="info-label">Zona Eleitoral Municipal</span>
+            <strong class="info-value" id="profile-citizen-electoral">184ª Zona Eleitoral · Rio das Ostras</strong>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Coluna da Direita: Preferências, Município e Links -->
+      <div class="settings-column">
+        <!-- Card 1: Seu Município -->
+        <article class="setting-card">
+          <h3 class="setting-card-title">Seu município</h3>
+          
+          <div class="municipality-setting-row">
+            <div class="muni-setting-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+                <circle cx="12" cy="11" r="2.5"/>
+              </svg>
+            </div>
+            <div class="muni-setting-content">
+              <div class="muni-setting-head">
+                <span class="muni-setting-label">SEU MUNICÍPIO</span>
+                <div class="muni-setting-inline">
+                  <strong id="card-muni-active">Rio das Ostras - RJ</strong>
+                  <button type="button" class="btn-text-change" id="btn-change-city">Trocar ⌵</button>
+                </div>
+              </div>
+              <span class="muni-setting-avail" id="card-muni-alt">Também disponível: Sapucaia do Sul - RS</span>
+            </div>
+          </div>
+
+          <p class="setting-hint-text">A escolha define os serviços apresentados para o município.</p>
+        </article>
+
+        <!-- Card 2: Como deseja acompanhar? -->
+        <article class="setting-card">
+          <h3 class="setting-card-title">Como deseja acompanhar?</h3>
+          <p class="setting-card-subtitle">Visualize suas preferências para mudanças de etapa dos protocolos e lembretes de serviços.</p>
+
+          <div class="notification-toggle-list">
+            <!-- Avisos Push -->
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong class="toggle-name">Avisos push</strong>
+                <span class="toggle-desc">Atualizações no dispositivo.</span>
+              </div>
+              <div class="toggle-control">
+                <label class="switch">
+                  <input type="checkbox" id="toggle-push" checked>
+                  <span class="slider round"></span>
+                </label>
+                <span class="toggle-state-text" id="status-push">Ativo</span>
+              </div>
+            </div>
+
+            <!-- Avisos por E-mail -->
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong class="toggle-name">Avisos por e-mail</strong>
+                <span class="toggle-desc">Resumo de atualizações e lembretes.</span>
+              </div>
+              <div class="toggle-control">
+                <label class="switch">
+                  <input type="checkbox" id="toggle-email">
+                  <span class="slider round"></span>
+                </label>
+                <span class="toggle-state-text text-muted" id="status-email">Inativo</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="steps-notice">Etapas: Recebido, Em Análise, Equipe Enviada e Concluído.</p>
+
+          <button type="button" class="btn-save-prefs" id="btn-save-prefs">Salvar preferências</button>
+        </article>
+
+        <!-- Card 3: Acessibilidade, Privacidade e Sair -->
+        <article class="setting-card quick-links-card">
+          <a href="mainPage.html#acessibilidade" class="quick-link-item">
+            <span class="quick-link-label">Acessibilidade</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </a>
+
+          <div class="card-item-separator"></div>
+
+          <a href="privacyPage.html" class="quick-link-item">
+            <div class="quick-link-with-icon">
+              <span class="quick-link-label">Privacidade e dados</span>
+            </div>
+            <svg class="shield-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </a>
+
+          <div class="card-item-separator"></div>
+
+          <div class="logout-row">
+            <button type="button" class="btn-logout" id="btn-logout">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Sair</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Rodapé de Ações -->
+    <footer class="home-bottom-links">
+      <button type="button" class="bottom-support-btn" onclick="alert('Central de Suporte ao Cidadão:\nHorário: Segunda a Sexta, 08h às 18h\nTelefone: 156\nAtendimento via Ouvidoria Municipal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Precisa de ajuda?</span>
+      </button>
+
+      <a href="privacyPage.html" class="bottom-support-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Privacidade</span>
+      </a>
+    </footer>
+  </main>
+
+  <app-footer></app-footer>
+
+  <!-- Script da Página Minha Conta -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Alternância de Toggles Push e Email
+      const togglePush = document.getElementById('toggle-push');
+      const statusPush = document.getElementById('status-push');
+      const toggleEmail = document.getElementById('toggle-email');
+      const statusEmail = document.getElementById('status-email');
+
+      if (togglePush && statusPush) {
+        togglePush.addEventListener('change', () => {
+          if (togglePush.checked) {
+            statusPush.textContent = 'Ativo';
+            statusPush.classList.remove('text-muted');
+          } else {
+            statusPush.textContent = 'Inativo';
+            statusPush.classList.add('text-muted');
+          }
+        });
+      }
+
+      if (toggleEmail && statusEmail) {
+        toggleEmail.addEventListener('change', () => {
+          if (toggleEmail.checked) {
+            statusEmail.textContent = 'Ativo';
+            statusEmail.classList.remove('text-muted');
+          } else {
+            statusEmail.textContent = 'Inativo';
+            statusEmail.classList.add('text-muted');
+          }
+        });
+      }
+
+      // Salvar Preferências
+      const btnSave = document.getElementById('btn-save-prefs');
+      if (btnSave) {
+        btnSave.addEventListener('click', () => {
+          const pushActive = togglePush.checked ? 'Ativo' : 'Inativo';
+          const emailActive = toggleEmail.checked ? 'Ativo' : 'Inativo';
+          
+          btnSave.textContent = 'Preferências Salvas ✓';
+          btnSave.style.backgroundColor = '#16a34a';
+
+          setTimeout(() => {
+            btnSave.textContent = 'Salvar preferências';
+            btnSave.style.backgroundColor = '#1a56db';
+          }, 2500);
+        });
+      }
+
+      // Seletor de Município e Atualização do Perfil
+      const muniToggle = document.getElementById('muni-toggle');
+      const muniDropdown = document.getElementById('muni-dropdown');
+      const btnChangeCity = document.getElementById('btn-change-city');
+
+      function updateAccountUI(cityKey) {
+        const city = cityKey || ((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
+        const data = (typeof getActiveCityData === 'function') ? getActiveCityData(city) : null;
+        if (!data) return;
+
+        const cityEl = document.getElementById('profile-citizen-city');
+        const addrEl = document.getElementById('profile-citizen-addr');
+        const idEl = document.getElementById('profile-citizen-id');
+        const elecEl = document.getElementById('profile-citizen-electoral');
+
+        if (cityEl) cityEl.textContent = data.name;
+        if (addrEl) addrEl.textContent = data.citizenAddress;
+        if (idEl) idEl.textContent = data.citizenEnrollment;
+        if (elecEl) elecEl.textContent = data.electoralZone;
+
+        const cardActive = document.getElementById('card-muni-active');
+        const cardAlt = document.getElementById('card-muni-alt');
+        if (cardActive) cardActive.textContent = data.nameClean;
+        if (cardAlt) cardAlt.textContent = 'Também disponível: ' + data.otherClean;
+      }
+
+      // Escuta evento de mudança global de cidade
+      window.addEventListener('conectaCityChanged', (e) => {
+        if (e.detail && e.detail.cityKey) {
+          updateAccountUI(e.detail.cityKey);
+        }
+      });
+
+      if (muniToggle && muniDropdown) {
+        muniToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          muniDropdown.classList.toggle('show');
+        });
+      }
+
+      if (btnChangeCity && muniDropdown) {
+        btnChangeCity.addEventListener('click', (e) => {
+          e.stopPropagation();
+          muniDropdown.classList.toggle('show');
+        });
+      }
+
+      document.querySelectorAll('.muni-opt').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (typeof setActiveCity === 'function') {
+            setActiveCity(opt.dataset.city);
+          }
+          if (muniDropdown) muniDropdown.classList.remove('show');
+        });
+      });
+
+      document.addEventListener('click', () => {
+        if (muniDropdown) muniDropdown.classList.remove('show');
+      });
+
+      // Inicializa Perfil com Município Ativo
+      updateAccountUI((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
+
+      // Sair da Conta
+      const btnLogout = document.getElementById('btn-logout');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+          if (confirm('Deseja realmente sair da sua conta do Conecta Cidadão?')) {
+            window.location.href = '../index.html';
+          }
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>
