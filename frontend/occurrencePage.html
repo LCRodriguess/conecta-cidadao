@@ -9,6 +9,7 @@
   <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
+  <script src="../js/occurrence.js" defer></script>
 </head>
 
 <body>
@@ -346,18 +347,6 @@
             previewName.textContent = `Arquivo selecionado: ${fileInput.files[0].name}`;
             previewName.style.display = 'block';
           }
-        });
-      }
-
-      // Envio do Formulário
-      const form = document.getElementById('occurrence-form');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const protoNum = Math.floor(1000 + Math.random() * 9000);
-          const data = cityContextData[activeCity] || cityContextData['rio-das-ostras'];
-          alert(`Ocorrência registrada com sucesso no Município de ${data.cityClean}!\n\nNúmero do Protocolo: #2026-${protoNum}\n\nO reparo foi encaminhado para a equipe da sua cidade e você poderá acompanhar cada etapa na aba Solicitações.`);
-          window.location.href = 'requestsPage.html';
         });
       }
 
