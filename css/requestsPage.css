@@ -632,3 +632,134 @@
   background: #eff6ff;
   border-color: #1a56db;
 }
+
+#complement-form {
+    margin-top: 24px;
+    padding: 24px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    animation: complementFadeIn 0.2s ease;
+}
+
+#complement-form[hidden] {
+    display: none;
+}
+
+#complement-form h3 {
+    margin: 0 0 8px;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#complement-form p {
+    margin: 0 0 18px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#complement-description {
+    display: block;
+    width: 100%;
+    min-height: 120px;
+    padding: 14px 16px;
+    resize: vertical;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    color: #1e293b;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#complement-description::placeholder {
+    color: #94a3b8;
+}
+
+#complement-description:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.complement-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+#btn-cancel-complement,
+#btn-submit-complement {
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#btn-cancel-complement {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+}
+
+#btn-cancel-complement:hover {
+    background: #f1f5f9;
+}
+
+#btn-submit-complement {
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    color: #ffffff;
+}
+
+#btn-submit-complement:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+#btn-submit-complement:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes complementFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    #complement-form {
+        padding: 18px;
+    }
+
+    .complement-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    #btn-cancel-complement,
+    #btn-submit-complement {
+        width: 100%;
+    }
+}

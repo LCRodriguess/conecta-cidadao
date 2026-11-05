@@ -9,13 +9,13 @@
   <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
+  <script src="../js/requests.js" defer></script>
 </head>
 
 <body>
   <app-navbar></app-navbar>
 
   <main class="page-container">
-    <!-- Breadcrumb e Cabeçalho -->
     <div class="breadcrumb">
       <a href="mainPage.html">Início</a>
       <span>/</span>
@@ -25,44 +25,70 @@
     <header class="page-header">
       <div class="header-titles">
         <h1 class="page-title">Solicitações</h1>
-        <p class="page-subtitle">Acompanhe o andamento de protocolos abertos e o histórico de atendimentos.</p>
+        <p class="page-subtitle">
+          Acompanhe o andamento de protocolos abertos e o histórico de atendimentos.
+        </p>
       </div>
 
-      <!-- Seletor de Município -->
       <div class="header-municipality">
         <div class="municipality-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
             <circle cx="12" cy="11" r="2.5"/>
           </svg>
         </div>
+
         <div class="municipality-info">
           <span class="muni-tag">SEU MUNICÍPIO</span>
           <button type="button" class="muni-toggle" id="muni-toggle">
             <strong id="muni-active-name">Rio das Ostras · RJ</strong>
             <span class="trocar-txt">Trocar ⌵</span>
           </button>
-          <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
+
+          <span class="muni-alt" id="muni-alt-name">
+            Também disponível: Sapucaia do Sul · RS
+          </span>
         </div>
 
         <div class="muni-dropdown" id="muni-dropdown">
-          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
-          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+          <button type="button" class="muni-opt active"
+            data-city="rio-das-ostras"
+            data-name="Rio das Ostras · RJ"
+            data-alt="Sapucaia do Sul · RS">
+            Rio das Ostras · RJ
+          </button>
+
+          <button type="button" class="muni-opt"
+            data-city="sapucaia"
+            data-name="Sapucaia do Sul · RS"
+            data-alt="Rio das Ostras · RJ">
+            Sapucaia do Sul · RS
+          </button>
         </div>
       </div>
     </header>
 
-    <!-- Barra de Filtros e Nova Solicitação -->
     <section class="requests-filter-bar">
       <div class="status-tabs-row">
-        <button type="button" class="tab-chip active" data-filter="all">Todas</button>
-        <button type="button" class="tab-chip" data-filter="progress">Em andamento</button>
-        <button type="button" class="tab-chip" data-filter="completed">Concluídas</button>
+        <button type="button" class="tab-chip active" data-filter="all">
+          Todas
+        </button>
+        <button type="button" class="tab-chip" data-filter="progress">
+          Em andamento
+        </button>
+        <button type="button" class="tab-chip" data-filter="completed">
+          Concluídas
+        </button>
       </div>
 
       <div class="action-new-request">
         <a href="occurrencePage.html" class="btn-new-protocol">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
@@ -71,104 +97,52 @@
       </div>
     </section>
 
-    <!-- Layout 2 Colunas: Lista de Protocolos + Painel de Acompanhamento -->
     <section class="requests-layout-grid">
-      <!-- Coluna da Esquerda: Lista de Protocolos -->
       <div class="protocols-list-column" id="protocols-list">
-        <!-- Protocolo 1 (Selecionado) -->
-        <article class="protocol-card selected" data-id="1" data-status="progress">
-          <div class="protocol-card-head">
-            <span class="protocol-id">Protocolo #2026-8942</span>
-            <span class="badge-status in-progress">Em Análise</span>
-          </div>
-          <h3 class="protocol-title">Reparo de Iluminação Pública</h3>
-          <p class="protocol-meta">Rua das Gaivotas, próx. nº 124 · Costa Azul</p>
-          <div class="protocol-footer">
-            <span class="protocol-date">Aberto em 20 out 2026</span>
-            <svg class="protocol-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </div>
-        </article>
-
-        <!-- Protocolo 2 -->
-        <article class="protocol-card" data-id="2" data-status="progress">
-          <div class="protocol-card-head">
-            <span class="protocol-id">Protocolo #2026-7810</span>
-            <span class="badge-status dispatched">Equipe Enviada</span>
-          </div>
-          <h3 class="protocol-title">Poda de Árvore com Risco de Queda</h3>
-          <p class="protocol-meta">Av. Amaral Peixoto, km 158 · Centro</p>
-          <div class="protocol-footer">
-            <span class="protocol-date">Aberto em 18 out 2026</span>
-            <svg class="protocol-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </div>
-        </article>
-
-        <!-- Protocolo 3 -->
-        <article class="protocol-card" data-id="3" data-status="completed">
-          <div class="protocol-card-head">
-            <span class="protocol-id">Protocolo #2026-6401</span>
-            <span class="badge-status completed">Concluído</span>
-          </div>
-          <h3 class="protocol-title">Operação Tapa-buraco na Via</h3>
-          <p class="protocol-meta">Rua das Palmeiras, nº 45 · Bela Vista</p>
-          <div class="protocol-footer">
-            <span class="protocol-date">Concluído em 15 out 2026</span>
-            <svg class="protocol-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </div>
-        </article>
-
-        <!-- Protocolo 4 -->
-        <article class="protocol-card" data-id="4" data-status="completed">
-          <div class="protocol-card-head">
-            <span class="protocol-id">Protocolo #2026-5120</span>
-            <span class="badge-status completed">Concluído</span>
-          </div>
-          <h3 class="protocol-title">Desobstrução de Bueiro e Galeria Pluvial</h3>
-          <p class="protocol-meta">Rua Niterói, esquina com Alameda · Mariléa</p>
-          <div class="protocol-footer">
-            <span class="protocol-date">Concluído em 08 out 2026</span>
-            <svg class="protocol-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </div>
-        </article>
+        <!-- Os cards serão carregados pela API -->
       </div>
 
-      <!-- Coluna da Direita: Painel de Acompanhamento e Etapas -->
       <div class="protocol-details-column">
         <div class="protocol-details-card">
           <div class="details-top-header">
-            <span class="details-protocol-id" id="det-proto-id">Protocolo #2026-8942</span>
-            <span class="details-status-badge in-progress" id="det-proto-badge">Em Análise</span>
+
+            <span class="details-protocol-id" id="det-proto-id">
+              Selecione uma solicitação
+            </span>
+
+            <span class="details-status-badge in-progress"
+              id="det-proto-badge">
+            </span>
           </div>
 
-          <h2 class="details-service-title" id="det-proto-title">Reparo de Iluminação Pública</h2>
-          <p class="details-address-text" id="det-proto-address">Rua das Gaivotas, próx. nº 124 · Costa Azul · Rio das Ostras - RJ</p>
+          <h2 class="details-service-title" id="det-proto-title">
+            Nenhuma solicitação selecionada
+          </h2>
 
-          <!-- Stepper de 4 Etapas Oficial Conecta Cidadão -->
+          <p class="details-address-text" id="det-proto-address">
+            Os detalhes aparecerão aqui.
+          </p>
+
           <div class="stepper-box">
             <h4 class="stepper-heading">Progresso do Atendimento</h4>
             <div class="stepper-horizontal">
-              <div class="step-item step-completed" id="step-node-1">
-                <div class="step-circle">✓</div>
+              <div class="step-item" id="step-node-1">
+                <div class="step-circle">1</div>
                 <div class="step-label">Recebido</div>
               </div>
-              <div class="step-line active" id="step-line-1"></div>
-              <div class="step-item step-current" id="step-node-2">
+
+              <div class="step-line" id="step-line-1"></div>
+              <div class="step-item" id="step-node-2">
                 <div class="step-circle">2</div>
                 <div class="step-label">Em Análise</div>
               </div>
+
               <div class="step-line" id="step-line-2"></div>
               <div class="step-item" id="step-node-3">
                 <div class="step-circle">3</div>
                 <div class="step-label">Equipe Enviada</div>
               </div>
+
               <div class="step-line" id="step-line-3"></div>
               <div class="step-item" id="step-node-4">
                 <div class="step-circle">4</div>
@@ -177,33 +151,20 @@
             </div>
           </div>
 
-          <!-- Histórico / Timeline -->
           <div class="timeline-box">
             <h4 class="timeline-heading">Histórico de Movimentações</h4>
             <ul class="timeline-list" id="det-proto-timeline">
-              <li class="timeline-item">
-                <div class="timeline-bullet"></div>
-                <div class="timeline-content">
-                  <span class="timeline-date">21 out 2026 às 09:15</span>
-                  <strong class="timeline-action">Protocolo triado e encaminhado</strong>
-                  <p class="timeline-desc">A solicitação foi deferida pela Ouvidoria e enviada para o Departamento de Iluminação Pública da Secretaria de Obras.</p>
-                </div>
-              </li>
-              <li class="timeline-item">
-                <div class="timeline-bullet"></div>
-                <div class="timeline-content">
-                  <span class="timeline-date">20 out 2026 às 14:10</span>
-                  <strong class="timeline-action">Solicitação registrada pelo cidadão</strong>
-                  <p class="timeline-desc">Ocorrência cadastrada com localização e foto anexada pelo aplicativo Conecta Cidadão.</p>
-                </div>
-              </li>
+              <!-- O histórico será carregado pela API -->
             </ul>
           </div>
 
-          <!-- Ações do Protocolo -->
           <div class="protocol-action-buttons">
-            <button type="button" class="btn-action-outline" onclick="alert('Comprovante do Protocolo emitido para impressão com sucesso.')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button type="button" class="btn-action-outline"
+              onclick="window.print()">
+              
+              <svg width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9"></polyline>
                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                 <rect x="6" y="14" width="12" height="8"></rect>
@@ -211,21 +172,55 @@
               <span>Imprimir comprovante</span>
             </button>
 
-            <button type="button" class="btn-action-primary" onclick="alert('Para complementar sua solicitação, anexe novas informações via Ouvidoria Municipal ou telefone 156.')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button type="button" class="btn-action-primary"
+              id="btn-send-complement">
+              <svg width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
               </svg>
               <span>Enviar complemento</span>
             </button>
+
+          </div>
+
+          <div id="complement-form" hidden>
+
+            <h3>Adicionar complemento</h3>
+
+            <p>
+              Informe detalhes adicionais sobre esta solicitação.
+            </p>
+
+            <textarea
+              id="complement-description"
+              placeholder="Descreva a informação adicional..."
+              rows="4"
+              maxlength="2000"
+              required
+            ></textarea>
+
+            <div class="complement-form-actions">
+
+              <button type="button" id="btn-cancel-complement">
+                Cancelar
+              </button>
+
+              <button type="button" id="btn-submit-complement">
+                Enviar complemento
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Rodapé de Ações -->
     <footer class="home-bottom-links">
-      <button type="button" class="bottom-support-btn" onclick="alert('Dúvidas sobre protocolos?\nConsulte a Ouvidoria Geral do Município pelo telefone 156 ou presencialmente no Paço Municipal.')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button type="button" class="bottom-support-btn"
+        onclick="alert('Dúvidas sobre protocolos? Consulte a Ouvidoria Geral do Município.')">
+        <svg width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
           <line x1="12" y1="17" x2="12.01" y2="17"></line>
@@ -234,7 +229,9 @@
       </button>
 
       <a href="privacyPage.html" class="bottom-support-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
         <span>Privacidade</span>
@@ -244,355 +241,5 @@
 
   <app-footer></app-footer>
 
-  <!-- Script da Página de Solicitações -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const protocolsByCity = {
-        'rio-das-ostras': [
-          {
-            id: 1,
-            code: 'Protocolo #2026-8942',
-            status: 'in-progress',
-            statusText: 'Em Análise',
-            title: 'Reparo de Iluminação Pública',
-            address: 'Rua das Gaivotas, próx. nº 124 · Costa Azul · Rio das Ostras - RJ',
-            date: 'Aberto em 20 out 2026',
-            step: 2,
-            timeline: [
-              {
-                date: '21 out 2026 às 09:15',
-                action: 'Protocolo triado e encaminhado',
-                desc: 'A solicitação foi deferida pela Ouvidoria e enviada para o Departamento de Iluminação Pública da Secretaria de Obras.'
-              },
-              {
-                date: '20 out 2026 às 14:10',
-                action: 'Solicitação registrada pelo cidadão',
-                desc: 'Ocorrência cadastrada com localização e foto anexada pelo aplicativo Conecta Cidadão.'
-              }
-            ]
-          },
-          {
-            id: 2,
-            code: 'Protocolo #2026-7810',
-            status: 'dispatched',
-            statusText: 'Equipe Enviada',
-            title: 'Poda de Árvore com Risco de Queda',
-            address: 'Av. Amaral Peixoto, km 158 · Centro · Rio das Ostras - RJ',
-            date: 'Aberto em 18 out 2026',
-            step: 3,
-            timeline: [
-              {
-                date: '22 out 2026 às 08:00',
-                action: 'Equipe da Secretaria de Meio Ambiente deslocada',
-                desc: 'Caminhão com cesto aéreo e operadores em rota para avaliação e poda preventiva dos galhos comprometidos.'
-              },
-              {
-                date: '19 out 2026 às 11:30',
-                action: 'Vistoria técnica agendada',
-                desc: 'Engenheiro agrônomo emitiu laudo constatando risco à fiação elétrica.'
-              },
-              {
-                date: '18 out 2026 às 16:45',
-                action: 'Solicitação registrada pelo cidadão',
-                desc: 'Ocorrência cadastrada no portal.'
-              }
-            ]
-          },
-          {
-            id: 3,
-            code: 'Protocolo #2026-6401',
-            status: 'completed',
-            statusText: 'Concluído',
-            title: 'Operação Tapa-buraco na Via',
-            address: 'Rua das Palmeiras, nº 45 · Bela Vista · Rio das Ostras - RJ',
-            date: 'Concluído em 15 out 2026',
-            step: 4,
-            timeline: [
-              {
-                date: '15 out 2026 às 16:30',
-                action: 'Serviço finalizado com sucesso',
-                desc: 'Aplicação de massa asfáltica a quente e nivelamento da pista concluídos.'
-              },
-              {
-                date: '14 out 2026 às 09:00',
-                action: 'Equipe de pavimentação iniciou os trabalhos',
-                desc: 'Preparação do solo e recorte do pavimento danificado.'
-              },
-              {
-                date: '12 out 2026 às 10:20',
-                action: 'Solicitação registrada pelo cidadão',
-                desc: 'Cadastrado via aplicativo.'
-              }
-            ]
-          },
-          {
-            id: 4,
-            code: 'Protocolo #2026-5120',
-            status: 'completed',
-            statusText: 'Concluído',
-            title: 'Desobstrução de Bueiro e Galeria Pluvial',
-            address: 'Rua Niterói, esquina com Alameda · Mariléa · Rio das Ostras - RJ',
-            date: 'Concluído em 08 out 2026',
-            step: 4,
-            timeline: [
-              {
-                date: '08 out 2026 às 15:40',
-                action: 'Bueiro limpo e desobstruído',
-                desc: 'Retirada de detritos e teste de vazão da água realizado pela equipe de drenagem.'
-              },
-              {
-                date: '07 out 2026 às 08:30',
-                action: 'Caminhão hidrojato encaminhado ao local',
-                desc: 'Atendimento operacional programado.'
-              },
-              {
-                date: '05 out 2026 às 13:15',
-                action: 'Solicitação registrada pelo cidadão',
-                desc: 'Cadastrado no portal.'
-              }
-            ]
-          }
-        ],
-        'sapucaia': [
-          {
-            id: 101,
-            code: 'Protocolo #2026-9130',
-            status: 'in-progress',
-            statusText: 'Em Análise',
-            title: 'Reparo Asfáltico e Nivelamento da Pista',
-            address: 'Av. Sapucaia, 1420 · Centro · Sapucaia do Sul - RS',
-            date: 'Aberto em 19 out 2026',
-            step: 2,
-            timeline: [
-              {
-                date: '20 out 2026 às 10:30',
-                action: 'Vistoria da Secretaria Municipal de Obras',
-                desc: 'Engenheiro fiscal avaliou a drenagem da pista e autorizou ordem de serviço para recomposição com CBUQ.'
-              },
-              {
-                date: '19 out 2026 às 15:20',
-                action: 'Ocorrência registrada no Conecta Cidadão',
-                desc: 'Cidadão informou desnivelamento que prejudica a circulação de veículos.'
-              }
-            ]
-          },
-          {
-            id: 102,
-            code: 'Protocolo #2026-8854',
-            status: 'dispatched',
-            statusText: 'Equipe Enviada',
-            title: 'Troca de Lâmpadas por LED e Manutenção',
-            address: 'Rua Cel. Theodomiro Porto da Silva, 450 · Bairro Vargas · Sapucaia do Sul - RS',
-            date: 'Aberto em 17 out 2026',
-            step: 3,
-            timeline: [
-              {
-                date: '21 out 2026 às 13:00',
-                action: 'Caminhão da iluminação pública em deslocamento',
-                desc: 'Equipe de eletricistas em rota para substituição de 3 luminárias apagadas na via.'
-              },
-              {
-                date: '18 out 2026 às 09:40',
-                action: 'Chamado deferido',
-                desc: 'Inserido no cronograma da Secretaria de Serviços Urbanos.'
-              },
-              {
-                date: '17 out 2026 às 19:10',
-                action: 'Solicitação cadastrada pelo cidadão',
-                desc: 'Poste identificado e protocolado.'
-              }
-            ]
-          },
-          {
-            id: 103,
-            code: 'Protocolo #2026-7721',
-            status: 'completed',
-            statusText: 'Concluído',
-            title: 'Desobstrução de Boca de Lobo e Rede Pluvial',
-            address: 'Rua Tiradentes, 510 · Lomba da Palmeira · Sapucaia do Sul - RS',
-            date: 'Concluído em 14 out 2026',
-            step: 4,
-            timeline: [
-              {
-                date: '14 out 2026 às 14:50',
-                action: 'Limpeza e desobstrução finalizadas',
-                desc: 'Galeria pluvial liberada prevenindo acúmulo de água nas chuvas.'
-              },
-              {
-                date: '12 out 2026 às 08:30',
-                action: 'Equipe de saneamento iniciou raspagem',
-                desc: 'Remoção de lixo e terra acumulados.'
-              },
-              {
-                date: '10 out 2026 às 11:00',
-                action: 'Ocorrência cadastrada',
-                desc: 'Abertura via aplicativo.'
-              }
-            ]
-          },
-          {
-            id: 104,
-            code: 'Protocolo #2026-6205',
-            status: 'completed',
-            statusText: 'Concluído',
-            title: 'Recolhimento de Entulho e Poda de Árvore',
-            address: 'Rua Castro Alves, 88 · Cohab · Sapucaia do Sul - RS',
-            date: 'Concluído em 06 out 2026',
-            step: 4,
-            timeline: [
-              {
-                date: '06 out 2026 às 16:15',
-                action: 'Recolhimento executado com caçamba',
-                desc: 'Via totalmente limpa pela equipe de limpeza urbana de Sapucaia do Sul.'
-              },
-              {
-                date: '03 out 2026 às 09:00',
-                action: 'Programação de rota de coleta',
-                desc: 'Inclusão no roteiro do bairro Cohab.'
-              },
-              {
-                date: '01 out 2026 às 14:00',
-                action: 'Solicitação registrada',
-                desc: 'Abertura no portal.'
-              }
-            ]
-          }
-        ]
-      };
-
-      let activeCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
-      let currentFilter = 'all';
-
-      const protocolsList = document.getElementById('protocols-list');
-
-      function updateStepper(step) {
-        for (let i = 1; i <= 4; i++) {
-          const node = document.getElementById(`step-node-${i}`);
-          if (!node) continue;
-          const circle = node.querySelector('.step-circle');
-          const line = document.getElementById(`step-line-${i}`);
-
-          node.className = 'step-item';
-          if (i < step) {
-            node.classList.add('step-completed');
-            circle.textContent = '✓';
-          } else if (i === step) {
-            node.classList.add(step === 4 ? 'step-completed' : 'step-current');
-            circle.textContent = step === 4 ? '✓' : i;
-          } else {
-            circle.textContent = i;
-          }
-
-          if (line) {
-            line.className = 'step-line';
-            if (i < step) line.classList.add('active');
-          }
-        }
-      }
-
-      function selectProtocol(proto) {
-        if (!proto) return;
-
-        document.querySelectorAll('.protocol-card').forEach(c => {
-          c.classList.toggle('selected', c.dataset.id === String(proto.id));
-        });
-
-        document.getElementById('det-proto-id').textContent = proto.code;
-        const badge = document.getElementById('det-proto-badge');
-        badge.className = `details-status-badge ${proto.status}`;
-        badge.textContent = proto.statusText;
-
-        document.getElementById('det-proto-title').textContent = proto.title;
-        document.getElementById('det-proto-address').textContent = proto.address;
-
-        updateStepper(proto.step);
-
-        const timelineUl = document.getElementById('det-proto-timeline');
-        timelineUl.innerHTML = '';
-        proto.timeline.forEach(t => {
-          const li = document.createElement('li');
-          li.className = 'timeline-item';
-          li.innerHTML = `
-            <div class="timeline-bullet"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">${t.date}</span>
-              <strong class="timeline-action">${t.action}</strong>
-              <p class="timeline-desc">${t.desc}</p>
-            </div>
-          `;
-          timelineUl.appendChild(li);
-        });
-      }
-
-      function renderProtocols() {
-        const list = protocolsByCity[activeCity] || protocolsByCity['rio-das-ostras'];
-        protocolsList.innerHTML = '';
-
-        const filtered = list.filter(p => {
-          if (currentFilter === 'all') return true;
-          return p.status === currentFilter;
-        });
-
-        if (filtered.length === 0) {
-          protocolsList.innerHTML = `
-            <div style="background: white; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 2rem; text-align: center; color: #64748b;">
-              <p style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Nenhuma solicitação encontrada</p>
-              <p style="font-size: 0.88rem; margin: 0;">Você não possui protocolos com esse status para este município.</p>
-            </div>
-          `;
-          return;
-        }
-
-        filtered.forEach((p, idx) => {
-          const card = document.createElement('article');
-          card.className = `protocol-card ${idx === 0 ? 'selected' : ''}`;
-          card.dataset.id = p.id;
-          card.dataset.status = p.status;
-          card.innerHTML = `
-            <div class="protocol-card-head">
-              <span class="protocol-id">${p.code}</span>
-              <span class="badge-status ${p.status}">${p.statusText}</span>
-            </div>
-            <h3 class="protocol-title">${p.title}</h3>
-            <p class="protocol-meta">${p.address}</p>
-            <div class="protocol-footer">
-              <span class="protocol-date">${p.date}</span>
-              <svg class="protocol-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </div>
-          `;
-          card.addEventListener('click', () => selectProtocol(p));
-          protocolsList.appendChild(card);
-        });
-
-        if (filtered.length > 0) {
-          selectProtocol(filtered[0]);
-        }
-      }
-
-      // Filtro de Tabs
-      document.querySelectorAll('.tab-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          document.querySelectorAll('.tab-chip').forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-          currentFilter = chip.dataset.filter;
-          renderProtocols();
-        });
-      });
-
-      // Escuta troca de município global
-      window.addEventListener('conectaCityChanged', (e) => {
-        if (e.detail && e.detail.cityKey) {
-          activeCity = e.detail.cityKey;
-          renderProtocols();
-        }
-      });
-
-      // Render Inicial
-      renderProtocols();
-    });
-  </script>
 </body>
-
 </html>
