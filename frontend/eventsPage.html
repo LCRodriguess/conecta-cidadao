@@ -7,6 +7,7 @@
   <title>Eventos - Conecta Cidadão</title>
   <link rel="stylesheet" href="../css/eventsPage.css">
   <script src="../js/cityManager.js"></script>
+  <script src="../js/events.js" defer></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
 </head>
@@ -15,6 +16,7 @@
   <app-navbar></app-navbar>
 
   <main class="page-container">
+
     <!-- Breadcrumb e Cabeçalho -->
     <div class="breadcrumb">
       <a href="mainPage.html">Início</a>
@@ -36,29 +38,50 @@
             <circle cx="12" cy="11" r="2.5"/>
           </svg>
         </div>
+
         <div class="municipality-info">
           <span class="muni-tag">SEU MUNICÍPIO</span>
+
           <button type="button" class="muni-toggle" id="muni-toggle">
             <strong id="muni-active-name">Rio das Ostras · RJ</strong>
             <span class="trocar-txt">Trocar ⌵</span>
           </button>
+
           <span class="muni-alt" id="muni-alt-name">Também disponível: Sapucaia do Sul · RS</span>
         </div>
 
         <div class="muni-dropdown" id="muni-dropdown">
-          <button type="button" class="muni-opt active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-alt="Sapucaia do Sul · RS">Rio das Ostras · RJ</button>
-          <button type="button" class="muni-opt" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-alt="Rio das Ostras · RJ">Sapucaia do Sul · RS</button>
+          <button type="button" class="muni-opt active"
+            data-city="rio-das-ostras"
+            data-name="Rio das Ostras · RJ"
+            data-alt="Sapucaia do Sul · RS">
+            Rio das Ostras · RJ
+          </button>
+
+          <button type="button" class="muni-opt"
+            data-city="sapucaia"
+            data-name="Sapucaia do Sul · RS"
+            data-alt="Rio das Ostras · RJ">
+            Sapucaia do Sul · RS
+          </button>
         </div>
       </div>
     </header>
 
     <!-- Barra de Busca e Filtros de Data -->
     <section class="search-filter-card">
+
       <div class="search-inputs-row">
+
         <div class="search-field-group">
           <label for="event-search">Encontre uma atividade</label>
+
           <div class="search-input-box">
-            <input type="text" id="event-search" placeholder="Buscar por nome ou tema">
+            <input
+              type="text"
+              id="event-search"
+              placeholder="Buscar por nome ou tema">
+
             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"/>
               <line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -68,8 +91,13 @@
 
         <div class="date-field-group">
           <label for="event-date">Quando?</label>
+
           <div class="date-input-box">
-            <input type="text" id="event-date" value="24 out a 7 nov 2026">
+            <input
+              type="text"
+              id="event-date"
+              value="24 out a 7 nov 2026">
+
             <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>
@@ -79,7 +107,10 @@
           </div>
         </div>
 
-        <button type="button" class="btn-filter-agenda" id="btn-filter-agenda">Filtrar agenda</button>
+        <button type="button" class="btn-filter-agenda" id="btn-filter-agenda">
+          Filtrar agenda
+        </button>
+
       </div>
 
       <!-- Filtro de Categorias -->
@@ -90,139 +121,86 @@
         <button type="button" class="category-chip" data-category="Oficinas">Oficinas</button>
         <button type="button" class="category-chip" data-category="Para famílias">Para famílias</button>
       </div>
+
     </section>
 
     <!-- Cabeçalho de Resultados -->
     <div class="results-header">
-      <h2 class="results-count" id="events-count">4 atividades</h2>
+      <h2 class="results-count" id="events-count">Carregando atividades...</h2>
     </div>
 
     <!-- Layout de 2 Colunas: Lista de Eventos + Painel de Detalhes -->
     <section class="events-layout-grid">
+
       <!-- Coluna da Esquerda: Lista de Eventos -->
       <div class="events-list-column" id="events-container">
-        <!-- Evento 1 (Selecionado) -->
-        <article class="event-card selected" data-id="1" data-city="rio-das-ostras" data-category="Cultura">
-          <div class="event-date-box">
-            <span class="date-day">24</span>
-            <span class="date-month">OUT</span>
-          </div>
-          <div class="event-info-box">
-            <div class="event-meta-top">
-              <span class="event-badge">Cultura</span>
-              <span class="event-year">2026</span>
-            </div>
-            <h3 class="event-title">Encontro de leitura na praça</h3>
-            <p class="event-datetime">Sábado · 10h às 12h</p>
-            <p class="event-location">Praça · Local</p>
-            <p class="event-desc">Troca de histórias e leitura coletiva para todas as idades.</p>
-          </div>
-        </article>
-
-        <!-- Evento 2 -->
-        <article class="event-card" data-id="2" data-city="rio-das-ostras" data-category="Esporte e lazer">
-          <div class="event-date-box">
-            <span class="date-day">25</span>
-            <span class="date-month">OUT</span>
-          </div>
-          <div class="event-info-box">
-            <div class="event-meta-top">
-              <span class="event-badge">Esporte e lazer</span>
-              <span class="event-year">2026</span>
-            </div>
-            <h3 class="event-title">Manhã de movimento</h3>
-            <p class="event-datetime">Domingo · 08h às 10h</p>
-            <p class="event-location">Espaço de lazer</p>
-            <p class="event-desc">Atividades leves e alongamento em um encontro .</p>
-          </div>
-        </article>
-
-        <!-- Evento 3 -->
-        <article class="event-card" data-id="3" data-city="rio-das-ostras" data-category="Oficinas">
-          <div class="event-date-box">
-            <span class="date-day">31</span>
-            <span class="date-month">OUT</span>
-          </div>
-          <div class="event-info-box">
-            <div class="event-meta-top">
-              <span class="event-badge">Oficina</span>
-              <span class="event-year">2026</span>
-            </div>
-            <h3 class="event-title">Oficina de artes para famílias</h3>
-            <p class="event-datetime">Sábado · 14h às 16h</p>
-            <p class="event-location">Espaço cultural</p>
-            <p class="event-desc">Criação com papel e cores para crianças acompanhadas.</p>
-          </div>
-        </article>
-
-        <!-- Evento 4 -->
-        <article class="event-card" data-id="4" data-city="rio-das-ostras" data-category="Cultura">
-          <div class="event-date-box">
-            <span class="date-day">07</span>
-            <span class="date-month">NOV</span>
-          </div>
-          <div class="event-info-box">
-            <div class="event-meta-top">
-              <span class="event-badge">Cultura</span>
-              <span class="event-year">2026</span>
-            </div>
-            <h3 class="event-title">Roda de música e convivência</h3>
-            <p class="event-datetime">Sábado · 16h às 18h</p>
-            <p class="event-location">Praça · Local</p>
-            <p class="event-desc">Música e convivência em uma atividade comunitária .</p>
-          </div>
-        </article>
       </div>
 
       <!-- Coluna da Direita: Painel de Detalhes do Evento -->
       <div class="event-details-column">
+
         <div class="event-details-card">
+
           <span class="details-badge" id="det-event-badge">Evento</span>
-          <h2 class="details-title" id="det-event-title">Encontro de leitura na praça</h2>
-          <p class="details-summary" id="det-event-desc">Uma manhã de histórias, leitura compartilhada e troca de livros. Atividade inventada para avaliar a navegação da agenda.</p>
+
+          <h2 class="details-title" id="det-event-title">
+            Nenhum evento selecionado
+          </h2>
+
+          <p class="details-summary" id="det-event-desc">
+            Selecione uma atividade para visualizar os detalhes.
+          </p>
 
           <div class="details-field">
             <span class="field-label">Data e horário</span>
-            <strong class="field-value" id="det-event-time">24 de outubro de 2026 · 10h às 12h</strong>
+            <strong class="field-value" id="det-event-time">—</strong>
           </div>
 
           <div class="details-field">
             <span class="field-label">Local</span>
-            <strong class="field-value" id="det-event-loc">Praça · Rio das Ostras</strong>
-            <span class="field-sub" id="det-event-loc-sub">Consulte as informações do local antes de se deslocar.</span>
+            <strong class="field-value" id="det-event-loc">—</strong>
+            <span class="field-sub" id="det-event-loc-sub"></span>
           </div>
 
           <div class="details-field">
             <span class="field-label">Público e participação</span>
-            <strong class="field-value" id="det-event-audience">Todas as idades · Atividade gratuita</strong>
+            <strong class="field-value" id="det-event-audience">—</strong>
           </div>
 
           <div class="details-section">
             <h4 class="details-section-title">Antes de participar</h4>
-            <p class="details-section-text" id="det-event-before">Crianças devem estar acompanhadas de uma pessoa responsável.</p>
+            <p class="details-section-text" id="det-event-before">—</p>
           </div>
 
           <button type="button" class="btn-back-events" id="btn-subscribe">
             Voltar à lista de atividades
           </button>
+
         </div>
 
         <!-- Card de Orientação -->
         <div class="event-guidance-card">
           <h4 class="guidance-title">Encontre algo do seu interesse</h4>
-          <p class="guidance-text">Use os filtros de tema e período para entender como seria a busca de atividades no município.</p>
+          <p class="guidance-text">
+            Use os filtros de tema e período para entender como seria a busca de atividades no município.
+          </p>
         </div>
+
       </div>
     </section>
 
     <!-- Rodapé de Ações -->
     <footer class="home-bottom-links">
-      <button type="button" class="bottom-support-btn" onclick="alert('Central Cultural e Esportiva:\nAtendimento das 08h às 18h\nTelefone: 156\nE-mail: eventos@conectacidadao.gov.br')">
+
+      <button type="button" class="bottom-support-btn"
+        onclick="alert('Central Cultural e Esportiva:\nAtendimento das 08h às 18h\nTelefone: 156\nE-mail: eventos@conectacidadao.gov.br')">
+
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
           <line x1="12" y1="17" x2="12.01" y2="17"></line>
         </svg>
+
         <span>Precisa de ajuda?</span>
       </button>
 
@@ -230,273 +208,15 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
+
         <span>Privacidade</span>
       </a>
+
     </footer>
+
   </main>
 
   <app-footer></app-footer>
 
-  <!-- Script da Página de Eventos -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const eventsData = {
-        'rio-das-ostras': [
-          {
-            id: '1',
-            day: '24',
-            month: 'OUT',
-            year: '2026',
-            category: 'Cultura',
-            title: 'Encontro de leitura na praça',
-            schedule: 'Sábado · 10h às 12h',
-            locationShort: 'Praça · Local',
-            locationFull: 'Praça · Rio das Ostras',
-            descShort: 'Troca de histórias e leitura coletiva para todas as idades.',
-            descFull: 'Uma manhã de histórias, leitura compartilhada e troca de livros. Atividade inventada para avaliar a navegação da agenda.',
-            audience: 'Todas as idades · Atividade gratuita',
-            before: 'Crianças devem estar acompanhadas de uma pessoa responsável.'
-          },
-          {
-            id: '2',
-            day: '25',
-            month: 'OUT',
-            year: '2026',
-            category: 'Esporte e lazer',
-            title: 'Manhã de movimento',
-            schedule: 'Domingo · 08h às 10h',
-            locationShort: 'Espaço de lazer',
-            locationFull: 'Orla de Costazul · Rio das Ostras',
-            descShort: 'Atividades leves e alongamento em um encontro .',
-            descFull: 'Aulas de alongamento funcional e ginástica ao ar livre para começar o domingo com disposição e saúde.',
-            audience: 'Adultos e idosos · Atividade gratuita',
-            before: 'Venha com roupas leves, tênis confortável e traga sua garrafa d\'água.'
-          },
-          {
-            id: '3',
-            day: '31',
-            month: 'OUT',
-            year: '2026',
-            category: 'Oficinas',
-            title: 'Oficina de artes para famílias',
-            schedule: 'Sábado · 14h às 16h',
-            locationShort: 'Espaço cultural',
-            locationFull: 'Casa de Cultura Bento Costa · Rio das Ostras',
-            descShort: 'Criação com papel e cores para crianças acompanhadas.',
-            descFull: 'Oficina criativa envolvendo pintura guache, origami e colagem para estimular a imaginação em família.',
-            audience: 'Crianças e responsáveis · Vagas limitadas',
-            before: 'Material incluso no local. Chegar com 15 minutos de antecedência.'
-          },
-          {
-            id: '4',
-            day: '07',
-            month: 'NOV',
-            year: '2026',
-            category: 'Cultura',
-            title: 'Roda de música e convivência',
-            schedule: 'Sábado · 16h às 18h',
-            locationShort: 'Praça · Local',
-            locationFull: 'Praça São Pedro · Rio das Ostras',
-            descShort: 'Música e convivência em uma atividade comunitária .',
-            descFull: 'Apresentação acústica instrumental de artistas locais com roda de bate-papo e integração dos moradores.',
-            audience: 'Todas as idades · Aberto ao público',
-            before: 'Traga sua esteira ou cadeira de praia para aproveitar o final de tarde.'
-          }
-        ],
-        'sapucaia': [
-          {
-            id: 's1',
-            day: '26',
-            month: 'OUT',
-            year: '2026',
-            category: 'Cultura',
-            title: 'Feira Municipal do Livro',
-            schedule: 'Segunda a Sábado · 09h às 19h',
-            locationShort: 'Praça Central',
-            locationFull: 'Praça General Freitas · Sapucaia do Sul',
-            descShort: 'Estandes de livros, contação de histórias e sessões de autógrafos.',
-            descFull: 'Tradicional feira com mais de 20 livreiros, palestras com autores gaúchos e apresentações teatrais infantis.',
-            audience: 'Livre para todas as idades · Gratuito',
-            before: 'Traga sacola ecológica para suas compras de livros.'
-          },
-          {
-            id: 's2',
-            day: '01',
-            month: 'NOV',
-            year: '2026',
-            category: 'Esporte e lazer',
-            title: 'Pedalada Ecológica da Primavera',
-            schedule: 'Domingo · 08h às 11h',
-            locationShort: 'Parque Zoológico',
-            locationFull: 'Entrada do Parque Municipal · Sapucaia do Sul',
-            descShort: 'Passeio ciclístico pelos principais pontos verdes da cidade.',
-            descFull: 'Percurso de 12km com apoio da Guarda Municipal, pontos de hidratação e sorteio de bicicletas no final.',
-            audience: 'Ciclistas amadores e famílias · Gratuito',
-            before: 'Uso obrigatório de capacete. Revisar freios e pneus da bike.'
-          },
-          {
-            id: 's3',
-            day: '05',
-            month: 'NOV',
-            year: '2026',
-            category: 'Oficinas',
-            title: 'Oficina de Robótica e Programação',
-            schedule: 'Quinta · 14h às 17h',
-            locationShort: 'Polo Tecnológico',
-            locationFull: 'Centro de Inovação Municipal · Sapucaia do Sul',
-            descShort: 'Introdução ao Arduino e pensamento computacional para jovens.',
-            descFull: 'Aprenda lógica de programação montando sensores inteligentes e pequenos robôs móveis com kits educativos.',
-            audience: 'Jovens de 12 a 18 anos · Gratuito',
-            before: 'Inscrições prévias validadas pela Secretaria de Educação.'
-          }
-        ]
-      };
-
-      let currentCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
-      let currentCategory = 'all';
-
-      const eventsContainer = document.getElementById('events-container');
-      const eventsCount = document.getElementById('events-count');
-
-      // Escuta troca de município vinda de qualquer aba/cabeçalho
-      window.addEventListener('conectaCityChanged', (e) => {
-        if (e.detail && e.detail.cityKey) {
-          currentCity = e.detail.cityKey;
-          renderEvents();
-        }
-      });
-
-      function selectEvent(ev) {
-        document.querySelectorAll('.event-card').forEach(c => {
-          c.classList.remove('selected');
-          if (c.dataset.id === ev.id) c.classList.add('selected');
-        });
-
-        document.getElementById('det-event-badge').textContent = ev.category || 'Evento';
-        document.getElementById('det-event-title').textContent = ev.title;
-        document.getElementById('det-event-desc').textContent = ev.descFull;
-        document.getElementById('det-event-time').textContent = `${ev.day} de ${ev.month === 'OUT' ? 'outubro' : 'novembro'} de ${ev.year} · ${ev.schedule.split('·')[1] || ev.schedule}`;
-        document.getElementById('det-event-loc').textContent = ev.locationFull;
-        document.getElementById('det-event-audience').textContent = ev.audience;
-        document.getElementById('det-event-before').textContent = ev.before;
-      }
-
-      function renderEvents() {
-        const list = eventsData[currentCity] || [];
-        const searchVal = (document.getElementById('event-search').value || '').toLowerCase().trim();
-        
-        const filtered = list.filter(ev => {
-          const matchCat = currentCategory === 'all' || 
-            ev.category.toLowerCase().includes(currentCategory.toLowerCase()) ||
-            (currentCategory === 'Para famílias' && (ev.descFull.toLowerCase().includes('família') || ev.audience.toLowerCase().includes('família')));
-          
-          const matchSearch = !searchVal || 
-            ev.title.toLowerCase().includes(searchVal) || 
-            ev.descFull.toLowerCase().includes(searchVal) ||
-            ev.category.toLowerCase().includes(searchVal);
-
-          return matchCat && matchSearch;
-        });
-
-        eventsContainer.innerHTML = '';
-        eventsCount.textContent = `${filtered.length} atividade${filtered.length === 1 ? '' : 's'}`;
-
-        if (filtered.length === 0) {
-          eventsContainer.innerHTML = `
-            <div style="background: white; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 2rem; text-align: center; color: #64748b;">
-              <p style="font-weight: 600; margin-bottom: 0.5rem; color: #0f172a;">Nenhuma atividade encontrada</p>
-              <p style="font-size: 0.88rem; margin: 0;">Tente alterar os termos da busca ou selecionar outra categoria.</p>
-            </div>
-          `;
-          return;
-        }
-
-        filtered.forEach((ev, index) => {
-          const card = document.createElement('article');
-          card.className = `event-card ${index === 0 ? 'selected' : ''}`;
-          card.dataset.id = ev.id;
-          card.dataset.city = currentCity;
-          card.dataset.category = ev.category;
-          card.innerHTML = `
-            <div class="event-date-box">
-              <span class="date-day">${ev.day}</span>
-              <span class="date-month">${ev.month}</span>
-            </div>
-            <div class="event-info-box">
-              <div class="event-meta-top">
-                <span class="event-badge">${ev.category}</span>
-                <span class="event-year">${ev.year}</span>
-              </div>
-              <h3 class="event-title">${ev.title}</h3>
-              <p class="event-datetime">${ev.schedule}</p>
-              <p class="event-location">${ev.locationShort}</p>
-              <p class="event-desc">${ev.descShort}</p>
-            </div>
-          `;
-          card.addEventListener('click', () => selectEvent(ev));
-          eventsContainer.appendChild(card);
-        });
-
-        if (filtered.length > 0) {
-          selectEvent(filtered[0]);
-        }
-      }
-
-      // Seletor de Município
-      const muniToggle = document.getElementById('muni-toggle');
-      const muniDropdown = document.getElementById('muni-dropdown');
-      if (muniToggle && muniDropdown) {
-        muniToggle.addEventListener('click', (e) => {
-          e.stopPropagation();
-          muniDropdown.classList.toggle('show');
-        });
-        document.querySelectorAll('.muni-opt').forEach(opt => {
-          opt.addEventListener('click', (e) => {
-            e.stopPropagation();
-            currentCity = opt.dataset.city;
-            document.getElementById('muni-active-name').textContent = opt.dataset.name;
-            document.getElementById('muni-alt-name').textContent = 'Também disponível: ' + opt.dataset.alt;
-            document.querySelectorAll('.muni-opt').forEach(o => o.classList.remove('active'));
-            opt.classList.add('active');
-            muniDropdown.classList.remove('show');
-            renderEvents();
-          });
-        });
-        document.addEventListener('click', () => muniDropdown.classList.remove('show'));
-      }
-
-      // Filtros de Categoria
-      document.querySelectorAll('.category-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-          currentCategory = chip.dataset.category;
-          renderEvents();
-        });
-      });
-
-      // Busca por input e botão
-      const searchInput = document.getElementById('event-search');
-      if (searchInput) {
-        searchInput.addEventListener('input', renderEvents);
-      }
-      const btnFilter = document.getElementById('btn-filter-agenda');
-      if (btnFilter) {
-        btnFilter.addEventListener('click', renderEvents);
-      }
-
-      // Botão voltar à lista / foco
-      const btnSub = document.getElementById('btn-subscribe');
-      if (btnSub) {
-        btnSub.addEventListener('click', () => {
-          eventsContainer.scrollIntoView({ behavior: 'smooth' });
-        });
-      }
-
-      // Render Inicial
-      renderEvents();
-    });
-  </script>
 </body>
-
 </html>
