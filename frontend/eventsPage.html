@@ -17,7 +17,6 @@
 
   <main class="page-container">
 
-    <!-- Breadcrumb e Cabeçalho -->
     <div class="breadcrumb">
       <a href="mainPage.html">Início</a>
       <span>/</span>
@@ -30,7 +29,6 @@
         <p class="page-subtitle">Cultura, lazer e atividades para explorar a cidade.</p>
       </div>
 
-      <!-- Seletor de Município -->
       <div class="header-municipality">
         <div class="municipality-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -68,7 +66,7 @@
       </div>
     </header>
 
-    <!-- Barra de Busca e Filtros de Data -->
+    <!-- Busca e filtros -->
     <section class="search-filter-card">
 
       <div class="search-inputs-row">
@@ -90,20 +88,22 @@
         </div>
 
         <div class="date-field-group">
-          <label for="event-date">Quando?</label>
+          <label for="event-start-date">Data inicial</label>
 
           <div class="date-input-box">
             <input
-              type="text"
-              id="event-date"
-              value="24 out a 7 nov 2026">
+              type="date"
+              id="event-start-date">
+          </div>
+        </div>
 
-            <svg class="calendar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+        <div class="date-field-group">
+          <label for="event-end-date">Data final</label>
+
+          <div class="date-input-box">
+            <input
+              type="date"
+              id="event-end-date">
           </div>
         </div>
 
@@ -113,7 +113,7 @@
 
       </div>
 
-      <!-- Filtro de Categorias -->
+      <!-- Categorias -->
       <div class="category-chips-row">
         <button type="button" class="category-chip active" data-category="all">Todos</button>
         <button type="button" class="category-chip" data-category="Cultura">Cultura</button>
@@ -124,19 +124,17 @@
 
     </section>
 
-    <!-- Cabeçalho de Resultados -->
+    <!-- Resultados -->
     <div class="results-header">
       <h2 class="results-count" id="events-count">Carregando atividades...</h2>
     </div>
 
-    <!-- Layout de 2 Colunas: Lista de Eventos + Painel de Detalhes -->
     <section class="events-layout-grid">
 
-      <!-- Coluna da Esquerda: Lista de Eventos -->
       <div class="events-list-column" id="events-container">
       </div>
 
-      <!-- Coluna da Direita: Painel de Detalhes do Evento -->
+      <!-- Detalhes do evento -->
       <div class="event-details-column">
 
         <div class="event-details-card">
@@ -178,18 +176,17 @@
 
         </div>
 
-        <!-- Card de Orientação -->
         <div class="event-guidance-card">
           <h4 class="guidance-title">Encontre algo do seu interesse</h4>
           <p class="guidance-text">
-            Use os filtros de tema e período para entender como seria a busca de atividades no município.
+            Use os filtros de tema e período para encontrar atividades disponíveis no município.
           </p>
         </div>
 
       </div>
     </section>
 
-    <!-- Rodapé de Ações -->
+    <!-- Rodapé de ações -->
     <footer class="home-bottom-links">
 
       <button type="button" class="bottom-support-btn"

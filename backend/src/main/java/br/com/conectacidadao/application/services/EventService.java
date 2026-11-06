@@ -36,10 +36,16 @@ public class EventService
                     .toList();
         }
 
-        if (startDate != null && endDate != null) {
+        if (startDate != null) {
             events = events.stream()
                     .filter(event -> event.getDate() != null
-                            && !event.getDate().isBefore(startDate)
+                            && !event.getDate().isBefore(startDate))
+                    .toList();
+        }
+
+        if (endDate != null) {
+            events = events.stream()
+                    .filter(event -> event.getDate() != null
                             && !event.getDate().isAfter(endDate))
                     .toList();
         }

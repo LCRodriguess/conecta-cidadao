@@ -5,8 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventsContainer = document.getElementById('events-container');
     const eventsCount = document.getElementById('events-count');
     const searchInput = document.getElementById('event-search');
-    const dateInput = document.getElementById('event-date');
+    const startDateInput = document.getElementById('event-start-date');
+    const endDateInput = document.getElementById('event-end-date');
     const btnFilter = document.getElementById('btn-filter-agenda');
+
+
+    // DATA INICIAL PADRÃO
+    const today = new Date();
+
+    const todayFormatted = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, '0'),
+        String(today.getDate()).padStart(2, '0')
+    ].join('-');
+
+    startDateInput.value = todayFormatted;
+    startDateInput.min = todayFormatted;
+    endDateInput.min = todayFormatted;
 
     let currentCity = typeof getActiveCity === 'function'
         ? getActiveCity()
@@ -29,25 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Para famílias': 'ParaFamilias'
     };
 
-    const months = {
-        jan: 1,
-        fev: 2,
-        mar: 3,
-        abr: 4,
-        mai: 5,
-        jun: 6,
-        jul: 7,
-        ago: 8,
-        set: 9,
-        out: 10,
-        nov: 11,
-        dez: 12
-    };
 
-    // =====================================
     // FORMATAÇÃO
-    // =====================================
-
     function formatDate(date) {
         if (!date) return '';
 
@@ -62,9 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatDay(date) {
-        if (!date) return '';
-
-        return date.split('-')[2];
+        return date ? date.split('-')[2] : '';
     }
 
     function formatMonth(date) {
@@ -112,69 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return categoryMap[category] || category || 'Evento';
     }
 
-    // =====================================
-    // FILTRO DE DATA
-    // =====================================
 
-    function parseDateRange(value) {
-        if (!value || !value.trim()) {
-            return null;
-        }
-
-        const normalized = value
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .trim();
-
-        const regex = /^(\d{1,2})\s+([a-z]{3})\s+a\s+(\d{1,2})\s+([a-z]{3})\s+(\d{4})$/;
-
-        const match = normalized.match(regex);
-
-        if (!match) {
-            return null;
-        }
-
-        const startDay = Number(match[1]);
-        const startMonth = months[match[2]];
-        const endDay = Number(match[3]);
-        const endMonth = months[match[4]];
-        const year = Number(match[5]);
-
-        if (!startMonth || !endMonth) {
-            return null;
-        }
-
-        const startDate =
-            `${year}-${String(startMonth).padStart(2, '0')}-${String(startDay).padStart(2, '0')}`;
-
-        const endYear = endMonth < startMonth ? year + 1 : year;
-
-        const endDate =
-            `${endYear}-${String(endMonth).padStart(2, '0')}-${String(endDay).padStart(2, '0')}`;
-
-        const start = new Date(`${startDate}T00:00:00`);
-        const end = new Date(`${endDate}T00:00:00`);
-
-        if (
-            start.getFullYear() !== year ||
-            start.getMonth() + 1 !== startMonth ||
-            start.getDate() !== startDay ||
-            end.getFullYear() !== endYear ||
-            end.getMonth() + 1 !== endMonth ||
-            end.getDate() !== endDay ||
-            start > end
-        ) {
-            return null;
-        }
-
-        return { startDate, endDate };
-    }
-
-    // =====================================
     // DETALHES DO EVENTO
-    // =====================================
-
     function selectEvent(event) {
         document.querySelectorAll('.event-card').forEach(card => {
             card.classList.toggle(
@@ -208,10 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.before || 'Não há orientações adicionais.';
     }
 
-    // =====================================
     // CRIAÇÃO DOS CARDS
-    // =====================================
-
     function createElement(tag, className, text) {
         const element = document.createElement(tag);
 
@@ -232,9 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
         card.dataset.id = event.id;
 
         const dateBox = createElement('div', 'event-date-box');
+
         dateBox.appendChild(
             createElement('span', 'date-day', formatDay(event.date))
         );
+
         dateBox.appendChild(
             createElement('span', 'date-month', formatMonth(event.date))
         );
@@ -242,9 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const infoBox = createElement('div', 'event-info-box');
 
         const meta = createElement('div', 'event-meta-top');
+
         meta.appendChild(
             createElement('span', 'event-badge', getCategoryLabel(event.category))
         );
+
         meta.appendChild(
             createElement('span', 'event-year', formatYear(event.date))
         );
@@ -283,11 +219,75 @@ document.addEventListener('DOMContentLoaded', () => {
         return card;
     }
 
-    // =====================================
-    // LISTAGEM E FILTROS
-    // =====================================
+    // MENSAGENS
+    function showMessage(title, description) {
+        eventsContainer.replaceChildren();
 
+        const message = createElement('div');
+
+        message.style.cssText =
+            'background:white;border:1.5px dashed #cbd5e1;border-radius:12px;padding:2rem;text-align:center;color:#64748b;';
+
+        const heading = createElement('p', '', title);
+
+        heading.style.cssText =
+            'font-weight:600;margin-bottom:0.5rem;color:#0f172a;';
+
+        const paragraph = createElement('p', '', description);
+
+        paragraph.style.cssText =
+            'font-size:0.88rem;margin:0;';
+
+        message.appendChild(heading);
+        message.appendChild(paragraph);
+
+        eventsContainer.appendChild(message);
+        eventsCount.textContent = '0 atividades';
+    }
+
+    function clearDetails() {
+        document.getElementById('det-event-badge').textContent = 'Evento';
+
+        document.getElementById('det-event-title').textContent =
+            'Nenhum evento selecionado';
+
+        document.getElementById('det-event-desc').textContent =
+            'Selecione uma atividade para visualizar os detalhes.';
+
+        document.getElementById('det-event-time').textContent = '—';
+        document.getElementById('det-event-loc').textContent = '—';
+        document.getElementById('det-event-loc-sub').textContent = '';
+        document.getElementById('det-event-audience').textContent = '—';
+        document.getElementById('det-event-before').textContent = '—';
+    }
+
+    // FILTRO DE DATA
+    function validateDateRange() {
+        const startDate = startDateInput.value;
+        const endDate = endDateInput.value;
+
+        startDateInput.setCustomValidity('');
+        endDateInput.setCustomValidity('');
+
+        if (startDate && endDate && endDate < startDate) {
+            endDateInput.setCustomValidity(
+                'A data final não pode ser anterior à data inicial.'
+            );
+
+            endDateInput.reportValidity();
+
+            return false;
+        }
+
+        return true;
+    }
+
+    // LISTAGEM E FILTROS
     async function renderEvents() {
+        if (!validateDateRange()) {
+            return;
+        }
+
         const currentRequest = ++requestNumber;
 
         eventsContainer.replaceChildren();
@@ -305,19 +305,15 @@ document.addEventListener('DOMContentLoaded', () => {
             params.set('search', search);
         }
 
-        const dateRange = parseDateRange(dateInput.value);
+        // Data inicial e final são enviadas independentemente.
+        // A data final é opcional.
 
-        if (dateInput.value.trim() && !dateRange) {
-            showMessage(
-                'Período inválido',
-                'Use o formato: 24 out a 7 nov 2026.'
-            );
-            return;
+        if (startDateInput.value) {
+            params.set('startDate', startDateInput.value);
         }
 
-        if (dateRange) {
-            params.set('startDate', dateRange.startDate);
-            params.set('endDate', dateRange.endDate);
+        if (endDateInput.value) {
+            params.set('endDate', endDateInput.value);
         }
 
         try {
@@ -331,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const events = await response.json();
 
-            // Ignora respostas antigas caso outro filtro tenha sido aplicado.
             if (currentRequest !== requestNumber) {
                 return;
             }
@@ -344,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (events.length === 0) {
                 showMessage(
                     'Nenhuma atividade encontrada',
-                    'Tente alterar os termos da busca ou selecionar outra categoria.'
+                    'Tente alterar os termos da busca ou selecionar outro período ou categoria.'
                 );
 
                 clearDetails();
@@ -377,55 +372,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showMessage(title, description) {
-        eventsContainer.replaceChildren();
 
-        const message = createElement('div');
-        message.style.cssText =
-            'background:white;border:1.5px dashed #cbd5e1;border-radius:12px;padding:2rem;text-align:center;color:#64748b;';
-
-        const heading = createElement(
-            'p',
-            '',
-            title
-        );
-
-        heading.style.cssText =
-            'font-weight:600;margin-bottom:0.5rem;color:#0f172a;';
-
-        const paragraph = createElement(
-            'p',
-            '',
-            description
-        );
-
-        paragraph.style.cssText =
-            'font-size:0.88rem;margin:0;';
-
-        message.appendChild(heading);
-        message.appendChild(paragraph);
-
-        eventsContainer.appendChild(message);
-        eventsCount.textContent = '0 atividades';
-    }
-
-    function clearDetails() {
-        document.getElementById('det-event-badge').textContent = 'Evento';
-        document.getElementById('det-event-title').textContent =
-            'Nenhum evento selecionado';
-        document.getElementById('det-event-desc').textContent =
-            'Selecione uma atividade para visualizar os detalhes.';
-        document.getElementById('det-event-time').textContent = '—';
-        document.getElementById('det-event-loc').textContent = '—';
-        document.getElementById('det-event-loc-sub').textContent = '';
-        document.getElementById('det-event-audience').textContent = '—';
-        document.getElementById('det-event-before').textContent = '—';
-    }
-
-    // =====================================
     // SELETOR DE MUNICÍPIO
-    // =====================================
-
     const muniToggle = document.getElementById('muni-toggle');
     const muniDropdown = document.getElementById('muni-dropdown');
 
@@ -463,10 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // =====================================
     // TROCA DE MUNICÍPIO GLOBAL
-    // =====================================
-
     window.addEventListener('conectaCityChanged', event => {
         if (event.detail && event.detail.cityKey) {
             currentCity = event.detail.cityKey;
@@ -489,10 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // =====================================
     // FILTRO DE CATEGORIA
-    // =====================================
-
     document.querySelectorAll('.category-chip').forEach(chip => {
         chip.addEventListener('click', () => {
             document.querySelectorAll('.category-chip').forEach(item => {
@@ -508,25 +450,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // =====================================
-    // BUSCA E DATA
-    // =====================================
-
+    // BUSCA E DATAS
     searchInput.addEventListener('input', renderEvents);
 
     btnFilter.addEventListener('click', renderEvents);
 
-    // =====================================
-    // VOLTAR À LISTA
-    // =====================================
+    startDateInput.addEventListener('change', () => {
+        endDateInput.min = startDateInput.value;
 
+        startDateInput.setCustomValidity('');
+        endDateInput.setCustomValidity('');
+
+        renderEvents();
+    });
+
+    endDateInput.addEventListener('change', () => {
+        endDateInput.setCustomValidity('');
+        renderEvents();
+    });
+
+
+    // VOLTAR À LISTA
     document.getElementById('btn-subscribe').addEventListener('click', () => {
         eventsContainer.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // =====================================
     // INICIALIZAÇÃO
-    // =====================================
-
     renderEvents();
 });

@@ -31,11 +31,8 @@ public class EventController
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(required = false) String search) {
 
-        if ((startDate == null) != (endDate == null)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (startDate != null && endDate.isBefore(startDate)) {
+        if (startDate != null && endDate != null
+                && endDate.isBefore(startDate)) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -51,7 +48,7 @@ public class EventController
     }
 
     @GetMapping("/details/{id}")
-    public ResponseEntity<Event> findById(@PathVariable String id) 
+    public ResponseEntity<Event> findById(String id) 
     {
         Event event = eventService.findById(id);
 
