@@ -1,18 +1,28 @@
 package br.com.conectacidadao.domain.entities;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.UUID;
 import br.com.conectacidadao.domain.entities.enums.AppointmentType;
 
-@Document(collection = "health_appointments")
+@Entity
+@Table(name = "health_appointments")
 public class HealthAppointment 
 {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String municipality;
     private String status;
     private String susCard;
+    @Enumerated(EnumType.STRING)
     private AppointmentType type;
     private String professional;
     private String dateTime;
@@ -25,7 +35,7 @@ public class HealthAppointment
 
     }
 
-    public String getId() 
+    public UUID getId() 
     {
         return id;
     }

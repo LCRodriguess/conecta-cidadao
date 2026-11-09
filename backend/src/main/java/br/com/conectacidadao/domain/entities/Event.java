@@ -1,23 +1,35 @@
 package br.com.conectacidadao.domain.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.UUID;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import br.com.conectacidadao.domain.entities.enums.EventCategory;
 
-@Document(collection = "events")
+@Entity
+@Table(name = "events")
 public class Event 
 {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String municipality;
+    @Enumerated(EnumType.STRING)
     private EventCategory category;
 
     private String title;
     private String descShort;
     private String descFull;
 
+    @Column(name = "event_date")
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -26,6 +38,7 @@ public class Event
     private String locationFull;
 
     private String audience;
+    @Column(name = "before_text")
     private String before;
 
     public Event() 
@@ -33,12 +46,12 @@ public class Event
 
     }
 
-    public String getId() 
+    public UUID getId() 
     {
         return id;
     }
 
-    public void setId(String id) 
+    public void setId(UUID id) 
     {
         this.id = id;
     }

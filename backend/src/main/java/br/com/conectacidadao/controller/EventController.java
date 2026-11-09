@@ -1,4 +1,6 @@
 package br.com.conectacidadao.controller;
+
+import java.util.UUID;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,7 +13,7 @@ import br.com.conectacidadao.domain.entities.enums.EventCategory;
 
 @RestController
 @RequestMapping("/api/events")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "*")
 public class EventController 
 {
     private final EventService eventService;
@@ -48,7 +50,7 @@ public class EventController
     }
 
     @GetMapping("/details/{id}")
-    public ResponseEntity<Event> findById(String id) 
+    public ResponseEntity<Event> findById(@PathVariable UUID id) 
     {
         Event event = eventService.findById(id);
 
@@ -78,7 +80,7 @@ public class EventController
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) 
+    public ResponseEntity<Void> delete(@PathVariable UUID id) 
     {
         eventService.delete(id);
         return ResponseEntity.noContent().build();

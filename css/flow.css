@@ -1,0 +1,447 @@
+/* ==========================================================================
+   FLOW LAYER - camada visual compartilhada por todas as páginas
+   Carregada DEPOIS do CSS de cada página para unificar o visual:
+   cabeçalhos, cartões, respiro e microinterações consistentes.
+   ========================================================================== */
+
+/* ---------- Estrutura de página ---------- */
+
+.page-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 0 24px;
+}
+
+/* Breadcrumb discreto: orienta sem competir com o título */
+.breadcrumb {
+    font-size: 12.5px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    gap: 8px;
+}
+
+.breadcrumb a {
+    color: #94a3b8;
+    font-weight: 600;
+    transition: color 0.15s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--azul-primario);
+    text-decoration: none;
+}
+
+.breadcrumb .current {
+    color: var(--cor-texto-mutado);
+}
+
+.page-header {
+    margin-bottom: 28px;
+    align-items: flex-end;
+}
+
+.header-titles .page-title,
+.page-title {
+    font-size: clamp(26px, 3.4vw, 34px);
+    font-weight: 800;
+    color: var(--cor-titulo);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+.header-titles .page-subtitle,
+.page-subtitle {
+    font-size: 15.5px;
+    color: var(--cor-texto-mutado);
+    margin-top: 6px;
+    max-width: 56ch;
+}
+
+/* Seletor de município vira um "chip" limpo */
+.header-municipality,
+.municipality-selector {
+    background: var(--cor-card);
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-pill);
+    padding: 8px 18px 8px 12px;
+    box-shadow: var(--sombra-sm);
+    align-items: center !important;
+    text-align: left !important;
+    transition: box-shadow 0.25s var(--ease-flow), transform 0.25s var(--ease-flow);
+}
+
+.header-municipality:hover,
+.municipality-selector:hover {
+    box-shadow: var(--sombra-md);
+}
+
+.header-municipality .municipality-info,
+.municipality-selector .municipality-info {
+    align-items: flex-start !important;
+}
+
+.municipality-icon {
+    margin-top: 0 !important;
+}
+
+/* A linha "Também disponível..." é ruído: aparece apenas ao trocar */
+.muni-alt,
+.municipality-alt {
+    display: none !important;
+}
+
+/* ---------- Cartões: uma linguagem só ---------- */
+
+.profile-card,
+.setting-card,
+.search-filter-card,
+.event-card,
+.event-details-card,
+.event-guidance-card,
+.health-section-card,
+.units-sidebar-card,
+.tax-search-card,
+.invoice-card,
+.info-sidebar-card,
+.form-section-card,
+.guideline-card,
+.sidebar-nav-card,
+.sidebar-tip-card,
+.privacy-card,
+.protocol-card,
+.protocol-details-card,
+.job-card,
+.job-details-card,
+.dash-card,
+.debt-card,
+.appointment-card,
+.request-status-card,
+.banner-carousel-section,
+.news-card {
+    border: 1px solid var(--borda-suave);
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.4s var(--ease-flow), box-shadow 0.4s var(--ease-flow), border-color 0.25s ease;
+}
+
+/* Cartões clicáveis "levantam" ao passar o mouse */
+.event-card:hover,
+.invoice-card:hover,
+.protocol-card:hover,
+.job-card:hover,
+.debt-card:hover,
+.news-card:hover,
+.mini-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-md);
+    border-color: #d3def5;
+}
+
+/* Cartões de detalhe/formulário não se movem */
+.event-details-card,
+.job-details-card,
+.protocol-details-card,
+.form-section-card,
+.profile-card,
+.dash-card,
+.banner-carousel-section {
+    transform: none;
+}
+
+/* ---------- Botões e campos: foco e movimento consistentes ---------- */
+
+button,
+a.btn,
+[class*="btn-"] {
+    transition: transform 0.2s var(--ease-flow), box-shadow 0.25s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+button:active:not(:disabled),
+[class*="btn-"]:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--azul-primario) !important;
+    box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.12);
+}
+
+/* ==========================================================================
+   PÁGINA INICIAL - "Faça o que precisa" em primeiro lugar, notícias depois
+   ========================================================================== */
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 0 0 16px;
+    max-width: 1240px;
+}
+
+.home-header {
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.banner-carousel-section {
+    margin-bottom: 0;
+}
+
+.header-title {
+    font-size: clamp(28px, 4vw, 38px);
+    letter-spacing: -0.035em;
+}
+
+.header-subtitle {
+    font-size: 16px;
+}
+
+/* Painel: respiro maior e hierarquia clara */
+.main-dashboard-grid {
+    gap: 24px;
+    grid-template-columns: 330px 1fr 350px;
+}
+
+.dash-card {
+    padding: 24px 22px;
+}
+
+.card-title,
+.block-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.block-badge-count {
+    background: var(--azul-ativo-bg);
+    color: var(--azul-primario);
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: var(--raio-pill);
+    font-size: 11.5px;
+}
+
+.dash-col {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* A acessibilidade rápida desce e fica discreta (já existe no menu Serviços) */
+.need-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.accessibility-box {
+    order: 10;
+    margin: 6px 0 0;
+    padding-top: 16px;
+    border-top: 1px dashed var(--borda-suave);
+}
+
+.access-header {
+    display: none;
+}
+
+.btn-access {
+    border-radius: var(--raio-pill);
+    background: transparent;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+}
+
+.action-card.primary-action {
+    border-radius: 18px;
+    padding: 18px 16px;
+}
+
+.action-card .action-card-arrow {
+    transition: transform 0.3s var(--ease-flow);
+}
+
+.action-card:hover .action-card-arrow {
+    transform: translateX(4px);
+}
+
+.carousel-live-badge {
+    background: transparent;
+}
+
+/* Cartões de notícia: menos peso visual */
+.news-card {
+    border-radius: 18px;
+}
+
+/* ==========================================================================
+   RESPONSIVO
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+    .main-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 860px) {
+    .page-header {
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+    .header-municipality,
+    .municipality-selector {
+        align-self: flex-start;
+    }
+
+    .home-container {
+        gap: 22px;
+    }
+
+    .main-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-card {
+        padding: 20px 18px;
+    }
+}
+
+
+/* ==========================================================================
+   ESCALA TIPOGRÁFICA ÚNICA
+   Título de página 28 · título de cartão 18 · subtítulo 15 · corpo 14
+   Peso: 700 só em títulos; destaques inline 600; texto corrido 400/500.
+   ========================================================================== */
+
+.header-titles .page-title,
+.page-title,
+.header-title {
+    font-size: clamp(24px, 3vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-titles .page-subtitle,
+.page-subtitle,
+.header-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Títulos de cartão / painel de detalhes */
+.details-title,
+.details-service-title,
+#appointment-form h2,
+.card-title,
+.block-title,
+.section-card-title,
+.section-column-title,
+.form-section-title,
+.results-count,
+.carousel-title,
+.pix-modal-title,
+.privacy-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+}
+
+/* Subtítulos de seção dentro de cartões */
+.timeline-heading,
+.instructions-title,
+h3 {
+    font-weight: 600;
+}
+
+/* Números de destaque: grandes, mas sem exagero */
+.debt-value,
+.amount-val,
+.summary-price,
+.modal-amount-value,
+.samu-number,
+.date-day {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Texto corrido: nada de negrito pesado em <strong> dentro de parágrafos/descrições */
+p strong,
+.news-card-desc strong,
+.dropdown-row-desc strong,
+li strong {
+    font-weight: 600;
+}
+
+/* Mensagens de estado vazio */
+[class*="empty"],
+[class*="empty"] p {
+    font-weight: 500;
+}
+
+body.alto-contraste h1,
+body.alto-contraste h2,
+body.alto-contraste h3 {
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   AJUSTES DA VALIDAÇÃO VISUAL
+   ========================================================================== */
+
+/* Respiro lateral (as regras acima zeravam o padding horizontal do <main>) */
+.page-container,
+.home-container {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* Rodapé acompanha o conteúdo, sem ficar "colado" no fim da janela */
+main {
+    flex: 0 0 auto;
+}
+
+app-footer {
+    margin-top: 40px;
+}
+
+/* Painel inicial: colunas alinhadas pelo topo */
+.dash-col {
+    gap: 0;
+}
+
+.block-header {
+    margin-bottom: 14px;
+    min-height: 32px;
+}
+
+.dash-block {
+    margin-bottom: 28px;
+}
+
+.dash-col-right .request-status-card,
+.dash-col-center .debt-card,
+.dash-col-center .appointment-card {
+    margin-top: 0;
+}
+
+.debt-card + .debt-card {
+    margin-top: 14px;
+}
+
+.request-status-card .request-action-link {
+    margin-top: 16px;
+}
+
+@media (max-width: 860px) {
+    .page-container,
+    .home-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

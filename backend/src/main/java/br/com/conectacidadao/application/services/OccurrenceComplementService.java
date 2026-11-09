@@ -1,8 +1,9 @@
-package br.com.conectacidadao.services;
+package br.com.conectacidadao.application.services;
+
 import br.com.conectacidadao.domain.entities.Occurrence;
 import br.com.conectacidadao.domain.entities.OccurrenceComplement;
-import br.com.conectacidadao.repositories.OccurrenceComplementRepository;
-import br.com.conectacidadao.repositories.OccurrenceRepository;
+import br.com.conectacidadao.domain.repositories.OccurrenceComplementRepository;
+import br.com.conectacidadao.domain.repositories.OccurrenceRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,8 +36,6 @@ public class OccurrenceComplementService
         }
 
         OccurrenceComplement complement = new OccurrenceComplement();
-
-        complement.setId(UUID.randomUUID());
         complement.setOccurrenceId(occurrence.getId());
         complement.setDescription(description);
         complement.setCreatedAt(LocalDateTime.now());

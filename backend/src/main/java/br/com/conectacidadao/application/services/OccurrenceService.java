@@ -1,7 +1,8 @@
-package br.com.conectacidadao.services;
+package br.com.conectacidadao.application.services;
+
 import br.com.conectacidadao.domain.entities.Occurrence;
 import br.com.conectacidadao.domain.entities.enums.OccurrenceStatus;
-import br.com.conectacidadao.repositories.OccurrenceRepository;
+import br.com.conectacidadao.domain.repositories.OccurrenceRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,9 +21,18 @@ public class OccurrenceService
     // Cadastrar ocorrência
     public Occurrence create(Occurrence occurrence) 
     {
-        occurrence.setId(UUID.randomUUID());
         occurrence.setStatus(OccurrenceStatus.Recebido);
         occurrence.setCreatedAt(LocalDateTime.now());
+
+        if (occurrence.getProtocol() == null || occurrence.getProtocol().isBlank()) {
+            long nextNumber = occurrenceRepository.count() + 1;
+            String protocol = String.format(
+                    "SIM-%d-%04d",
+                    occurrence.getCreatedAt().getYear(),
+                    nextNumber
+            );
+            occurrence.setProtocol(protocol);
+        }
 
         return occurrenceRepository.save(occurrence);
     }

@@ -1,4 +1,6 @@
 package br.com.conectacidadao.application.services;
+
+import java.util.UUID;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +73,7 @@ public class EventService
                 && value.toLowerCase(Locale.ROOT).contains(term);
     }
 
-    public Event findById(String id) 
+    public Event findById(UUID id) 
     {
         return eventRepository.findById(id).orElse(null);
     }
@@ -82,7 +84,7 @@ public class EventService
         return eventRepository.save(event);
     }
 
-    public void delete(String id) 
+    public void delete(UUID id) 
     {
         eventRepository.deleteById(id);
     }

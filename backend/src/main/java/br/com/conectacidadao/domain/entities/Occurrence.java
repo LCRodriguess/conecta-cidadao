@@ -1,27 +1,40 @@
 package br.com.conectacidadao.domain.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import br.com.conectacidadao.domain.entities.enums.OccurrenceCategory;
 import br.com.conectacidadao.domain.entities.enums.OccurrenceStatus;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Document(collection = "occurrences")
+@Entity
+@Table(name = "occurrences")
 public class Occurrence 
 {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String protocol;
     private String title;
     private String description;
 
+    @Enumerated(EnumType.STRING)
+
     private OccurrenceCategory category;
+    @Enumerated(EnumType.STRING)
     private OccurrenceStatus status;
 
     private String municipality;
     private String street;
+    @Column(name = "street_number")
     private String number;
     private String neighborhood;
     private String referencePoint;

@@ -1,4 +1,6 @@
 package br.com.conectacidadao.controller;
+
+import java.util.UUID;
 import br.com.conectacidadao.application.HealthUnitService;
 import br.com.conectacidadao.domain.entities.HealthUnit;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/health/units")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "*")
 public class HealthUnitController {
 
     private final HealthUnitService healthUnitService;
@@ -36,7 +38,7 @@ public class HealthUnitController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
 
         healthUnitService.delete(id);
 

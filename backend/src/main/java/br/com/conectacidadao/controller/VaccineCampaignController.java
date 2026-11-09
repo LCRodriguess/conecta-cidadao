@@ -1,4 +1,6 @@
 package br.com.conectacidadao.controller;
+
+import java.util.UUID;
 import br.com.conectacidadao.application.services.VaccineCampaignService;
 import br.com.conectacidadao.domain.entities.VaccineCampaign;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/health/campaigns")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "*")
 public class VaccineCampaignController {
 
     private final VaccineCampaignService vaccineCampaignService;
@@ -34,7 +36,7 @@ public class VaccineCampaignController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         vaccineCampaignService.delete(id);
         return ResponseEntity.noContent().build();
     }

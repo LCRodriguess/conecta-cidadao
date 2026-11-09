@@ -1,29 +1,31 @@
 package br.com.conectacidadao.controller;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
+import java.util.Map;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 public class TesteBancoController {
 
-    private final MongoTemplate mongoTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    public TesteBancoController(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
+    public TesteBancoController(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @GetMapping("/api/teste/banco")
     public Map<String, Object> testarBanco() {
 
-        String nomeBanco = mongoTemplate.getDb().getName();
+        String nomeBanco = jdbcTemplate.queryForObject("select current_database()", String.class);
+        String versao = jdbcTemplate.queryForObject("show server_version", String.class);
 
         return Map.of(
             "status", "ok",
-            "mensagem", "Backend conectado ao MongoDB!",
-            "banco", nomeBanco
+            "mensagem", "Backend conectado ao Supabase (PostgreSQL)!",
+            "banco", nomeBanco,
+            "versao", versao
         );
     }
 }

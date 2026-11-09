@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Único Cidadão - Conecta Cidadão</title>
+  <link rel="stylesheet" href="../css/registerPage.css">
+  <link rel="stylesheet" href="../css/flow.css">
+  <script src="../js/cityManager.js" defer></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</head>
+
+<body>
+  <app-navbar></app-navbar>
+
+  <main class="register-page-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <a href="loginPage.html">Login</a>
+      <span>/</span>
+      <span class="current">Cadastro Único Cidadão</span>
+    </div>
+
+    <div class="register-layout">
+      <!-- ====================================================================
+           COLUNA ESQUERDA: FORMULÁRIO DE CADASTRO CIDADÃO (NYC.gov + Unimed)
+           ==================================================================== -->
+      <section class="register-form-card" aria-label="Formulário de Cadastro Cidadão">
+        <div class="register-card-top">
+          <div class="register-badges">
+            <span class="badge-pill-royal">Cadastro Municipal Unificado</span>
+            <span class="badge-pill-care">100% Gratuito · Protegido pela LGPD</span>
+          </div>
+          <h1>Crie sua Conta Cidadã</h1>
+          <p>
+            Com um único cadastro, você registra ocorrências na sua rua, acompanha protocolos em tempo real, agenda consultas pelo SUS e emite 2ª via de IPTU/ISS com Pix.
+          </p>
+        </div>
+
+        <!-- Barra de Simulação de Consumo de Dados Reais (Preenchimento Rápido) -->
+        <div class="real-person-generator-bar">
+          <div class="generator-info">
+            <span class="generator-tag">⚡ SIMULADOR DE DADOS REAIS (RECEITA / CADSUS)</span>
+            <strong>Quer testar um novo cadastro rapidamente?</strong>
+            <span>Gere dados realistas de moradores de Rio das Ostras ou Sapucaia do Sul com 1 clique:</span>
+          </div>
+          <div class="generator-buttons">
+            <button type="button" class="btn-gen-person" data-city="rio-das-ostras">
+              + Gerar Morador (Rio das Ostras · RJ)
+            </button>
+            <button type="button" class="btn-gen-person" data-city="sapucaia">
+              + Gerar Morador (Sapucaia do Sul · RS)
+            </button>
+          </div>
+        </div>
+
+        <!-- Alerta de Feedback -->
+        <div class="reg-feedback-banner" id="reg-feedback" hidden>
+          <span class="reg-dot"></span>
+          <span id="reg-feedback-text">Validando CPF e gerando Matrícula Cidadã...</span>
+        </div>
+
+        <form id="register-form" class="civic-register-form" novalidate>
+          <!-- PASSO 1: IDENTIFICAÇÃO PESSOAL -->
+          <fieldset class="reg-fieldset">
+            <legend>
+              <span class="step-num">1</span>
+              Dados Pessoais do Cidadão
+            </legend>
+
+            <div class="reg-grid-2">
+              <div class="reg-field">
+                <label for="reg-name">Nome Completo *</label>
+                <input type="text" id="reg-name" placeholder="Ex: Fernanda Oliveira Santos" required>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-cpf">CPF *</label>
+                <input type="text" id="reg-cpf" placeholder="000.000.000-00" maxlength="14" required>
+              </div>
+            </div>
+
+            <div class="reg-grid-3">
+              <div class="reg-field">
+                <label for="reg-birth">Data de Nascimento *</label>
+                <input type="date" id="reg-birth" value="1991-06-18" required>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-phone">Celular / WhatsApp *</label>
+                <input type="tel" id="reg-phone" placeholder="(22) 99812-3456" required>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-sus">Cartão Nacional SUS (Opcional)</label>
+                <input type="text" id="reg-sus" placeholder="898 0000 0000 0000" maxlength="18">
+              </div>
+            </div>
+
+            <div class="reg-field">
+              <label for="reg-email">E-mail para Notificações e Protocolos *</label>
+              <input type="email" id="reg-email" placeholder="seu.nome@email.com.br" required>
+            </div>
+          </fieldset>
+
+          <!-- PASSO 2: MUNICÍPIO E ENDEREÇO RESIDENCIAL -->
+          <fieldset class="reg-fieldset">
+            <legend>
+              <span class="step-num">2</span>
+              Município e Endereço Residencial
+            </legend>
+
+            <div class="reg-grid-2">
+              <div class="reg-field">
+                <label for="reg-city">Seu Município *</label>
+                <select id="reg-city" required>
+                  <option value="rio-das-ostras">Rio das Ostras · RJ (Região dos Lagos)</option>
+                  <option value="sapucaia">Sapucaia do Sul · RS (Região Metropolitana)</option>
+                </select>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-cep">CEP Residencial *</label>
+                <div class="cep-inline-group">
+                  <input type="text" id="reg-cep" placeholder="28895-240" maxlength="9" required>
+                  <button type="button" class="btn-lookup-cep" id="btn-lookup-cep">Buscar CEP</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="reg-grid-3">
+              <div class="reg-field">
+                <label for="reg-neighborhood">Bairro *</label>
+                <select id="reg-neighborhood" required>
+                  <!-- Preenchido dinamicamente pelo município -->
+                </select>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-street">Logradouro (Rua / Avenida) *</label>
+                <input type="text" id="reg-street" placeholder="Ex: Rua das Gaivotas" required>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-number">Número e Complemento *</label>
+                <input type="text" id="reg-number" placeholder="Ex: 240 · Casa 1" required>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- PASSO 3: SEGURANÇA E CONSENTIMENTO LGPD -->
+          <fieldset class="reg-fieldset">
+            <legend>
+              <span class="step-num">3</span>
+              Segurança de Acesso e Privacidade
+            </legend>
+
+            <div class="reg-grid-2">
+              <div class="reg-field">
+                <label for="reg-password">Crie uma Senha Segura *</label>
+                <input type="password" id="reg-password" value="Cidadao@2026" placeholder="Mínimo de 8 caracteres" required>
+              </div>
+
+              <div class="reg-field">
+                <label for="reg-password-confirm">Confirme sua Senha *</label>
+                <input type="password" id="reg-password-confirm" value="Cidadao@2026" placeholder="Repita a senha" required>
+              </div>
+            </div>
+
+            <div class="lgpd-consent-box">
+              <label class="consent-check">
+                <input type="checkbox" id="reg-lgpd" checked required>
+                <span>
+                  Autorizo o uso dos meus dados cadastrais exclusivamente para vinculação de protocolos de zeladoria, agendamentos do SUS e consulta de tributos municipais, em conformidade com a <strong>LGPD (Lei Federal nº 13.709/2018)</strong>.
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="register-submit-row">
+            <a href="loginPage.html" class="btn-pill-back-login">← Já tenho conta (Fazer Login)</a>
+            <button type="submit" class="btn-pill-submit-register">
+              <span>Concluir Cadastro e Acessar Portal</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ====================================================================
+           COLUNA DIREITA: BENEFÍCIOS & COMUNICAÇÃO VISUAL (UNIMED + NYC.gov)
+           ==================================================================== -->
+      <aside class="register-sidebar">
+        <div class="sidebar-care-card">
+          <span class="care-kicker">POR QUE SE CADASTRAR?</span>
+          <h2>Uma cidade mais humana e conectada com você</h2>
+          <ul class="care-benefits-list">
+            <li>
+              <span class="benefit-check">✓</span>
+              <div>
+                <strong>Abertura de Ocorrências (156/311) em 1 minuto</strong>
+                <p>Seu endereço já vem preenchido para relatar buracos, iluminação ou limpeza.</p>
+              </div>
+            </li>
+            <li>
+              <span class="benefit-check">✓</span>
+              <div>
+                <strong>Integração Direta com o Cartão SUS</strong>
+                <p>Consulte agendamentos nas UBS, exames e campanhas de vacinação da sua família.</p>
+              </div>
+            </li>
+            <li>
+              <span class="benefit-check">✓</span>
+              <div>
+                <strong>Guias de IPTU e ISS sem Filas</strong>
+                <p>Emita segunda via em PDF ou pague instantaneamente com QR Code Pix oficial.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-preview-card">
+          <span class="preview-tag">PRÉVIA DO CARTÃO CIDADÃO DIGITAL</span>
+          <div class="digital-id-preview">
+            <div class="id-preview-top">
+              <strong id="preview-name">Novo Cidadão Municipal</strong>
+              <span class="id-gold-badge">Ouro</span>
+            </div>
+            <div class="id-preview-row">
+              <span>CPF: <strong id="preview-cpf">000.000.000-00</strong></span>
+              <span>SUS: <strong id="preview-sus">898 0019 4820 1192</strong></span>
+            </div>
+            <div class="id-preview-footer" id="preview-city">
+              Rio das Ostras · RJ — Cadastro Ativo
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <app-footer></app-footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const citySelect = document.getElementById('reg-city');
+      const neighborhoodSelect = document.getElementById('reg-neighborhood');
+      const nameInput = document.getElementById('reg-name');
+      const cpfInput = document.getElementById('reg-cpf');
+      const phoneInput = document.getElementById('reg-phone');
+      const susInput = document.getElementById('reg-sus');
+      const emailInput = document.getElementById('reg-email');
+      const cepInput = document.getElementById('reg-cep');
+      const streetInput = document.getElementById('reg-street');
+      const numberInput = document.getElementById('reg-number');
+      const btnLookupCep = document.getElementById('btn-lookup-cep');
+      const form = document.getElementById('register-form');
+      const feedbackBanner = document.getElementById('reg-feedback');
+      const feedbackText = document.getElementById('reg-feedback-text');
+
+      // Perfis realistas para o gerador de 1 clique
+      const SAMPLE_REAL_PEOPLE = {
+        'rio-das-ostras': [
+          {
+            name: 'Fernanda Oliveira Cavalcanti',
+            cpf: '128.450.917-62',
+            birth: '1991-03-14',
+            phone: '(22) 99841-6023',
+            sus: '898 0031 7492 8104',
+            email: 'fernanda.cavalcanti@email.com.br',
+            cep: '28893-120',
+            neighborhood: 'Jardim Mariléa',
+            street: 'Rua Niterói',
+            number: '310 · Casa 1'
+          },
+          {
+            name: 'Gabriel Mendonça Peixoto',
+            cpf: '095.672.347-09',
+            birth: '1986-09-28',
+            phone: '(22) 99715-8840',
+            sus: '898 0052 9910 3471',
+            email: 'gabriel.peixoto@lagosmail.com.br',
+            cep: '28895-240',
+            neighborhood: 'Costa Azul',
+            street: 'Av. Governador Roberto Silveira',
+            number: '820 · Apto 301'
+          }
+        ],
+        'sapucaia': [
+          {
+            name: 'Luciana Dorneles Bittencourt',
+            cpf: '042.881.390-51',
+            birth: '1989-12-05',
+            phone: '(51) 99612-4490',
+            sus: '898 0064 1182 9045',
+            email: 'luciana.bittencourt@email.com.br',
+            cep: '93214-100',
+            neighborhood: 'Lomba da Palmeira',
+            street: 'Av. Mauá',
+            number: '1120 · Bloco A'
+          },
+          {
+            name: 'Matheus Krüger Machado',
+            cpf: '029.514.770-33',
+            birth: '1995-07-19',
+            phone: '(51) 99804-7122',
+            sus: '898 0081 5520 6732',
+            email: 'matheus.machado@sulmail.com.br',
+            cep: '93220-050',
+            neighborhood: 'Bairro Vargas',
+            street: 'Av. Cel. Theodomiro Porto da Fonseca',
+            number: '540'
+          }
+        ]
+      };
+
+      let sampleCounter = 0;
+
+      function populateBairros(cityKey, selectedBairro) {
+        if (!neighborhoodSelect || typeof MUNICIPALITIES === 'undefined') return;
+        const city = MUNICIPALITIES[cityKey] || MUNICIPALITIES['rio-das-ostras'];
+        neighborhoodSelect.innerHTML = city.bairros.map(b =>
+          `<option value="${b}" ${b === selectedBairro ? 'selected' : ''}>${b}</option>`
+        ).join('');
+        updatePreview();
+      }
+
+      const initialCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+      if (citySelect) citySelect.value = initialCity;
+      populateBairros(initialCity);
+
+      if (citySelect) {
+        citySelect.addEventListener('change', () => {
+          populateBairros(citySelect.value);
+        });
+      }
+
+      function updatePreview() {
+        const pName = document.getElementById('preview-name');
+        const pCpf = document.getElementById('preview-cpf');
+        const pSus = document.getElementById('preview-sus');
+        const pCity = document.getElementById('preview-city');
+
+        if (pName) pName.textContent = nameInput?.value.trim() || 'Novo Cidadão Municipal';
+        if (pCpf) pCpf.textContent = cpfInput?.value.trim() || '000.000.000-00';
+        if (pSus) pSus.textContent = susInput?.value.trim() || '898 0019 4820 1192';
+        if (pCity) {
+          const cLabel = citySelect?.value === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ';
+          const bLabel = neighborhoodSelect?.value || 'Centro';
+          pCity.textContent = `${cLabel} (${bLabel}) — Cadastro Ativo`;
+        }
+      }
+
+      [nameInput, cpfInput, susInput, neighborhoodSelect].forEach(el => {
+        if (el) el.addEventListener('input', updatePreview);
+      });
+
+      if (cpfInput) {
+        cpfInput.addEventListener('input', () => {
+          cpfInput.value = formatCpfMask(cpfInput.value);
+          updatePreview();
+        });
+      }
+
+      // Botões geradores de pessoas reais simuladas
+      document.querySelectorAll('.btn-gen-person').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetCity = btn.dataset.city || 'rio-das-ostras';
+          const list = SAMPLE_REAL_PEOPLE[targetCity] || SAMPLE_REAL_PEOPLE['rio-das-ostras'];
+          const person = list[sampleCounter % list.length];
+          sampleCounter++;
+
+          if (citySelect) citySelect.value = targetCity;
+          populateBairros(targetCity, person.neighborhood);
+
+          if (nameInput) nameInput.value = person.name;
+          if (cpfInput) cpfInput.value = person.cpf;
+          const birthEl = document.getElementById('reg-birth');
+          if (birthEl) birthEl.value = person.birth;
+          if (phoneInput) phoneInput.value = person.phone;
+          if (susInput) susInput.value = person.sus;
+          if (emailInput) emailInput.value = person.email;
+          if (cepInput) cepInput.value = person.cep;
+          if (streetInput) streetInput.value = person.street;
+          if (numberInput) numberInput.value = person.number;
+
+          updatePreview();
+
+          if (feedbackBanner && feedbackText) {
+            feedbackBanner.removeAttribute('hidden');
+            feedbackText.textContent = `Dados reais simulados carregados para ${person.name} (${targetCity === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ'}). Clique em "Concluir Cadastro" abaixo!`;
+          }
+        });
+      });
+
+      // Simulador de Busca de CEP
+      if (btnLookupCep) {
+        btnLookupCep.addEventListener('click', () => {
+          const isSapucaia = citySelect?.value === 'sapucaia';
+          if (isSapucaia) {
+            if (!cepInput.value) cepInput.value = '93210-240';
+            streetInput.value = 'Av. Sapucaia';
+            populateBairros('sapucaia', 'Centro');
+          } else {
+            if (!cepInput.value) cepInput.value = '28895-240';
+            streetInput.value = 'Rua das Gaivotas';
+            populateBairros('rio-das-ostras', 'Costa Azul');
+          }
+          updatePreview();
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameVal = nameInput?.value.trim();
+          const cpfVal = cpfInput?.value.trim();
+          const emailVal = emailInput?.value.trim();
+
+          if (!nameVal || !cpfVal || !emailVal) {
+            if (feedbackBanner && feedbackText) {
+              feedbackBanner.removeAttribute('hidden');
+              feedbackText.textContent = 'Preencha Nome, CPF e E-mail ou use um dos botões "+ Gerar Morador" acima para preencher automaticamente.';
+            }
+            return;
+          }
+
+          const newCit = registerNewCitizenSync({
+            name: nameVal,
+            cpf: cpfVal,
+            birthDate: document.getElementById('reg-birth')?.value,
+            phone: phoneInput?.value.trim(),
+            susCard: susInput?.value.trim(),
+            email: emailVal,
+            cityKey: citySelect?.value || 'rio-das-ostras',
+            cep: cepInput?.value.trim(),
+            neighborhood: neighborhoodSelect?.value,
+            street: streetInput?.value.trim(),
+            number: numberInput?.value.trim()
+          });
+
+          if (feedbackBanner && feedbackText) {
+            feedbackBanner.removeAttribute('hidden');
+            feedbackText.textContent = `Cadastro concluído com sucesso! Matrícula ${newCit.enrollment} gerada para ${newCit.name}. Redirecionando ao portal...`;
+          }
+
+          setTimeout(() => {
+            window.location.href = 'mainPage.html';
+          }, 600);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
+

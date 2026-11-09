@@ -1,11 +1,13 @@
 package br.com.conectacidadao.domain.repositories;
+
+import java.util.UUID;
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.conectacidadao.domain.entities.Event;
 import br.com.conectacidadao.domain.entities.enums.EventCategory;
 
-public interface EventRepository extends MongoRepository<Event, String> 
+public interface EventRepository extends JpaRepository<Event, UUID> 
 {
     List<Event> findByMunicipalityOrderByDateAscStartTimeAsc(
             String municipality

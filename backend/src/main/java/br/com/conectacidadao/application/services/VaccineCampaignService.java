@@ -1,4 +1,6 @@
 package br.com.conectacidadao.application.services;
+
+import java.util.UUID;
 import br.com.conectacidadao.domain.entities.VaccineCampaign;
 import br.com.conectacidadao.domain.repositories.VaccineCampaignRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class VaccineCampaignService
         return vaccineCampaignRepository.save(campaign);
     }
 
-    public void delete(String id) 
+    public void delete(UUID id) 
     {
         vaccineCampaignRepository.deleteById(id);
     }
