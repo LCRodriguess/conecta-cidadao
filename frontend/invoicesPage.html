@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tributos e IPTU - Conecta Cidadão</title>
   <link rel="stylesheet" href="../css/invoicesPage.css">
+  <link rel="stylesheet" href="../css/flow.css">
   <script src="../js/cityManager.js"></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
@@ -163,8 +164,13 @@
           </div>
 
           <div class="invoice-actions-row">
-            <button type="button" class="btn-emit-dam" onclick="alert('DAM antecipado emitido com sucesso.')">
-              Emitir DAM
+            <button type="button" class="btn-emit-dam" id="btn-emit-dam-future">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Emitir DAM (PDF)</span>
             </button>
           </div>
         </article>
@@ -199,8 +205,13 @@
             <button type="button" class="btn-pay-pix" id="btn-open-pix-service">
               <span>Pagar com Pix</span>
             </button>
-            <button type="button" class="btn-emit-dam" onclick="alert('DAM do tributo emitido com sucesso.')">
-              Emitir DAM
+            <button type="button" class="btn-emit-dam" id="btn-emit-dam-service">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Emitir DAM (PDF)</span>
             </button>
           </div>
         </article>
@@ -218,13 +229,13 @@
           </div>
           <h3 class="cert-title">Situação Fiscal Regular</h3>
           <p class="cert-desc" id="tax-cnd-desc">O imóvel está em dia com os tributos anteriores. Mantenha os pagamentos para emitir certidões automaticamente.</p>
-          <button type="button" class="btn-emit-cnd" onclick="alert('Certidão Negativa de Débitos (CND) emitida com autenticidade eletrônica.')">
-            Emitir Certidão (CND)
+          <button type="button" class="btn-emit-cnd" id="btn-emit-cnd-official">
+            🖨️ Emitir e Imprimir Certidão (CND)
           </button>
         </div>
 
         <div class="info-sidebar-card">
-          <h3 class="cert-title">Parcelas Já Quitadas</h3>
+          <h3 class="cert-title">Parcelas Já Quitadas (Recibos)</h3>
           <ul class="paid-installments-list" id="tax-paid-list">
             <li class="paid-item">
               <div class="paid-dot">✓</div>
@@ -389,8 +400,10 @@
     };
 
     let activeTaxCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+    let currentPixContext = { desc: 'IPTU 2026 — Parcela 04/10', val: '142,50' };
 
     function openPixModal(desc, val, customPixCode) {
+      currentPixContext = { desc, val };
       document.getElementById('pix-modal-desc').textContent = desc;
       document.getElementById('pix-modal-val').textContent = `R$ ${val}`;
       const codeInput = document.getElementById('pix-copia-cola');
@@ -403,9 +416,55 @@
       document.getElementById('pix-modal').style.display = 'flex';
     }
 
+    function getActiveTaxProfile(cityKey) {
+      const k = cityKey || ((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
+      const base = TAX_DATA_BY_CITY[k] || TAX_DATA_BY_CITY['rio-das-ostras'];
+      const citizen = (typeof getActiveCitizen === 'function') ? getActiveCitizen() : null;
+
+      if (!citizen || citizen.cityKey !== k) return base;
+
+      const primaryBill = citizen.bills?.[0] || {};
+      const secondaryBill = citizen.bills?.[1] || {};
+      const docNum = primaryBill.docNumber || base.docValue;
+      const propAddr = primaryBill.property || `${citizen.street}, ${citizen.number} — ${citizen.neighborhood}`;
+
+      return {
+        ...base,
+        docValue: docNum,
+        propertyHint: `Contribuinte: ${citizen.name} (CPF ${citizen.cpf}) · Imóvel: ${propAddr} (Inscrição: ${docNum})`,
+        currentInstallment: {
+          ...base.currentInstallment,
+          title: primaryBill.title || base.currentInstallment.title,
+          inscription: `Inscrição: ${docNum} · Titular: ${citizen.name}`,
+          amount: primaryBill.val || base.currentInstallment.amount,
+          rawAmount: primaryBill.rawVal || base.currentInstallment.rawAmount,
+          due: primaryBill.due || base.currentInstallment.due,
+          docNumber: docNum,
+          property: propAddr
+        },
+        futureInstallment: {
+          ...base.futureInstallment,
+          inscription: `Inscrição: ${docNum} · Titular: ${citizen.name}`,
+          amount: primaryBill.val || base.futureInstallment.amount,
+          docNumber: docNum,
+          property: propAddr
+        },
+        serviceTax: {
+          ...base.serviceTax,
+          title: secondaryBill.title || base.serviceTax.title,
+          amount: secondaryBill.val || base.serviceTax.amount,
+          rawAmount: secondaryBill.rawVal || base.serviceTax.rawAmount,
+          due: secondaryBill.due || base.serviceTax.due,
+          docNumber: secondaryBill.docNumber || docNum,
+          property: secondaryBill.property || propAddr
+        },
+        cndDesc: `Situação fiscal regular para ${citizen.name} (CPF ${citizen.cpf}) referente ao imóvel em ${propAddr}.`
+      };
+    }
+
     function renderTaxes(cityKey) {
       activeTaxCity = cityKey || ((typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras');
-      const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+      const data = getActiveTaxProfile(activeTaxCity);
 
       // Documento e endereço
       const docInput = document.getElementById('tax-doc');
@@ -453,20 +512,48 @@
       const cndDesc = document.getElementById('tax-cnd-desc');
       if (cndDesc) cndDesc.textContent = data.cndDesc;
 
-      // Parcelas quitadas
+      // Parcelas quitadas com botão de impressão de comprovante
       const paidListEl = document.getElementById('tax-paid-list');
       if (paidListEl) {
         paidListEl.innerHTML = '';
         data.paidList.forEach(p => {
           const li = document.createElement('li');
           li.className = 'paid-item';
+          li.style.display = 'flex';
+          li.style.alignItems = 'center';
+          li.style.justifyContent = 'space-between';
+          li.style.gap = '10px';
+
+          const infoParts = String(p.info || '').split('·');
+          const paidDatePart = (infoParts[0] || '').replace('Pago em', '').trim();
+          const paidValPart = (infoParts[1] || data.currentInstallment.amount).trim();
+
           li.innerHTML = `
-            <div class="paid-dot">✓</div>
-            <div class="paid-details">
-              <strong>${p.name}</strong>
-              <span>${p.info}</span>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="paid-dot">✓</div>
+              <div class="paid-details">
+                <strong>${p.name}</strong>
+                <span>${p.info}</span>
+              </div>
             </div>
+            <button type="button" class="btn-print-paid-receipt" style="background:#EEF3FF; color:#103FEF; border:1px solid #103FEF; border-radius:999px; padding:5px 11px; font-size:11.5px; font-weight:700; cursor:pointer; white-space:nowrap;">
+              🖨️ Recibo
+            </button>
           `;
+
+          li.querySelector('.btn-print-paid-receipt')?.addEventListener('click', () => {
+            if (typeof openOfficialReceiptModal === 'function') {
+              openOfficialReceiptModal({
+                type: 'payment',
+                title: `Comprovante de Quitação — ${p.name}`,
+                reference: p.name,
+                amount: paidValPart,
+                paidAt: paidDatePart,
+                docNumber: data.docValue
+              });
+            }
+          });
+
           paidListEl.appendChild(li);
         });
       }
@@ -476,11 +563,15 @@
       if (codeInput) codeInput.value = data.pixCopiaCola;
     }
 
-    // Escuta troca de município vinda de qualquer aba
+    // Escuta troca de município ou cidadão vinda de qualquer aba
     window.addEventListener('conectaCityChanged', (e) => {
       if (e.detail && e.detail.cityKey) {
         renderTaxes(e.detail.cityKey);
       }
+    });
+    window.addEventListener('conectaCitizenChanged', (e) => {
+      const cityKey = e.detail?.citizen?.cityKey || activeTaxCity;
+      renderTaxes(cityKey);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -493,25 +584,83 @@
       const btnCopyPix = document.getElementById('btn-copy-pix');
       const btnSimulate = document.getElementById('btn-simulate-pix');
       const btnEmitDam = document.getElementById('btn-emit-dam-current');
+      const btnEmitDamFuture = document.getElementById('btn-emit-dam-future');
+      const btnEmitDamService = document.getElementById('btn-emit-dam-service');
+      const btnEmitCnd = document.getElementById('btn-emit-cnd-official');
 
       if (btnOpenPix1) {
         btnOpenPix1.addEventListener('click', () => {
-          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+          const data = getActiveTaxProfile(activeTaxCity);
           openPixModal(data.currentInstallment.title, data.currentInstallment.rawAmount, data.pixCopiaCola);
         });
       }
 
       if (btnOpenPixService) {
         btnOpenPixService.addEventListener('click', () => {
-          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
+          const data = getActiveTaxProfile(activeTaxCity);
           openPixModal(data.serviceTax.title, data.serviceTax.rawAmount, data.pixCopiaCola);
         });
       }
 
       if (btnEmitDam) {
         btnEmitDam.addEventListener('click', () => {
-          const data = TAX_DATA_BY_CITY[activeTaxCity] || TAX_DATA_BY_CITY['rio-das-ostras'];
-          alert(`Documento de Arrecadação Municipal (${data.cityName})\nGuia referente ao ${data.currentInstallment.title}\nInscrição: ${data.currentInstallment.inscription}\nCódigo de Barras: ${data.currentInstallment.barcode}\n\nO download do PDF foi iniciado com sucesso.`);
+          const data = getActiveTaxProfile(activeTaxCity);
+          if (typeof openOfficialReceiptModal === 'function') {
+            openOfficialReceiptModal({
+              type: 'dam',
+              title: data.currentInstallment.title,
+              amount: data.currentInstallment.amount,
+              dueDate: data.currentInstallment.due,
+              docNumber: data.currentInstallment.docNumber,
+              property: data.currentInstallment.property,
+              barcodeLine: data.currentInstallment.barcode.replace('Linha digitável: ', '')
+            });
+          }
+        });
+      }
+
+      if (btnEmitDamFuture) {
+        btnEmitDamFuture.addEventListener('click', () => {
+          const data = getActiveTaxProfile(activeTaxCity);
+          if (typeof openOfficialReceiptModal === 'function') {
+            openOfficialReceiptModal({
+              type: 'dam',
+              title: data.futureInstallment.title,
+              amount: data.futureInstallment.amount,
+              dueDate: data.futureInstallment.due,
+              docNumber: data.futureInstallment.docNumber,
+              property: data.futureInstallment.property,
+              status: 'GUIA ANTECIPADA · A VENCER'
+            });
+          }
+        });
+      }
+
+      if (btnEmitDamService) {
+        btnEmitDamService.addEventListener('click', () => {
+          const data = getActiveTaxProfile(activeTaxCity);
+          if (typeof openOfficialReceiptModal === 'function') {
+            openOfficialReceiptModal({
+              type: 'dam',
+              title: data.serviceTax.title,
+              amount: data.serviceTax.amount,
+              dueDate: data.serviceTax.due,
+              docNumber: data.serviceTax.docNumber,
+              property: data.serviceTax.property
+            });
+          }
+        });
+      }
+
+      if (btnEmitCnd) {
+        btnEmitCnd.addEventListener('click', () => {
+          const data = getActiveTaxProfile(activeTaxCity);
+          if (typeof openOfficialReceiptModal === 'function') {
+            openOfficialReceiptModal({
+              type: 'cnd',
+              docNumber: data.docValue
+            });
+          }
         });
       }
 
@@ -539,12 +688,21 @@
 
       if (btnSimulate) {
         btnSimulate.addEventListener('click', () => {
-          btnSimulate.textContent = 'Processando com o Banco Central...';
+          btnSimulate.textContent = 'Confirmando liquidação no Banco Central...';
           setTimeout(() => {
-            alert('Pagamento via Pix confirmado com sucesso!\nO comprovante foi emitido e sua guia foi baixada nos registros municipais da Fazenda.');
             pixModal.style.display = 'none';
             btnSimulate.textContent = 'Simular Confirmação de Pagamento';
-          }, 1200);
+            const data = getActiveTaxProfile(activeTaxCity);
+            if (typeof openOfficialReceiptModal === 'function') {
+              openOfficialReceiptModal({
+                type: 'payment',
+                title: `Comprovante de Pagamento Pix — ${currentPixContext.desc}`,
+                reference: currentPixContext.desc,
+                amount: `R$ ${currentPixContext.val}`,
+                docNumber: data.docValue
+              });
+            }
+          }, 700);
         });
       }
     });

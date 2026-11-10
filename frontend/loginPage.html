@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar na Área do Cidadão - Conecta Cidadão</title>
+  <link rel="stylesheet" href="../css/loginPage.css">
+  <link rel="stylesheet" href="../css/flow.css">
+  <script src="../js/cityManager.js" defer></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</head>
+
+<body>
+  <app-navbar></app-navbar>
+
+  <main class="auth-page-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="mainPage.html">Início</a>
+      <span>/</span>
+      <span class="current">Área do Cidadão · Login</span>
+    </div>
+
+    <section class="auth-split-shell" aria-label="Autenticação e Simulador de Cidadãos Reais">
+      <!-- ====================================================================
+           COLUNA ESQUERDA: PAINEL INSTITUCIONAL + SIMULADOR DE DADOS REAIS
+           ==================================================================== -->
+      <div class="auth-showcase-panel">
+        <div class="showcase-top-tag">
+          <span class="pulse-lime"></span>
+          <span>IDENTIDADE CÍVICA UNIFICADA · RIO DAS OSTRAS & SAPUCAIA DO SUL</span>
+        </div>
+
+        <h1 class="showcase-title">Cuidar da nossa cidade começa por ouvir você.</h1>
+        <p class="showcase-subtitle">
+          Acesse seus protocolos de zeladoria (156), consultas do SUS, carteira de vacinação e guias de IPTU/ISS com uma única conta verificada.
+        </p>
+
+        <!-- Simulador Interativo de Consumo de Dados Reais de Pessoas -->
+        <div class="real-data-simulator-box">
+          <div class="simulator-box-header">
+            <div>
+              <span class="simulator-kicker">AMBIENTE DE DADOS REAIS SIMULADOS</span>
+              <h2>Escolha uma pessoa real para simular o acesso</h2>
+            </div>
+            <span class="api-status-chip">⚡ API Cidadã Online</span>
+          </div>
+          <p class="simulator-helper">
+            Clique em qualquer cidadão abaixo para preencher o formulário automaticamente ou entrar com 1 clique carregando seus dados reais de CPF, Cartão SUS, endereço, tributos e protocolos:
+          </p>
+
+          <div class="demo-citizens-grid" id="demo-citizens-grid">
+            <!-- Preenchido dinamicamente pelo script com os cidadãos reais de cityManager.js -->
+          </div>
+        </div>
+
+        <!-- Card de Segurança e Prevenção a Fraudes -->
+        <div class="civic-antifraud-callout">
+          <div class="antifraud-icon">🛡️</div>
+          <div class="antifraud-text">
+            <strong>Dúvida na mensagem? Melhor checar.</strong>
+            <p>A Prefeitura e o ConectaCidadão nunca pedem sua senha ou pagamentos via Pix por WhatsApp para liberar consultas ou agilizar serviços públicos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           COLUNA DIREITA: FORMULÁRIO DE LOGIN
+           ==================================================================== -->
+      <div class="auth-form-panel">
+        <div class="auth-form-card">
+          <div class="auth-card-header">
+            <span class="auth-badge-care">Acesso Seguro · LGPD</span>
+            <h2>Entrar na Área do Cidadão</h2>
+            <p>Informe seu CPF ou e-mail cadastrado para carregar seus serviços municipais.</p>
+          </div>
+
+          <!-- Feedback de Consumo de Dados / Autenticação -->
+          <div class="auth-api-feedback" id="auth-api-feedback" hidden>
+            <div class="spinner-dot"></div>
+            <span id="auth-api-feedback-text">Sincronizando dados cadastrais...</span>
+          </div>
+
+          <form id="login-form" class="civic-auth-form" novalidate>
+            <div class="form-field">
+              <label for="login-identifier">CPF ou E-mail do Cidadão</label>
+              <input
+                type="text"
+                id="login-identifier"
+                name="identifier"
+                placeholder="Ex: 142.890.517-34 ou mariana.almeida@email.com.br"
+                autocomplete="username"
+                required
+              >
+              <span class="field-hint">Dica: clique em um dos cidadãos ao lado para preencher instantaneamente.</span>
+            </div>
+
+            <div class="form-field">
+              <div class="label-row">
+                <label for="login-password">Senha de Acesso</label>
+                <button type="button" class="link-forgot-pass" id="btn-forgot-pass">Esqueceu a senha?</button>
+              </div>
+              <div class="password-input-wrap">
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  value="Cidadao@2026"
+                  placeholder="Digite sua senha"
+                  autocomplete="current-password"
+                  required
+                >
+                <button type="button" class="btn-toggle-eye" id="btn-toggle-pass" aria-label="Mostrar ou ocultar senha">
+                  Mostrar
+                </button>
+              </div>
+            </div>
+
+            <div class="form-remember-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="login-remember" checked>
+                <span>Manter minha sessão ativa neste dispositivo</span>
+              </label>
+            </div>
+
+            <!-- CTA Primário -->
+            <button type="submit" class="btn-pill-care-primary" id="btn-submit-login">
+              <span>Entrar e Carregar Meus Dados</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <div class="auth-divider">
+              <span>ou acesse com identidade federal</span>
+            </div>
+
+            <!-- Botão Secundário -->
+            <button type="button" class="btn-pill-govbr" id="btn-login-govbr">
+              <span class="govbr-mark">gov.br</span>
+              <span>Entrar com Conta <strong>gov.br</strong> (Prata ou Ouro)</span>
+            </button>
+          </form>
+
+          <div class="auth-card-footer">
+            <p>Ainda não tem cadastro no ConectaCidadão?</p>
+            <a href="registerPage.html" class="btn-pill-outline-black">
+              Criar Cadastro Cidadão Gratuito →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const demoGrid = document.getElementById('demo-citizens-grid');
+      const identifierInput = document.getElementById('login-identifier');
+      const passwordInput = document.getElementById('login-password');
+      const loginForm = document.getElementById('login-form');
+      const feedbackBox = document.getElementById('auth-api-feedback');
+      const feedbackText = document.getElementById('auth-api-feedback-text');
+      const btnGovBr = document.getElementById('btn-login-govbr');
+      const btnTogglePass = document.getElementById('btn-toggle-pass');
+      const btnForgotPass = document.getElementById('btn-forgot-pass');
+
+      const activeCit = (typeof getActiveCitizen === 'function') ? getActiveCitizen() : null;
+      if (activeCit && identifierInput) {
+        identifierInput.value = activeCit.cpf;
+      }
+
+      // Renderiza os cards de pessoas reais simuladas
+      function renderDemoCitizens() {
+        if (!demoGrid || typeof getAllCitizens !== 'function') return;
+        const citizens = getAllCitizens();
+        const current = getActiveCitizen();
+
+        demoGrid.innerHTML = citizens.map(cit => {
+          const isCurrent = current && current.id === cit.id;
+          const cityBadge = cit.cityKey === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ';
+          return `
+            <article class="demo-citizen-card ${isCurrent ? 'active' : ''}" data-id="${cit.id}" data-cpf="${cit.cpf}">
+              <div class="demo-cit-top">
+                <div class="demo-cit-avatar">${cit.avatarInitials || 'CC'}</div>
+                <div class="demo-cit-identity">
+                  <strong>${cit.name}</strong>
+                  <span class="demo-cit-city">${cityBadge} · Bairro ${cit.neighborhood}</span>
+                </div>
+                ${isCurrent ? '<span class="demo-cit-current">Sessão Ativa</span>' : ''}
+              </div>
+              <div class="demo-cit-data-pills">
+                <span><strong>CPF:</strong> ${cit.cpf}</span>
+                <span><strong>SUS:</strong> ${cit.susCard}</span>
+                <span><strong>Protocolo:</strong> ${cit.activeRequest?.protocol || 'SIM-2026'}</span>
+              </div>
+              <div class="demo-cit-actions">
+                <button type="button" class="btn-fill-cpf" data-cpf="${cit.cpf}">Preencher CPF</button>
+                <button type="button" class="btn-instant-login" data-id="${cit.id}">Entrar como ${cit.name.split(' ')[0]} →</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        demoGrid.querySelectorAll('.btn-fill-cpf').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (identifierInput) {
+              identifierInput.value = btn.dataset.cpf;
+              identifierInput.focus();
+            }
+          });
+        });
+
+        demoGrid.querySelectorAll('.btn-instant-login').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const id = btn.dataset.id;
+            const chosen = citizens.find(c => c.id === id);
+            if (!chosen) return;
+            if (identifierInput) identifierInput.value = chosen.cpf;
+            await performSimulatedLogin(chosen.id, `Autenticando ${chosen.name} (${chosen.cpf}) e sincronizando dados do SUS e Fazenda Municipal...`);
+          });
+        });
+      }
+
+      renderDemoCitizens();
+
+      // Máscara inteligente se digitar números de CPF
+      if (identifierInput) {
+        identifierInput.addEventListener('input', () => {
+          const val = identifierInput.value;
+          if (/^[\d.\-\s]+$/.test(val) && val.replace(/\D/g, '').length <= 11) {
+            identifierInput.value = formatCpfMask(val);
+          }
+        });
+      }
+
+      // Mostrar/ocultar senha
+      if (btnTogglePass && passwordInput) {
+        btnTogglePass.addEventListener('click', () => {
+          const isPwd = passwordInput.type === 'password';
+          passwordInput.type = isPwd ? 'text' : 'password';
+          btnTogglePass.textContent = isPwd ? 'Ocultar' : 'Mostrar';
+        });
+      }
+
+      // Recuperação de senha amigável
+      if (btnForgotPass) {
+        btnForgotPass.addEventListener('click', () => {
+          const val = identifierInput?.value || 'seu CPF cadastrado';
+          alert(`Recuperação de Acesso ConectaCidadão:\n\nEnviamos um link seguro de redefinição e código SMS para o cadastro vinculado a ${val}.`);
+        });
+      }
+
+      async function performSimulatedLogin(identifier, customMessage) {
+        if (feedbackBox && feedbackText) {
+          feedbackBox.removeAttribute('hidden');
+          feedbackBox.classList.remove('error');
+          feedbackText.textContent = customMessage || 'Consultando base de dados municipal e validando credenciais...';
+        }
+
+        try {
+          const citizen = await authenticateCitizenAsync(identifier, passwordInput?.value || '');
+          if (feedbackText) {
+            feedbackText.textContent = `Acesso liberado! Bem-vindo(a), ${citizen.name} (${citizen.enrollment}). Redirecionando...`;
+          }
+          setTimeout(() => {
+            window.location.href = 'mainPage.html';
+          }, 550);
+        } catch (err) {
+          if (feedbackBox && feedbackText) {
+            feedbackBox.classList.add('error');
+            feedbackText.textContent = err.message;
+          }
+        }
+      }
+
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const idVal = identifierInput?.value.trim();
+          if (!idVal) {
+            if (feedbackBox && feedbackText) {
+              feedbackBox.removeAttribute('hidden');
+              feedbackBox.classList.add('error');
+              feedbackText.textContent = 'Por favor, informe seu CPF ou e-mail, ou selecione um cidadão ao lado.';
+            }
+            return;
+          }
+          await performSimulatedLogin(idVal);
+        });
+      }
+
+      if (btnGovBr) {
+        btnGovBr.addEventListener('click', async () => {
+          const current = getActiveCitizen();
+          await performSimulatedLogin(
+            current.id,
+            `Conectando ao provedor federal gov.br (Nível Ouro) para ${current.name} (CPF ${current.cpf})...`
+          );
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
+

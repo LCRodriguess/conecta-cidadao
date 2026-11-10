@@ -1,6 +1,6 @@
 package br.com.conectacidadao.controller;
 import br.com.conectacidadao.domain.entities.Occurrence;
-import br.com.conectacidadao.services.OccurrenceService;
+import br.com.conectacidadao.application.services.OccurrenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/occurrences")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "*")
 public class OccurrenceController 
 {
     private final OccurrenceService occurrenceService;

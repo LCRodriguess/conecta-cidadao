@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conecta Cidadão - Portal de Serviços e Notícias</title>
+  <title>Conecta Cidadão - Portal Oficial de Serviços e Zeladoria</title>
   <link rel="stylesheet" href="../css/mainPage.css">
+  <link rel="stylesheet" href="../css/flow.css">
   <script src="../js/cityManager.js" defer></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/main.js" defer></script>
@@ -13,69 +14,693 @@
 </head>
 
 <body>
-  <!-- Barra de Navegação -->
+  <!-- Barra de Navegação Institucional -->
   <app-navbar></app-navbar>
 
   <main class="home-container">
-    <!-- Cabeçalho Principal com Boas-vindas e Seletor de Município -->
-    <header class="home-header">
-      <div class="header-intro">
-        <h1 class="header-title" id="page-greeting">Olá! Como podemos te ajudar?</h1>
-        <p class="header-subtitle">Seus serviços e próximos passos, em um só lugar.</p>
+    <!-- ====================================================================
+         1. SPLIT FUNCTIONAL HERO (BOAS-VINDAS E STATUS DIÁRIO DA CIDADE)
+         ==================================================================== -->
+    <section class="civic-split-hero" aria-label="Boas-vindas, Busca e Status Diário da Cidade">
+      <!-- Lado Esquerdo: Saudação Personalizada com Dados Reais + Busca + Município -->
+      <div class="hero-left-pane">
+        <div class="hero-care-pill">
+          <span class="care-dot"></span>
+          <span id="hero-citizen-tag">SESSÃO VERIFICADA · CONTA CIDADÃ NÍVEL OURO</span>
+        </div>
+
+        <h1 class="header-title" id="page-greeting">Olá, Mariana! O que você precisa resolver hoje?</h1>
+        <p class="header-subtitle" id="page-citizen-summary">
+          CPF <strong>142.890.517-34</strong> · Matrícula <strong>RO-2026-9812</strong> · Rua das Gaivotas, 124 (Costa Azul)
+        </p>
+
+        <!-- Barra de Busca Direta em Formato Pílula -->
+        <form class="hero-search-bar" id="hero-search-form" role="search">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="hero-search-input"
+            placeholder="Faça sua busca aqui (ex: buraco na rua, 2ª via IPTU, consulta SUS, protocolo)..."
+            aria-label="Buscar serviços municipais"
+          >
+          <button type="submit" class="btn-hero-search">Buscar</button>
+        </form>
+
+        <!-- Barra de Ações do Topo: Seletor de Município + Ouvir Página + Trocar Cidadão -->
+        <div class="header-actions">
+          <!-- Seletor de Município (Rio das Ostras / Sapucaia do Sul) -->
+          <div class="municipality-selector" id="municipality-wrapper">
+            <div class="municipality-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
+                <circle cx="12" cy="11" r="2.5"/>
+              </svg>
+            </div>
+            <div class="municipality-info">
+              <span class="municipality-tag">SEU MUNICÍPIO</span>
+              <button type="button" class="municipality-toggle" id="municipality-toggle" aria-expanded="false" aria-haspopup="true">
+                <strong id="current-city-label">Rio das Ostras · RJ</strong>
+                <span class="trocar-link">Trocar ⌵</span>
+              </button>
+              <span class="municipality-alt" id="other-city-label">Também disponível: Sapucaia do Sul - RS</span>
+            </div>
+
+            <!-- Dropdown com opções de cidades -->
+            <div class="municipality-dropdown" id="municipality-menu">
+              <div class="dropdown-city-header">Selecione seu município:</div>
+              <button type="button" class="city-option active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-other="Sapucaia do Sul - RS">
+                <div class="city-dot"></div>
+                <div class="city-meta">
+                  <strong>Rio das Ostras · RJ</strong>
+                  <span>Região dos Lagos</span>
+                </div>
+              </button>
+              <button type="button" class="city-option" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-other="Rio das Ostras - RJ">
+                <div class="city-dot"></div>
+                <div class="city-meta">
+                  <strong>Sapucaia do Sul · RS</strong>
+                  <span>Região Metropolitana de Porto Alegre</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Botão Ouvir Esta Página (Text-to-Speech) -->
+          <button type="button" class="btn-listen-page" id="btn-listen" title="Ouvir o resumo personalizado dos seus dados com voz sintetizada">
+            <svg class="listen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <span id="listen-btn-text">Ouvir meu resumo</span>
+          </button>
+
+          <!-- Atalho para Login / Trocar Cidadão -->
+          <a href="loginPage.html" class="btn-switch-citizen-hero">
+            <span>👤 Trocar Cidadão / Login</span>
+          </a>
+        </div>
       </div>
 
-      <div class="header-actions">
-        <!-- Seletor de Município (Rio das Ostras / Sapucaia do Sul) -->
-        <div class="municipality-selector" id="municipality-wrapper">
-          <div class="municipality-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
-              <circle cx="12" cy="11" r="2.5"/>
-            </svg>
+      <!-- Lado Direito: WIDGET INTERATIVO DE STATUS DIÁRIO DA CIDADE -->
+      <aside class="civic-daily-status-card" id="status-diario" role="region" aria-label="Status operacional diário do município" aria-live="polite">
+        <div class="daily-status-header">
+          <div>
+            <span class="daily-status-kicker">OPERAÇÃO MUNICIPAL HOJE</span>
+            <h2 class="daily-status-date" id="daily-status-date-label">Domingo, 8 de Novembro</h2>
           </div>
-          <div class="municipality-info">
-            <span class="municipality-tag">SEU MUNICÍPIO</span>
-            <button type="button" class="municipality-toggle" id="municipality-toggle" aria-expanded="false" aria-haspopup="true">
-              <strong id="current-city-label">Rio das Ostras · RJ</strong>
-              <span class="trocar-link">Trocar ⌵</span>
-            </button>
-            <span class="municipality-alt" id="other-city-label">Também disponível: Sapucaia do Sul - RS</span>
-          </div>
+          <label class="btn-select-date-pill" for="daily-date-picker">
+            <span>📅 Alterar data</span>
+            <input type="date" id="daily-date-picker" value="2026-11-08" aria-label="Selecionar data de operação">
+          </label>
+        </div>
 
-          <!-- Dropdown com opções de cidades -->
-          <div class="municipality-dropdown" id="municipality-menu">
-            <div class="dropdown-city-header">Selecione seu município:</div>
-            <button type="button" class="city-option active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-other="Sapucaia do Sul - RS">
-              <div class="city-dot"></div>
-              <div class="city-meta">
-                <strong>Rio das Ostras · RJ</strong>
-                <span>Região dos Lagos</span>
+        <!-- Lista Interativa de 4 Indicadores Operacionais da Cidade -->
+        <div class="daily-status-list" id="daily-status-list">
+          <button type="button" class="daily-status-item" data-status-key="waste">
+            <span class="status-item-icon">🚛</span>
+            <div class="status-item-main">
+              <strong>Coleta de lixo e reciclagem</strong>
+              <span class="status-item-badge status-ok" id="status-badge-waste">Operação Normal</span>
+            </div>
+            <span class="status-chevron">›</span>
+          </button>
+
+          <button type="button" class="daily-status-item" data-status-key="works">
+            <span class="status-item-icon">🚧</span>
+            <div class="status-item-main">
+              <strong>Obras e trânsito nas vias</strong>
+              <span class="status-item-badge status-warn" id="status-badge-works">2 frentes ativas</span>
+            </div>
+            <span class="status-chevron">›</span>
+          </button>
+
+          <button type="button" class="daily-status-item" data-status-key="health">
+            <span class="status-item-icon">🏥</span>
+            <div class="status-item-main">
+              <strong>UPAs 24h, UBS e Vacinação</strong>
+              <span class="status-item-badge status-ok" id="status-badge-health">UPAs 24h abertas</span>
+            </div>
+            <span class="status-chevron">›</span>
+          </button>
+
+          <button type="button" class="daily-status-item" data-status-key="civilDefense">
+            <span class="status-item-icon">🌤️</span>
+            <div class="status-item-main">
+              <strong>Defesa Civil e Alerta Climático</strong>
+              <span class="status-item-badge status-ok" id="status-badge-civil">Estável · 26°C</span>
+            </div>
+            <span class="status-chevron">›</span>
+          </button>
+        </div>
+
+        <!-- Drill-down In-Place (Detalhes ao clicar em um indicador) -->
+        <div class="daily-status-detail-box" id="daily-status-detail-box" hidden>
+          <button type="button" class="btn-status-back" id="btn-status-back">‹ Voltar aos indicadores</button>
+          <strong id="daily-detail-title">Coleta de Lixo e Reciclagem</strong>
+          <p id="daily-detail-desc">Coleta domiciliar e seletiva operando normalmente no seu bairro.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ====================================================================
+         2. FAIXA SPOTLIGHT DE AUTOATENDIMENTO LOCAL POR BAIRRO
+         ==================================================================== -->
+    <section class="civic-spotlight-strip" aria-label="Busca rápida por bairro e serviço">
+      <div class="spotlight-copy">
+        <span class="spotlight-badge">📍 GUIA RÁPIDO DO SEU BAIRRO</span>
+        <h2>Sua busca ainda mais fácil</h2>
+        <p>Encontre unidades de saúde, acompanhe obras ou registre ocorrências diretamente no seu bairro.</p>
+      </div>
+
+      <form class="spotlight-controls" id="spotlight-form">
+        <div class="spotlight-field">
+          <label for="spotlight-bairro">Bairro da Cidade</label>
+          <select id="spotlight-bairro">
+            <option value="Costa Azul">Costa Azul</option>
+            <option value="Centro">Centro</option>
+            <option value="Jardim Mariléa">Jardim Mariléa</option>
+          </select>
+        </div>
+
+        <div class="spotlight-field">
+          <label for="spotlight-service">O que você procura?</label>
+          <select id="spotlight-service">
+            <option value="occurrencePage.html">Relatar buraco, luz ou limpeza (156)</option>
+            <option value="healthPage.html">Unidades de Saúde (UBS / UPA) e Médicos</option>
+            <option value="requestsPage.html">Ocorrências já abertas no bairro</option>
+            <option value="invoicesPage.html">Guias de IPTU e ISS do imóvel</option>
+            <option value="eventsPage.html">Eventos e lazer no bairro</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-spotlight-consult">
+          <span>Consulte agora</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- ====================================================================
+         3. GRID "SERVIÇOS MAIS BUSCADOS" (8 CARDS EM LINGUAGEM SIMPLES)
+         ==================================================================== -->
+    <section class="civic-popular-services-section" aria-label="Serviços mais buscados pelos cidadãos">
+      <div class="section-header-row">
+        <div>
+          <span class="section-kicker">ARQUITETURA ORIENTADA A TAREFAS</span>
+          <h2 class="section-main-title">Serviços mais buscados</h2>
+        </div>
+        <a href="occurrencePage.html" class="section-see-all-link">Ver todos os serviços municipais →</a>
+      </div>
+
+      <div class="civic-popular-grid">
+        <a href="occurrencePage.html?cat=AsfaltoBuracos" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Buraco na rua ou calçada quebrada</strong>
+            <span>Solicite operação tapa-buraco ou reparo de via</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="occurrencePage.html?cat=IluminacaoPublica" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Lâmpada queimada ou rua escura</strong>
+            <span>Troca de luminária LED e manutenção de poste</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="occurrencePage.html?cat=LimpezaEntulho" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Descarte de lixo, entulho ou capina</strong>
+            <span>Limpeza de terreno, retirada de galhos e varrição</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="occurrencePage.html?cat=EsgotoBueiro" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Bueiro entupido ou alagamento</strong>
+            <span>Desobstrução com caminhão hidrojato e drenagem</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="invoicesPage.html" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>2ª via de IPTU, ISS e pagamento Pix</strong>
+            <span>Consulte débitos do imóvel e baixe a guia DAM</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="healthPage.html" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Agendar consulta médica ou vacina SUS</strong>
+            <span>Atendimento nas UBS, odontologia e exames</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="worksPage.html" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Vagas de emprego e cursos gratuitos</strong>
+            <span>Oportunidades abertas no Balcão de Empregos</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+
+        <a href="eventsPage.html" class="civic-service-tile">
+          <div class="tile-content">
+            <strong>Agenda cultural e eventos gratuitos</strong>
+            <span>Shows, feiras gastronômicas e esporte na cidade</span>
+          </div>
+          <span class="tile-chevron">›</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. MÓDULO DEDICADO "CENTRAL 156 DE ZELADORIA URBANA"
+         ==================================================================== -->
+    <section class="civic-156-banner" aria-label="Central 156 de Zeladoria Urbana">
+      <div class="civic-156-left">
+        <div class="civic-156-badge-group">
+          <span class="civic-156-mark">CENTRAL 156</span>
+          <span class="civic-156-subtitle">ZELADORIA URBANA NÃO-EMERGENCIAL</span>
+        </div>
+        <h2>Viu um problema na sua rua? Nós cuidamos disso com você.</h2>
+        <p>
+          Relate problemas que não são emergências médicas ou policiais — como conservação de asfalto, iluminação, poda preventiva e limpeza. Você também pode consultar o andamento e complementar informações a qualquer momento.
+        </p>
+        <div class="civic-156-cta-row">
+          <a href="occurrencePage.html" class="btn-156-primary">
+            <span>Relatar problema agora</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="requestsPage.html" class="btn-156-secondary">
+            <span>Consultar solicitações abertas</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="civic-156-right">
+        <div class="civic-156-stat-box">
+          <span class="stat-big">89%</span>
+          <strong>Índice de Resolução no Prazo</strong>
+          <span>Mais de 4.200 ocorrências atendidas pelas equipes municipais neste trimestre.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         5. PAINEL PESSOAL DO CIDADÃO (CONSUMO DE DADOS REAIS EM 3 COLUNAS)
+         ==================================================================== -->
+    <section class="citizen-real-dashboard-section" aria-label="Painel Pessoal de Dados Reais do Cidadão">
+      <div class="section-header-row">
+        <div>
+          <span class="section-kicker">CONSUMO DE DADOS REAIS SINCRONIZADOS</span>
+          <h2 class="section-main-title">Seu Painel Cidadão Personalizado</h2>
+        </div>
+        <div class="citizen-sync-pill">
+          <span class="sync-green-dot"></span>
+          <span id="dashboard-sync-label">Dados carregados de: <strong>Mariana Costa Almeida</strong></span>
+        </div>
+      </div>
+
+      <div class="main-dashboard-grid">
+        <!-- ==========================================
+             COLUNA 1: Identidade Cidadã & Ações Diretas
+             ========================================== -->
+        <div class="dash-col dash-col-left">
+          <div class="dash-card need-card">
+            <h2 class="card-title">Cadastro & Ações</h2>
+
+            <!-- Resumo de Dados Reais da Pessoa Logada -->
+            <div class="citizen-mini-profile-box">
+              <div class="cit-mini-top">
+                <div class="cit-mini-avatar" id="dash-cit-avatar">MA</div>
+                <div class="cit-mini-info">
+                  <strong id="dash-cit-name">Mariana Costa Almeida</strong>
+                  <span id="dash-cit-level">Conta Verificada · Nível Ouro</span>
+                </div>
               </div>
-            </button>
-            <button type="button" class="city-option" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-other="Rio das Ostras - RJ">
-              <div class="city-dot"></div>
-              <div class="city-meta">
-                <strong>Sapucaia do Sul · RS</strong>
-                <span>Região Metropolitana de Porto Alegre</span>
+              <div class="cit-mini-meta-list">
+                <div><span>CPF:</span> <strong id="dash-cit-cpf">142.890.517-34</strong></div>
+                <div><span>Cartão SUS:</span> <strong id="dash-cit-sus">898 0012 3456 7891</strong></div>
+                <div><span>Endereço:</span> <strong id="dash-cit-addr">Rua das Gaivotas, 124 · Costa Azul</strong></div>
               </div>
-            </button>
+              <div class="cit-mini-links">
+                <a href="accountPage.html">Ver meu perfil completo</a>
+                <span>·</span>
+                <a href="loginPage.html">Trocar pessoa</a>
+              </div>
+            </div>
+
+            <!-- Bloco de Acessibilidade -->
+            <div class="accessibility-box">
+              <div class="access-header">
+                <span>Acessibilidade Rápida</span>
+              </div>
+              <div class="access-buttons">
+                <button type="button" class="btn-access" id="btn-increase-font" title="Aumentar o tamanho do texto da tela">
+                  <strong>A+</strong> Aumentar fonte
+                </button>
+                <button type="button" class="btn-access" id="btn-toggle-contrast" title="Alternar modo de alto contraste para leitura">
+                  Alto contraste
+                </button>
+              </div>
+            </div>
+
+            <!-- Ação Principal: Registrar ocorrência -->
+            <a href="occurrencePage.html" class="action-card primary-action" title="Abrir chamado de buraco, iluminação ou vazamento">
+              <div class="action-card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s2.5-2.14 4.5-4.88"/>
+                  <circle cx="12" cy="10" r="3"/>
+                  <line x1="19" y1="13" x2="19" y2="19"/>
+                  <line x1="16" y1="16" x2="22" y2="16"/>
+                </svg>
+              </div>
+              <div class="action-card-text">
+                <strong>Registrar ocorrência</strong>
+                <span>Usar meu endereço cadastrado</span>
+              </div>
+              <svg class="action-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <!-- Ação Secundária: Acompanhar solicitações -->
+            <a href="requestsPage.html" class="action-card secondary-action" title="Consultar status de protocolos abertos">
+              <div class="action-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <rect x="8" y="2" width="8" height="4" rx="1"/>
+                  <line x1="9" y1="11" x2="15" y2="11"/>
+                  <line x1="9" y1="15" x2="15" y2="15"/>
+                </svg>
+              </div>
+              <div class="action-card-text">
+                <strong>Acompanhar solicitações</strong>
+                <span id="dash-req-count-sub">1 protocolo vinculado ao seu CPF</span>
+              </div>
+              <svg class="action-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+
+            <!-- 2 Mini Cards: Saúde & IPTU/ISS -->
+            <div class="mini-cards-grid">
+              <a href="healthPage.html" class="mini-card" title="Acessar serviços de saúde e vacinação">
+                <div class="mini-card-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.66l7.65-7.65.77-.78a5.4 5.4 0 0 0 0-7.65z"/>
+                    <polyline points="3.5 12 7.5 12 9.5 9 12 15 14 10 16.5 12 20.5 12"/>
+                  </svg>
+                </div>
+                <strong class="mini-card-title">Saúde SUS</strong>
+                <span class="mini-card-desc">Consultas e vacinas</span>
+              </a>
+
+              <a href="invoicesPage.html" class="mini-card" title="Consultar débitos e emitir 2ª via">
+                <div class="mini-card-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                </div>
+                <strong class="mini-card-title">IPTU e ISS</strong>
+                <span class="mini-card-desc">Guia PDF ou Pix</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Botão Ouvir Esta Página (Text-to-Speech) -->
-        <button type="button" class="btn-listen-page" id="btn-listen" title="Ouvir o resumo desta página com voz sintetizada">
-          <svg class="listen-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-          </svg>
-          <span id="listen-btn-text">Ouvir esta página</span>
-        </button>
+        <!-- ==========================================
+             COLUNA 2: Suas Pendências & Seus Agendamentos (Dados Reais do CPF)
+             ========================================== -->
+        <div class="dash-col dash-col-center">
+          <!-- Bloco 1: Sua pendência -->
+          <div class="dash-block">
+            <div class="block-header">
+              <h2 class="block-title">Tributos do seu CPF</h2>
+              <span class="block-badge-count" id="dash-bills-count">2 a resolver</span>
+            </div>
+
+            <!-- Pendência 1 -->
+            <div class="debt-card">
+              <div class="debt-card-header">
+                <div class="debt-title-group">
+                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                  </svg>
+                  <strong id="main-bill-title">IPTU 2026 · Cota 10/12</strong>
+                </div>
+                <span class="status-pill pending">A vencer</span>
+              </div>
+
+              <div class="debt-card-body">
+                <div class="debt-amount-col">
+                  <span class="debt-label" id="main-bill-prop">Rua das Gaivotas, 124</span>
+                  <span class="debt-value" id="main-bill-val">R$ 148,50</span>
+                </div>
+                <div class="debt-due-col">
+                  <span class="debt-label">Vence em</span>
+                  <span class="debt-due-date" id="main-bill-due">26 nov 2026</span>
+                </div>
+              </div>
+
+              <button type="button" class="debt-action-btn" id="main-bill-btn" data-bill="IPTU 2026" data-value="148,50" data-due="26 nov 2026">
+                <span>Pagar com Pix ou Baixar DAM</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Pendência 2 -->
+            <div class="debt-card" id="second-bill-card">
+              <div class="debt-card-header">
+                <div class="debt-title-group">
+                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                  <strong id="main-bill2-title">Taxa de Coleta e Manejo (TCRS)</strong>
+                </div>
+                <span class="status-pill pending">A vencer</span>
+              </div>
+
+              <div class="debt-card-body">
+                <div class="debt-amount-col">
+                  <span class="debt-label">Cota anual</span>
+                  <span class="debt-value" id="main-bill2-val">R$ 64,90</span>
+                </div>
+                <div class="debt-due-col">
+                  <span class="debt-label">Vence em</span>
+                  <span class="debt-due-date" id="main-bill2-due">10 dez 2026</span>
+                </div>
+              </div>
+
+              <button type="button" class="debt-action-btn" id="main-bill2-btn" data-bill="Taxa de Coleta (TCRS)" data-value="64,90" data-due="10 dez 2026">
+                <span>Pagar com Pix ou Baixar DAM</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bloco 2: Seus agendamentos SUS -->
+          <div class="dash-block">
+            <div class="block-header">
+              <h2 class="block-title">Seu agendamento SUS</h2>
+              <span class="block-badge-count">1 confirmado</span>
+            </div>
+
+            <div class="appointment-card">
+              <div class="appointment-main-row">
+                <div class="appointment-date-badge">
+                  <span class="date-number" id="main-app-day">21</span>
+                  <span class="date-month" id="main-app-month">NOV</span>
+                </div>
+                <div class="appointment-details">
+                  <strong class="appointment-title" id="main-app-title">Clínico Geral · Dra. Mariana Vasconcellos</strong>
+                  <span class="appointment-time" id="main-app-time">Quarta-feira · 09h30</span>
+                  <span class="appointment-place" id="main-app-place">UBS Central — Av. das Flores, 80 · Rio das Ostras</span>
+                </div>
+              </div>
+
+              <div class="appointment-tags">
+                <span class="status-pill confirmed">Confirmado</span>
+                <span class="tag-type" id="main-app-sus-tag">Cartão SUS: 898 0012...</span>
+              </div>
+
+              <button type="button" class="appointment-action-btn" id="btn-open-appointment">
+                <span>Ver comprovante e orientações</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             COLUNA 3: Sua solicitação de zeladoria
+             ========================================== -->
+        <div class="dash-col dash-col-right">
+          <div class="block-header">
+            <h2 class="block-title">Sua solicitação (156)</h2>
+            <span class="block-badge-count" id="main-req-top-count">Ativa</span>
+          </div>
+
+          <div class="request-status-card">
+            <div class="request-header-row">
+              <span class="request-protocol-label" id="main-req-category">Iluminação Pública</span>
+              <span class="status-pill in-analysis" id="main-req-badge">Em Análise</span>
+            </div>
+
+            <h3 class="request-title" id="main-req-title">Iluminação pública apagada</h3>
+            <p class="request-meta" id="main-req-meta">SIM-2026-0042 · Aberto em 18 out 2026</p>
+
+            <!-- Stepper / Linha de Etapas Dinâmica -->
+            <div class="stepper-container" id="main-req-stepper" aria-label="Progresso da solicitação">
+              <div class="stepper-step completed" data-step="1">
+                <div class="step-circle" title="Recebido">✓</div>
+                <span class="step-label">Recebido</span>
+              </div>
+
+              <div class="stepper-line completed" data-line="1"></div>
+
+              <div class="stepper-step active" data-step="2">
+                <div class="step-circle">2</div>
+                <span class="step-label">Em Análise</span>
+              </div>
+
+              <div class="stepper-line" data-line="2"></div>
+
+              <div class="stepper-step" data-step="3">
+                <div class="step-circle">3</div>
+                <span class="step-label">Equipe Enviada</span>
+              </div>
+
+              <div class="stepper-line" data-line="3"></div>
+
+              <div class="stepper-step" data-step="4">
+                <div class="step-circle">4</div>
+                <span class="step-label">Concluído</span>
+              </div>
+            </div>
+
+            <!-- Caixa de Atualização -->
+            <div class="request-update-box">
+              <div class="update-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+              </div>
+              <div class="update-text" id="main-req-update-box">
+                <strong>Nova atualização · Equipe SEMP</strong>
+                <p>Seu pedido está em análise com os técnicos municipais.</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+              <a href="requestsPage.html" class="request-action-link">
+                <span>Acompanhar etapas e complementar</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <button type="button" id="btn-main-print-protocol" style="background: #EEF3FF; color: #103FEF; border: 1.5px solid #103FEF; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                🖨️ Imprimir Comprovante 156
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </section>
 
     <!-- ====================================================================
-         SISTEMA DE BANNER DINÂMICO (NOTÍCIAS & EVENTOS DE RIO DAS OSTRAS E SAPUCAIA)
+         6. SEÇÃO EDITORIAL "CIDADE VIVA · CUIDAR DE TODOS"
+         ==================================================================== -->
+    <section class="civic-wellness-section" id="cidade-viva" aria-label="Programa Cidade Viva de Prevenção e Qualidade de Vida">
+      <div class="wellness-header">
+        <div>
+          <span class="wellness-kicker">SAÚDE PREVENTIVA, BEM-ESTAR E CIDADANIA</span>
+          <h2>Cidade Viva · Cuidar de Todos</h2>
+          <p>Informação de qualidade para proteger a saúde da sua família e preservar o nosso município.</p>
+        </div>
+        <a href="healthPage.html" class="btn-wellness-all">ACESSAR PORTAL DE SAÚDE →</a>
+      </div>
+
+      <div class="wellness-cards-grid">
+        <article class="wellness-card">
+          <div class="wellness-card-visual health-blue">
+            <span class="wellness-cat-tag">Saúde do Homem · #NovembroAzul</span>
+          </div>
+          <div class="wellness-card-body">
+            <h3>Coragem é cuidar de si mesmo: exames preventivos nas UBS</h3>
+            <p>Moradores acima de 40 anos podem agendar check-up urológico e exames laboratoriais sem burocracia pelo Cartão SUS.</p>
+            <a href="healthPage.html" class="btn-lime-cta">CONTINUE LENDO</a>
+          </div>
+        </article>
+
+        <article class="wellness-card">
+          <div class="wellness-card-visual dengue-care">
+            <span class="wellness-cat-tag">Vigilância Ambiental</span>
+          </div>
+          <div class="wellness-card-body">
+            <h3>10 minutos contra a Dengue: como solicitar vistoria no seu quarteirão</h3>
+            <p>Encontrou foco de água parada em terreno baldio? Relate pela Central 156 para ação imediata dos agentes de endemias.</p>
+            <a href="occurrencePage.html" class="btn-lime-cta">RELATAR FOCO</a>
+          </div>
+        </article>
+
+        <article class="wellness-card">
+          <div class="wellness-card-visual nutrition-green">
+            <span class="wellness-cat-tag">Qualidade de Vida</span>
+          </div>
+          <div class="wellness-card-body">
+            <h3>Feiras do Produtor Local e caminhadas orientadas nos parques</h3>
+            <p>Confira os dias das feiras de alimentos orgânicos e os grupos gratuitos de atividade física com educadores da prefeitura.</p>
+            <a href="eventsPage.html" class="btn-lime-cta">VER PROGRAMAÇÃO</a>
+          </div>
+        </article>
+
+        <article class="wellness-card">
+          <div class="wellness-card-visual future-work">
+            <span class="wellness-cat-tag">Futuro & Renda</span>
+          </div>
+          <div class="wellness-card-body">
+            <h3>Qualificação Profissional: 600 vagas em tecnologia e atendimento</h3>
+            <p>Cursos gratuitos com certificação municipal e encaminhamento direto para empresas parceiras da região.</p>
+            <a href="worksPage.html" class="btn-lime-cta">INSCREVER-SE</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7. SISTEMA DE BANNER DINÂMICO (NOTÍCIAS & EVENTOS DE RIO DAS OSTRAS E SAPUCAIA)
          ==================================================================== -->
     <section class="banner-carousel-section" aria-label="Notícias e Eventos das Cidades">
       <div class="carousel-top-bar">
@@ -115,10 +740,7 @@
       <!-- Container do Carrossel de Notícias -->
       <div class="carousel-track-wrapper" id="carousel-wrapper">
         <div class="carousel-track" id="carousel-track">
-          <!-- ==========================================
-               CARDS DE RIO DAS OSTRAS (RJ)
-               ========================================== -->
-          <!-- Slide 1: Rio das Ostras (Obras) -->
+          <!-- CARDS DE RIO DAS OSTRAS (RJ) -->
           <article class="news-card" data-city="rio-das-ostras" data-type="noticia">
             <div class="news-card-badge rio">Obras Públicas · Rio das Ostras</div>
             <h3 class="news-card-title">Macrodrenagem e asfaltamento avançam nos bairros Costazul e Jardim Mariléa</h3>
@@ -129,7 +751,6 @@
             </div>
           </article>
 
-          <!-- Slide 2: Rio das Ostras (Evento) -->
           <article class="news-card event" data-city="rio-das-ostras" data-type="evento">
             <div class="news-card-badge event-badge">🎉 Evento Cultural · Rio das Ostras</div>
             <h3 class="news-card-title">Festival de Frutos do Mar e Jazz na Praia do Bosque neste fim de semana</h3>
@@ -140,7 +761,6 @@
             </div>
           </article>
 
-          <!-- Slide 3: Rio das Ostras (Educação) -->
           <article class="news-card" data-city="rio-das-ostras" data-type="noticia">
             <div class="news-card-badge rio">Educação · Rio das Ostras</div>
             <h3 class="news-card-title">Prefeitura abre inscrições para 600 vagas em oficinas de tecnologia e robótica</h3>
@@ -151,7 +771,6 @@
             </div>
           </article>
 
-          <!-- Slide 4: Rio das Ostras (Evento Esportivo) -->
           <article class="news-card event" data-city="rio-das-ostras" data-type="evento">
             <div class="news-card-badge event-badge">🏄 Esporte & Lazer · Rio das Ostras</div>
             <h3 class="news-card-title">Circuito Municipal de Futevôlei e Corrida Rústica na Orla de Costazul</h3>
@@ -162,10 +781,7 @@
             </div>
           </article>
 
-          <!-- ==========================================
-               CARDS DE SAPUCAIA DO SUL (RS)
-               ========================================== -->
-          <!-- Slide 5: Sapucaia do Sul (Saúde) -->
+          <!-- CARDS DE SAPUCAIA DO SUL (RS) -->
           <article class="news-card" data-city="sapucaia" data-type="noticia">
             <div class="news-card-badge sapucaia">Saúde · Sapucaia do Sul</div>
             <h3 class="news-card-title">Hospital Municipal Getúlio Vargas inaugura nova ala de atendimento especializado</h3>
@@ -176,7 +792,6 @@
             </div>
           </article>
 
-          <!-- Slide 6: Sapucaia do Sul (Evento) -->
           <article class="news-card event" data-city="sapucaia" data-type="evento">
             <div class="news-card-badge event-badge">📅 Evento Comunitário · Sapucaia do Sul</div>
             <h3 class="news-card-title">Feira de Artesanato e Gastronomia Popular na Praça General Freitas</h3>
@@ -187,7 +802,6 @@
             </div>
           </article>
 
-          <!-- Slide 7: Sapucaia do Sul (Meio Ambiente) -->
           <article class="news-card" data-city="sapucaia" data-type="noticia">
             <div class="news-card-badge sapucaia">Meio Ambiente · Sapucaia do Sul</div>
             <h3 class="news-card-title">Mutirão de arborização urbana planta 1.000 mudas nativas no Parque Zoológico</h3>
@@ -198,7 +812,6 @@
             </div>
           </article>
 
-          <!-- Slide 8: Sapucaia do Sul (Evento Cultural) -->
           <article class="news-card event" data-city="sapucaia" data-type="evento">
             <div class="news-card-badge event-badge">🐎 Tradição Gaúcha · Sapucaia do Sul</div>
             <h3 class="news-card-title">Encontro Municipal de Tradições Gaúchas e Tertúlia Musical no Parque Centenário</h3>
@@ -211,312 +824,36 @@
         </div>
       </div>
 
-      <!-- Indicadores de Pontos (Dots) -->
       <div class="carousel-dots" id="carousel-dots"></div>
     </section>
 
     <!-- ====================================================================
-         GRID PRINCIPAL COM 3 COLUNAS (CONFORME A REFERÊNCIA VISUAL)
+         8. TRÍADE DE UTILIDADE PÚBLICA, TRANSPARÊNCIA E SEGURANÇA DIGITAL
          ==================================================================== -->
-    <section class="main-dashboard-grid" aria-label="Painel de Serviços do Cidadão">
-      <!-- ==========================================
-           COLUNA 1: O que você precisa?
-           ========================================== -->
-      <div class="dash-col dash-col-left">
-        <div class="dash-card need-card">
-          <h2 class="card-title">O que você precisa?</h2>
+    <section class="civic-utility-trio" id="utilidade-antifraude" aria-label="Avisos de Utilidade Pública e Prevenção a Fraudes">
+      <!-- Card 1: Prevenção a Golpes e Fraudes -->
+      <article class="utility-banner-card antifraud-card">
+        <span class="utility-pill-tag green">SEGURANÇA DIGITAL AO CIDADÃO</span>
+        <h3>Dúvida na mensagem? Melhor checar.</h3>
+        <p>A informação certa é a melhor defesa contra golpes. A Prefeitura nunca cobra taxas por WhatsApp para agilizar consultas ou obras.</p>
+        <a href="privacyPage.html" class="utility-card-link">Verificar canais oficiais →</a>
+      </article>
 
-          <!-- Bloco de Acessibilidade -->
-          <div class="accessibility-box">
-            <div class="access-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="4" r="2"/>
-                <path d="M4 9h16"/>
-                <path d="M12 9v11"/>
-                <path d="M9 20l3-5 3 5"/>
-              </svg>
-              <span>Acessibilidade</span>
-            </div>
-            <div class="access-buttons">
-              <button type="button" class="btn-access" id="btn-increase-font" title="Aumentar o tamanho do texto da tela">
-                <strong>A+</strong> Aumentar fonte
-              </button>
-              <button type="button" class="btn-access" id="btn-toggle-contrast" title="Alternar modo de alto contraste para leitura">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>
-                </svg>
-                Alto contraste
-              </button>
-            </div>
-          </div>
+      <!-- Card 2: Avisos Operacionais / Substituição de Rotas (Laranja #F47920) -->
+      <article class="utility-banner-card operational-orange-card">
+        <span class="utility-pill-tag white">AVISOS OPERACIONAIS & ROTAS</span>
+        <h3>Cronograma de Manutenção Preventiva e Vias</h3>
+        <p>Confira as ruas com operação tapa-buraco, poda preventiva e substituição de luminárias programadas para esta semana.</p>
+        <a href="requestsPage.html" class="utility-card-link white-link">Consultar cronograma →</a>
+      </article>
 
-          <!-- Ação Principal: Registrar ocorrência (Destaque Azul Royal) -->
-          <a href="occurrencePage.html" class="action-card primary-action" title="Abrir chamado de buraco, iluminação ou vazamento">
-            <div class="action-card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s2.5-2.14 4.5-4.88"/>
-                <circle cx="12" cy="10" r="3"/>
-                <line x1="19" y1="13" x2="19" y2="19"/>
-                <line x1="16" y1="16" x2="22" y2="16"/>
-              </svg>
-            </div>
-            <div class="action-card-text">
-              <strong>Registrar ocorrência</strong>
-              <span>Buraco, iluminação ou vazamento</span>
-            </div>
-            <svg class="action-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-
-          <!-- Ação Secundária: Acompanhar solicitações -->
-          <a href="requestsPage.html" class="action-card secondary-action" title="Consultar status de protocolos abertos">
-            <div class="action-card-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                <rect x="8" y="2" width="8" height="4" rx="1"/>
-                <line x1="9" y1="11" x2="15" y2="11"/>
-                <line x1="9" y1="15" x2="15" y2="15"/>
-                <circle cx="9" cy="8" r="0.75" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="action-card-text">
-              <strong>Acompanhar solicitações</strong>
-              <span>1 protocolo aberto · 1 atualização</span>
-            </div>
-            <svg class="action-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </a>
-
-          <!-- 2 Mini Cards: Saúde & IPTU/ISS -->
-          <div class="mini-cards-grid">
-            <a href="healthPage.html" class="mini-card" title="Acessar serviços de saúde e vacinação">
-              <div class="mini-card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.66l7.65-7.65.77-.78a5.4 5.4 0 0 0 0-7.65z"/>
-                  <polyline points="3.5 12 7.5 12 9.5 9 12 15 14 10 16.5 12 20.5 12"/>
-                </svg>
-              </div>
-              <strong class="mini-card-title">Saúde</strong>
-              <span class="mini-card-desc">Consultas e agendamentos</span>
-              <svg class="mini-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
-
-            <a href="invoicesPage.html" class="mini-card" title="Consultar débitos e emitir 2ª via">
-              <div class="mini-card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-              </div>
-              <strong class="mini-card-title">IPTU e ISS</strong>
-              <span class="mini-card-desc">Débitos, guia PDF ou Pix</span>
-              <svg class="mini-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==========================================
-           COLUNA 2: Sua pendência & Seus agendamentos
-           ========================================== -->
-      <div class="dash-col dash-col-center">
-        <!-- Bloco 1: Sua pendência -->
-        <div class="dash-block">
-          <div class="block-header">
-            <h2 class="block-title">Sua pendência</h2>
-            <span class="block-badge-count">2 a resolver</span>
-          </div>
-
-          <!-- Pendência 1: IPTU 2026 -->
-          <div class="debt-card">
-            <div class="debt-card-header">
-              <div class="debt-title-group">
-                <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                </svg>
-                <strong id="main-bill-title">IPTU 2026</strong>
-              </div>
-              <span class="status-pill pending">A vencer</span>
-            </div>
-
-            <div class="debt-card-body">
-              <div class="debt-amount-col">
-                <span class="debt-label">Parcela única</span>
-                <span class="debt-value" id="main-bill-val">R$ 148,50</span>
-              </div>
-              <div class="debt-due-col">
-                <span class="debt-label">Vence em</span>
-                <span class="debt-due-date" id="main-bill-due">26 out 2026</span>
-              </div>
-            </div>
-
-            <button type="button" class="debt-action-btn" id="main-bill-btn" data-bill="IPTU 2026" data-value="148,50" data-due="26 out 2026">
-              <span>Consultar guia ou Pix</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Pendência 2: Energia Outubro -->
-          <div class="debt-card">
-            <div class="debt-card-header">
-              <div class="debt-title-group">
-                <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
-                <strong id="main-bill2-title">Energia Outubro</strong>
-              </div>
-              <span class="status-pill pending">A vencer</span>
-            </div>
-
-            <div class="debt-card-body">
-              <div class="debt-amount-col">
-                <span class="debt-label">Parcela única</span>
-                <span class="debt-value">R$ 350,00</span>
-              </div>
-              <div class="debt-due-col">
-                <span class="debt-label">Vence em</span>
-                <span class="debt-due-date">14 nov 2026</span>
-              </div>
-            </div>
-
-            <button type="button" class="debt-action-btn" data-bill="Energia Outubro" data-value="350,00" data-due="14 nov 2026">
-              <span>Consultar guia ou Pix</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Bloco 2: Seus agendamentos -->
-        <div class="dash-block">
-          <div class="block-header">
-            <h2 class="block-title">Seus agendamentos</h2>
-            <span class="block-badge-count">1 marcado</span>
-          </div>
-
-          <div class="appointment-card">
-            <div class="appointment-main-row">
-              <div class="appointment-date-badge">
-                <span class="date-number" id="main-app-day">21</span>
-                <span class="date-month" id="main-app-month">OUT</span>
-              </div>
-              <div class="appointment-details">
-                <strong class="appointment-title" id="main-app-title">Clínico geral</strong>
-                <span class="appointment-time" id="main-app-time">Quarta-feira · 09h30</span>
-                <span class="appointment-place" id="main-app-place">Unidade de Saúde Central — Rio das Ostras</span>
-              </div>
-            </div>
-
-            <div class="appointment-tags">
-              <span class="status-pill confirmed">Confirmado</span>
-              <span class="tag-type">Agendamento</span>
-            </div>
-
-            <button type="button" class="appointment-action-btn" id="btn-open-appointment">
-              <span>Ver meu agendamento</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==========================================
-           COLUNA 3: Sua solicitação
-           ========================================== -->
-      <div class="dash-col dash-col-right">
-        <div class="block-header">
-          <h2 class="block-title">Sua solicitação</h2>
-          <span class="block-badge-count">1 aberta</span>
-        </div>
-
-        <div class="request-status-card">
-          <div class="request-header-row">
-            <span class="request-protocol-label">Protocolo</span>
-            <span class="status-pill in-analysis" id="main-req-badge">Em Análise</span>
-          </div>
-
-          <h3 class="request-title" id="main-req-title">Iluminação pública apagada</h3>
-          <p class="request-meta" id="main-req-meta">SIM-2026-0042 · Aberto em 18 out 2026</p>
-
-          <!-- Stepper / Linha de Etapas -->
-          <div class="stepper-container" aria-label="Progresso da solicitação">
-            <div class="stepper-step completed">
-              <div class="step-circle" title="Recebido">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <span class="step-label">Recebido</span>
-            </div>
-
-            <div class="stepper-line completed"></div>
-
-            <div class="stepper-step active">
-              <div class="step-circle">2</div>
-              <span class="step-label">Em Análise</span>
-            </div>
-
-            <div class="stepper-line"></div>
-
-            <div class="stepper-step">
-              <div class="step-circle">3</div>
-              <span class="step-label">Equipe Enviada</span>
-            </div>
-
-            <div class="stepper-line"></div>
-
-            <div class="stepper-step">
-              <div class="step-circle">4</div>
-              <span class="step-label">Concluído</span>
-            </div>
-          </div>
-
-          <!-- Caixa de Atualização -->
-          <div class="request-update-box">
-            <div class="update-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-              </svg>
-            </div>
-            <div class="update-text" id="main-req-update-box">
-              <strong>Nova atualização · 19 out</strong>
-              <p>Seu pedido está em análise com os técnicos municipais.</p>
-            </div>
-          </div>
-          </div>
-
-          <a href="requestsPage.html" class="request-action-link">
-            <span>Acompanhar etapas</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-      </div>
+      <!-- Card 3: Acesso Cidadão / Cadastro Único -->
+      <article class="utility-banner-card citizen-portal-card">
+        <span class="utility-pill-tag royal">CONTA CIDADÃ VERIFICADA</span>
+        <h3>Mantenha seu Cartão SUS e endereço atualizados</h3>
+        <p>Com o cadastro em dia, você recebe alertas por WhatsApp ou e-mail sempre que seu protocolo mudar de etapa.</p>
+        <a href="accountPage.html" class="utility-card-link">Atualizar meu perfil →</a>
+      </article>
     </section>
 
     <!-- Links de Apoio do Rodapé da Página -->
@@ -527,14 +864,14 @@
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
           <line x1="12" y1="17" x2="12.01" y2="17"></line>
         </svg>
-        <span>Precisa de ajuda?</span>
+        <span>Canais de Atendimento (156)</span>
       </button>
 
       <button type="button" class="bottom-support-btn" id="btn-open-privacy">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
-        <span>Privacidade</span>
+        <span>Privacidade e Proteção LGPD</span>
       </button>
     </footer>
   </main>
@@ -554,34 +891,31 @@
 
       <div class="modal-body">
         <div class="modal-amount-box">
-          <span class="modal-amount-label">Valor a pagar:</span>
+          <span class="modal-amount-label" id="modal-bill-taxpayer">Contribuinte: Mariana Costa Almeida (CPF 142.890.517-34)</span>
           <strong class="modal-amount-value" id="modal-bill-amount">R$ 148,50</strong>
-          <span class="modal-amount-due" id="modal-bill-due">Vencimento em 26 out 2026</span>
+          <span class="modal-amount-due" id="modal-bill-due">Vencimento em 26 nov 2026</span>
         </div>
 
         <div class="pix-section">
-          <h4>Pague instantaneamente via Pix</h4>
+          <h4>Pague instantaneamente via Pix Oficial</h4>
           <p>Abra o app do seu banco, escolha <strong>Pagar com Pix</strong> e aponte a câmera para o QR Code abaixo:</p>
 
-          <!-- QR Code Simulado em SVG nítido -->
           <div class="pix-qr-container">
             <svg class="qr-svg" width="160" height="160" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="120" height="120" fill="white"/>
-              <!-- Quadrados de mira nos cantos -->
               <rect x="10" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="18" y="18" width="14" height="14" fill="#1a56db"/>
+              <rect x="18" y="18" width="14" height="14" fill="#103FEF"/>
               <rect x="80" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="88" y="18" width="14" height="14" fill="#1a56db"/>
+              <rect x="88" y="18" width="14" height="14" fill="#103FEF"/>
               <rect x="10" y="80" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="18" y="88" width="14" height="14" fill="#1a56db"/>
-              <!-- Padrão Pix -->
+              <rect x="18" y="88" width="14" height="14" fill="#103FEF"/>
               <rect x="48" y="12" width="6" height="6" fill="#0f172a"/>
               <rect x="58" y="18" width="8" height="6" fill="#0f172a"/>
               <rect x="48" y="28" width="12" height="6" fill="#0f172a"/>
               <rect x="14" y="48" width="8" height="6" fill="#0f172a"/>
               <rect x="28" y="48" width="6" height="12" fill="#0f172a"/>
-              <rect x="44" y="44" width="32" height="32" stroke="#1a56db" stroke-width="2"/>
-              <rect x="52" y="52" width="16" height="16" fill="#1a56db"/>
+              <rect x="44" y="44" width="32" height="32" stroke="#00995D" stroke-width="2"/>
+              <rect x="52" y="52" width="16" height="16" fill="#00995D"/>
               <rect x="84" y="48" width="8" height="8" fill="#0f172a"/>
               <rect x="98" y="56" width="6" height="14" fill="#0f172a"/>
               <rect x="48" y="86" width="14" height="6" fill="#0f172a"/>
@@ -592,7 +926,7 @@
           </div>
 
           <div class="pix-copia-cola">
-            <label for="pix-input-code">Ou copie o código Pix abaixo:</label>
+            <label for="pix-input-code">Ou copie o código Pix Copia e Cola abaixo:</label>
             <div class="copy-input-group">
               <input type="text" id="pix-input-code" value="00020126580014br.gov.bcb.pix0136conecta-cidadao-arrecadacao-municipal5204000053039865405148.505802BR5925PREFEITURA MUNICIPAL6014RIO DAS OSTRAS62070503***630489A1" readonly>
               <button type="button" class="btn-copy-pix" id="btn-copy-pix">Copiar Código</button>
@@ -603,12 +937,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn-secondary" id="btn-download-pdf">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Baixar Guia PDF (DAM)
+          🖨️ Emitir e Imprimir Guia DAM (PDF)
         </button>
         <button type="button" class="btn-primary" id="btn-close-modal-bill">Concluído</button>
       </div>
@@ -616,13 +945,13 @@
   </dialog>
 
   <!-- ====================================================================
-       MODAL DE DETALHES DO AGENDAMENTO
+       MODAL DE DETALHES DO AGENDAMENTO SUS
        ==================================================================== -->
   <dialog class="app-modal" id="modal-appointment">
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title-group">
-          <h3>Consulta - Clínico Geral</h3>
+          <h3 id="modal-app-header-title">Comprovante de Agendamento SUS</h3>
           <span class="status-pill confirmed">Confirmado</span>
         </div>
         <button type="button" class="modal-close" id="modal-appointment-close" aria-label="Fechar modal">&times;</button>
@@ -631,27 +960,33 @@
       <div class="modal-body">
         <div class="appointment-summary-card">
           <div class="summary-item">
+            <span class="summary-label">Paciente & Cartão Nacional SUS:</span>
+            <strong id="modal-app-patient">Mariana Costa Almeida · SUS 898 0012 3456 7891</strong>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Especialidade e Profissional:</span>
+            <strong id="modal-app-prof">Clínico Geral · Dra. Mariana Vasconcellos</strong>
+          </div>
+          <div class="summary-item">
             <span class="summary-label">Data e Horário:</span>
-            <strong>Quarta-feira, 21 de Outubro de 2026 às 09h30</strong>
+            <strong id="modal-app-datetime">Quarta-feira, 21 de Novembro de 2026 às 09h30</strong>
           </div>
           <div class="summary-item">
-            <span class="summary-label">Local de Atendimento:</span>
-            <strong>Unidade Básica de Saúde Central (UBS)</strong>
-            <span>Av. das Palmeiras, 450 - Centro</span>
-          </div>
-          <div class="summary-item">
-            <span class="summary-label">Profissional Responsável:</span>
-            <strong>Dra. Mariana Vasconcellos (CRM-RJ 84920)</strong>
+            <span class="summary-label">Unidade de Saúde:</span>
+            <strong id="modal-app-location">UBS Central — Av. das Flores, 80 · Rio das Ostras</strong>
           </div>
           <div class="summary-item">
             <span class="summary-label">Orientações ao Cidadão:</span>
-            <span>Chegar com 15 minutos de antecedência munido de documento oficial com foto e Cartão SUS.</span>
+            <span>Chegar com 15 minutos de antecedência munido de documento oficial com foto e Cartão SUS (físico ou digital).</span>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn-secondary" id="btn-reschedule">Remarcar Consulta</button>
+        <button type="button" class="btn-secondary" id="btn-reschedule">Gerenciar na Página de Saúde</button>
+        <button type="button" class="btn-secondary" id="btn-print-sus-voucher" style="border-color: #103FEF; color: #103FEF;">
+          🖨️ Imprimir Comprovante SUS
+        </button>
         <button type="button" class="btn-primary" id="btn-confirm-appointment-ok">Entendido</button>
       </div>
     </div>

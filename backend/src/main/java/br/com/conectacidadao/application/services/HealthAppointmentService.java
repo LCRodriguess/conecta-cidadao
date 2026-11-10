@@ -1,4 +1,6 @@
 package br.com.conectacidadao.application.services;
+
+import java.util.UUID;
 import br.com.conectacidadao.domain.entities.HealthAppointment;
 import br.com.conectacidadao.domain.repositories.HealthAppointmentRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class HealthAppointmentService
         return healthAppointmentRepository.save(appointment);
     }
 
-    public void delete(String id) 
+    public void delete(UUID id) 
     {
         healthAppointmentRepository.deleteById(id);
     }

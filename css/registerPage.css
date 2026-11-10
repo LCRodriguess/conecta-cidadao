@@ -1,1 +1,485 @@
-/* registerPage.css */
+/* ==========================================================================
+   CONECTA CIDADÃO - REGISTER PAGE (registerPage.css)
+   Estilos do formulário de cadastro único e prévia do Cartão Cidadão.
+   ========================================================================== */
+
+@import url('global.css');
+
+.register-page-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 4px 20px 44px;
+}
+
+.register-layout {
+    display: grid;
+    grid-template-columns: 1.45fr 0.85fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* ==========================================================================
+   COLUNA ESQUERDA: CARD DO FORMULÁRIO DE CADASTRO
+   ========================================================================== */
+
+.register-form-card {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 28px;
+    padding: 34px 32px;
+    box-shadow: var(--sombra-lg);
+}
+
+.register-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.badge-pill-royal {
+    background: var(--azul-ativo-bg);
+    color: var(--azul-primario);
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: var(--raio-pill);
+}
+
+.badge-pill-care {
+    background: #ECFDF5;
+    color: var(--verde-cuidado);
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: var(--raio-pill);
+}
+
+.register-card-top h1 {
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.register-card-top p {
+    font-size: 15px;
+    color: var(--cor-texto-mutado);
+    line-height: 1.55;
+    margin-bottom: 22px;
+}
+
+/* Barra Geradora de Dados Reais Simulados */
+.real-person-generator-bar {
+    background: linear-gradient(135deg, #004E4C 0%, #003836 100%);
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1.5px solid #000000;
+}
+
+.generator-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--verde-lima);
+    margin-bottom: 2px;
+}
+
+.generator-info strong {
+    display: block;
+    font-size: 15px;
+    color: #FFFFFF;
+}
+
+.generator-info span {
+    font-size: 12.5px;
+    color: #D1E7E4;
+}
+
+.generator-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-gen-person {
+    background: var(--verde-lima);
+    color: var(--verde-floresta);
+    border: none;
+    border-radius: var(--raio-pill);
+    padding: 9px 16px;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.btn-gen-person:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.reg-feedback-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ECFDF5;
+    border: 1.5px solid var(--verde-cuidado);
+    color: var(--verde-profundo);
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.reg-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--verde-cuidado);
+    flex-shrink: 0;
+}
+
+/* Fieldsets e Inputs */
+.civic-register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.reg-fieldset {
+    border: 1.5px solid #E5E7EB;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.reg-fieldset legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    font-family: var(--font-display);
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #000000;
+}
+
+.step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--azul-primario);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reg-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.reg-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.reg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reg-field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.reg-field input,
+.reg-field select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 14px;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: #000000;
+    background: #F9FAFB;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 12px;
+}
+
+.reg-field input:focus,
+.reg-field select:focus {
+    background: #FFFFFF;
+    border-color: var(--azul-primario);
+}
+
+.cep-inline-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-lookup-cep {
+    background: #000000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 0 14px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.lgpd-consent-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.consent-check input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--verde-cuidado);
+    flex-shrink: 0;
+}
+
+.register-submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 8px;
+}
+
+.btn-pill-back-login {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 10px 20px;
+    border-radius: var(--raio-pill);
+    border: 2px solid #000000;
+    color: #000000;
+    background: #FFFFFF;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.btn-pill-back-login:hover {
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.btn-pill-submit-register {
+    flex: 1;
+    min-height: 52px;
+    background: var(--verde-cuidado);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--raio-pill);
+    padding: 14px 26px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--font-display);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 153, 93, 0.28);
+}
+
+.btn-pill-submit-register:hover {
+    background: var(--verde-cuidado-hover);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   COLUNA DIREITA: SIDEBAR DE BENEFÍCIOS & PRÉVIA DO CARTÃO CIDADÃO
+   ========================================================================== */
+
+.register-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 128px;
+}
+
+.sidebar-care-card {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 24px;
+    padding: 26px 24px;
+    box-shadow: var(--sombra-md);
+}
+
+.care-kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--verde-cuidado);
+    margin-bottom: 6px;
+}
+
+.sidebar-care-card h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #000000;
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+.care-benefits-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.care-benefits-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.benefit-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #ECFDF5;
+    color: var(--verde-cuidado);
+    font-weight: 900;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.care-benefits-list strong {
+    display: block;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 2px;
+}
+
+.care-benefits-list p {
+    font-size: 13px;
+    color: var(--cor-texto-mutado);
+    line-height: 1.45;
+}
+
+/* Cartão Cidadão Digital Ao Vivo */
+.sidebar-preview-card {
+    background: linear-gradient(145deg, #004E4C 0%, #002928 100%);
+    color: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: var(--sombra-md);
+}
+
+.preview-tag {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--verde-lima);
+    margin-bottom: 12px;
+}
+
+.digital-id-preview {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.id-preview-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.id-preview-top strong {
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.id-gold-badge {
+    background: var(--verde-lima);
+    color: var(--verde-floresta);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 9px;
+    border-radius: var(--raio-pill);
+}
+
+.id-preview-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12.5px;
+    color: #E2F1EF;
+}
+
+.id-preview-footer {
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--verde-lima);
+}
+
+@media (max-width: 980px) {
+    .register-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .reg-grid-2,
+    .reg-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .register-sidebar {
+        position: static;
+    }
+}
