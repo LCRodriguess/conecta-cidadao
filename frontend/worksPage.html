@@ -101,7 +101,7 @@
 
     <!-- Cabeçalho de Resultados -->
     <div class="results-header">
-      <h2 class="results-count" id="jobs-count">4 oportunidades</h2>
+      <h2 class="results-count" id="jobs-count">Carregando oportunidades...</h2>
       <span class="results-sort">Mais recentes</span>
     </div>
 
@@ -114,45 +114,43 @@
       <div class="job-details-column">
         <div class="job-details-card">
           <span class="details-badge">Detalhes da vaga</span>
-          <h2 class="details-title" id="det-title">Assistente administrativo</h2>
+          <h2 class="details-title" id="det-title">Carregando vagas...</h2>
           <div class="details-company-row">
-            <span id="det-company">Organização A</span>
+            <span id="det-company"> </span>
             <span class="dot-separator">·</span>
-            <span id="det-location">Rio das Ostras · RJ</span>
+            <span id="det-location"> </span>
           </div>
 
           <div class="details-grid-specs">
             <div class="spec-block">
               <span class="spec-label">Remuneração</span>
-              <strong class="spec-value" id="det-salary">R$ 1.900,00/mês</strong>
+              <strong class="spec-value" id="det-salary">Não informado</strong>
             </div>
             <div class="spec-block">
               <span class="spec-label">Contrato</span>
-              <strong class="spec-value" id="det-contract">CLT · Presencial</strong>
+              <strong class="spec-value" id="det-contract">Não informado</strong>
             </div>
           </div>
 
-          <p class="details-workload" id="det-workload">40h semanais · 2 vagas</p>
+          <p class="details-workload" id="det-workload">Jornada de trabalho não informada</p>
 
           <div class="details-section">
             <h4 class="details-section-title">Atividades</h4>
-            <p class="details-section-text" id="det-activities">Organizar documentos, apoiar o atendimento e atualizar planilhas de rotina.</p>
+            <p class="details-section-text" id="det-activities">Selecione uma vaga para consultar os detalhes.</p>
           </div>
 
           <div class="details-section">
             <h4 class="details-section-title">Requisitos</h4>
             <ul class="details-list" id="det-requirements">
-              <li>Ensino médio completo</li>
-              <li>Conhecimentos básicos de planilhas</li>
-              <li>Organização e comunicação</li>
+              <li>Selecione uma vaga para consultar os requisitos.</li>
             </ul>
           </div>
 
           <p class="details-advice">Confira seu perfil antes de continuar com a candidatura.</p>
 
-          <button type="button" class="btn-apply-job" id="btn-apply">Candidatar-se</button>
+          <button type="button" class="btn-apply-job" id="btn-apply" disabled>Candidatar-se</button>
 
-          <span class="details-published-date" id="det-date">Publicado em 22 out 2026.</span>
+          <span class="details-published-date" id="det-date"></span>
         </div>
 
         <!-- Card de Orientação / Dica -->
@@ -195,283 +193,475 @@
   <app-footer></app-footer>
 
   <!-- Script da Página de Empregos -->
-  <!-- Script da Página de Empregos -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const jobsByCity = {
-        'rio-das-ostras': [
-          {
-            id: 1,
-            title: 'Assistente administrativo',
-            company: 'Organização A',
-            location: 'Rio das Ostras · RJ',
-            salary: 'R$ 1.900,00/mês',
-            contract: 'CLT · Presencial',
-            workload: '40h semanais · 2 vagas',
-            activities: 'Organizar documentos, apoiar o atendimento e atualizar planilhas de rotina.',
-            requirements: ['Ensino médio completo', 'Conhecimentos básicos de planilhas', 'Organização e comunicação'],
-            date: 'Publicado em 22 out 2026.',
-            area: 'Administrativo',
-            modality: 'Presencial'
-          },
-          {
-            id: 2,
-            title: 'Atendente de comércio',
-            company: 'Comércio B',
-            location: 'Rio das Ostras · RJ',
-            salary: 'R$ 1.650,00/mês + VT',
-            contract: 'CLT · Presencial',
-            workload: '44h semanais · 3 vagas',
-            activities: 'Atendimento ao público presencial, operação de caixa e reposição de mercadorias.',
-            requirements: ['Ensino fundamental ou médio', 'Boa comunicação', 'Disponibilidade de horário'],
-            date: 'Publicado em 21 out 2026.',
-            area: 'Comércio',
-            modality: 'Presencial'
-          },
-          {
-            id: 3,
-            title: 'Auxiliar de serviços gerais',
-            company: 'Serviços C',
-            location: 'Rio das Ostras · RJ',
-            salary: 'R$ 1.580,00/mês + Insalubridade',
-            contract: 'CLT · Presencial',
-            workload: '40h semanais · 4 vagas',
-            activities: 'Limpeza e conservação predial de repartições públicas municipais.',
-            requirements: ['Experiência básica na área de limpeza', 'Pontualidade e responsabilidade'],
-            date: 'Publicado em 20 out 2026.',
-            area: 'Serviços',
-            modality: 'Presencial'
-          },
-          {
-            id: 4,
-            title: 'Estágio em suporte de informática',
-            company: 'Tecnologia D',
-            location: 'Rio das Ostras · RJ',
-            salary: 'Bolsa R$ 1.100,00/mês + Auxílio',
-            contract: 'Estágio · Híbrido',
-            workload: '20h semanais · 1 vaga',
-            activities: 'Apoio técnico a servidores municipais, instalação de softwares e suporte a impressoras.',
-            requirements: ['Cursando Técnico ou Superior em TI/Sistemas', 'Conhecimentos de redes e Windows'],
-            date: 'Publicado em 19 out 2026.',
-            area: 'Tecnologia',
-            modality: 'Híbrido'
-          }
-        ],
-        'sapucaia': [
-          {
-            id: 101,
-            title: 'Assistente de Logística e Expedição',
-            company: 'Polo Industrial Sul',
-            location: 'Sapucaia do Sul · RS',
-            salary: 'R$ 2.100,00/mês + Benefícios',
-            contract: 'CLT · Presencial',
-            workload: '44h semanais · 2 vagas',
-            activities: 'Controle de entrada e saída de materiais no centro de distribuição, conferência de notas fiscais e estoque.',
-            requirements: ['Ensino médio completo', 'Experiência em almoxarifado ou logística', 'Conhecimento em ERP'],
-            date: 'Publicado em 22 out 2026.',
-            area: 'Administrativo',
-            modality: 'Presencial'
-          },
-          {
-            id: 102,
-            title: 'Atendente de Farmácia e Balcão',
-            company: 'Drogaria Sapucaia',
-            location: 'Sapucaia do Sul · RS',
-            salary: 'R$ 1.780,00/mês + Comissão',
-            contract: 'CLT · Presencial',
-            workload: '40h semanais · 2 vagas',
-            activities: 'Atendimento e orientação a clientes, organização de prateleiras e controle de estoque de medicamentos.',
-            requirements: ['Ensino médio completo', 'Curso de atendente de farmácia é diferencial', 'Simpatia e proatividade'],
-            date: 'Publicado em 21 out 2026.',
-            area: 'Comércio',
-            modality: 'Presencial'
-          },
-          {
-            id: 103,
-            title: 'Operador de Máquinas e Manutenção',
-            company: 'Metalúrgica Gaúcha',
-            location: 'Sapucaia do Sul · RS',
-            salary: 'R$ 2.450,00/mês + Periculosidade',
-            contract: 'CLT · Presencial',
-            workload: '44h semanais · 3 vagas',
-            activities: 'Operação de tornos e prensas mecânicas, corte de peças e manutenção preventiva de maquinário.',
-            requirements: ['Ensino fundamental completo', 'Curso profissionalizante SENAI', 'Uso rigoroso de EPIs'],
-            date: 'Publicado em 20 out 2026.',
-            area: 'Serviços',
-            modality: 'Presencial'
-          },
-          {
-            id: 104,
-            title: 'Estágio em Desenvolvimento de Sistemas',
-            company: 'Inovação Digital Sul',
-            location: 'Sapucaia do Sul · RS',
-            salary: 'Bolsa R$ 1.350,00/mês + VT',
-            contract: 'Estágio · Híbrido',
-            workload: '30h semanais · 2 vagas',
-            activities: 'Desenvolvimento de APIs e páginas web em projetos de transformação digital da região metropolitana.',
-            requirements: ['Cursando Ciência da Computação, ADS ou Eng. Software', 'Conhecimento em JavaScript/HTML/CSS'],
-            date: 'Publicado em 19 out 2026.',
-            area: 'Tecnologia',
-            modality: 'Híbrido'
-          }
-        ]
+      const API_URL = 'http://localhost:8080/api/jobs';
+
+      const cityNames = {
+        'rio-das-ostras': 'Rio das Ostras',
+        'sapucaia': 'Sapucaia do Sul'
       };
 
-      let activeCity = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
+      let activeCity = typeof getActiveCity === 'function'
+        ? getActiveCity()
+        : 'rio-das-ostras';
+
       let activeArea = 'all';
+      let jobsByCity = {};
+      let selectedJob = null;
 
       const jobsContainer = document.getElementById('jobs-container');
       const jobsCount = document.getElementById('jobs-count');
+      const searchInput = document.getElementById('search-input');
+      const modalitySelect = document.getElementById('modality-select');
+      const btnApply = document.getElementById('btn-apply');
 
-      function selectJob(data) {
-        if (!data) return;
+      function normalize(value) {
+        return String(value || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .trim();
+      }
 
-        document.querySelectorAll('.job-card').forEach(c => {
-          c.classList.remove('selected');
-          const b = c.querySelector('.selected-badge');
-          if (b) b.remove();
-        });
+      function getModality(job) {
+        const model = normalize(job.workModel);
+        const title = normalize(job.title);
+        const type = normalize(job.employmentType);
 
-        const activeCard = document.querySelector(`.job-card[data-id="${data.id}"]`);
-        if (activeCard) {
-          activeCard.classList.add('selected');
-          const top = activeCard.querySelector('.job-card-top');
-          if (top && !top.querySelector('.selected-badge')) {
-            const badge = document.createElement('span');
-            badge.className = 'selected-badge';
-            badge.textContent = 'Selecionada';
-            top.appendChild(badge);
-          }
+        if (type === 'intern' || title.includes('estagio')) {
+          return 'Estágio';
         }
 
-        document.getElementById('det-title').textContent = data.title;
-        document.getElementById('det-company').textContent = data.company;
-        document.getElementById('det-location').textContent = data.location;
-        document.getElementById('det-salary').textContent = data.salary;
-        document.getElementById('det-contract').textContent = data.contract;
-        document.getElementById('det-workload').textContent = data.workload;
-        document.getElementById('det-activities').textContent = data.activities;
-        document.getElementById('det-date').textContent = data.date;
-        
-        const reqList = document.getElementById('det-requirements');
-        reqList.innerHTML = '';
-        data.requirements.forEach(req => {
-          const li = document.createElement('li');
-          li.textContent = req;
-          reqList.appendChild(li);
+        if (model === 'remote') return 'Remoto';
+        if (model === 'hybrid') return 'Híbrido';
+        if (model === 'onsite') return 'Presencial';
+
+        return 'Não informado';
+      }
+
+      function getContract(type) {
+        const contracts = {
+          fulltime: 'Tempo integral',
+          parttime: 'Meio período',
+          contractor: 'Prestação de serviços',
+          temporary: 'Temporário',
+          intern: 'Estágio',
+          volunteer: 'Voluntariado',
+          perdiem: 'Por diária',
+          other: 'Outro'
+        };
+
+        return contracts[normalize(type).replace(/\s/g, '')]
+          || 'Não informado';
+      }
+
+      function getArea(title) {
+        const value = normalize(title);
+
+        if (
+          value.includes('analista') ||
+          value.includes('desenvolvedor') ||
+          value.includes('desenvolvimento') ||
+          value.includes('informatica') ||
+          value.includes('sistemas') ||
+          value.includes('programador')
+        ) {
+          return 'Tecnologia';
+        }
+
+        if (
+          value.includes('caixa') ||
+          value.includes('vendedor') ||
+          value.includes('vendas') ||
+          value.includes('atendente') ||
+          value.includes('consultor') ||
+          value.includes('crediario') ||
+          value.includes('moda')
+        ) {
+          return 'Comércio';
+        }
+
+        if (
+          value.includes('auxiliar') ||
+          value.includes('operador') ||
+          value.includes('vigilante') ||
+          value.includes('porteiro') ||
+          value.includes('motorista') ||
+          value.includes('cozinha') ||
+          value.includes('manutencao') ||
+          value.includes('trefila')
+        ) {
+          return 'Serviços';
+        }
+
+        if (
+          value.includes('assistente') ||
+          value.includes('gerente') ||
+          value.includes('administrativo') ||
+          value.includes('logistica') ||
+          value.includes('estagio') ||
+          value.includes('recursos humanos') ||
+          value.includes('rh')
+        ) {
+          return 'Administrativo';
+        }
+
+        return 'Outras';
+      }
+
+      function formatDate(date) {
+        if (!date) return 'Data de publicação não informada';
+
+        const parsed = new Date(date);
+
+        if (Number.isNaN(parsed.getTime())) {
+          return 'Data de publicação não informada';
+        }
+
+        return 'Publicado em ' +
+          parsed.toLocaleDateString('pt-BR', {
+            timeZone: 'UTC'
+          });
+      }
+
+      function mapJob(job) {
+        return {
+          id: job.id,
+          title: job.title || 'Título não informado',
+          company: job.companyName || 'Empresa não informada',
+          location: `${job.city || 'Município não informado'} · ${job.region || ''}`,
+          salary: job.salary || 'Não informado',
+          contract: getContract(job.employmentType),
+          modality: getModality(job),
+          area: getArea(job.title),
+          date: formatDate(job.postedAt),
+          description: job.description || '',
+          url: job.url || '',
+          workload: 'Jornada de trabalho não informada'
+        };
+      }
+
+      async function loadJobs(cityKey) {
+        jobsContainer.textContent = 'Carregando vagas...';
+        jobsCount.textContent = 'Consultando oportunidades...';
+
+        try {
+          const response = await fetch(
+            `${API_URL}/${encodeURIComponent(cityKey)}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`Erro HTTP ${response.status}`);
+          }
+
+          const result = await response.json();
+
+          if (!Array.isArray(result.jobs)) {
+            throw new Error('Formato de resposta inválido.');
+          }
+
+          jobsByCity[cityKey] = result.jobs.map(mapJob);
+
+          updateAttribution(result);
+          renderJobs();
+
+        } catch (error) {
+          console.error('Erro ao carregar vagas:', error);
+
+          jobsContainer.textContent =
+            'Não foi possível carregar as vagas. Verifique se o backend está em execução e tente novamente.';
+
+          jobsCount.textContent = 'Falha ao carregar vagas';
+
+          clearDetails();
+        }
+      }
+
+      function updateAttribution(result) {
+        let link = document.getElementById('jobs-attribution');
+
+        if (!link) {
+          link = document.createElement('a');
+          link.id = 'jobs-attribution';
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.style.display = 'inline-block';
+          link.style.marginTop = '8px';
+          link.style.fontSize = '12px';
+
+          jobsCount.insertAdjacentElement('afterend', link);
+        }
+
+        link.textContent = result.attributionText || 'Vagas via Joonow';
+
+        link.href = result.attributionUrl ||
+          'https://www.joonow.com/';
+      }
+
+      function clearDetails() {
+        selectedJob = null;
+
+        document.getElementById('det-title').textContent =
+          'Nenhuma vaga selecionada';
+
+        document.getElementById('det-company').textContent = '';
+        document.getElementById('det-location').textContent = '';
+        document.getElementById('det-salary').textContent = 'Não informado';
+        document.getElementById('det-contract').textContent = 'Não informado';
+
+        document.getElementById('det-workload').textContent =
+          'Jornada não informada';
+
+        document.getElementById('det-activities').textContent =
+          'Descrição não informada pela fonte.';
+
+        document.getElementById('det-requirements').replaceChildren();
+
+        document.getElementById('det-date').textContent = '';
+
+        const sourceLink = document.getElementById('det-source');
+
+        if (sourceLink) sourceLink.remove();
+
+        if (btnApply) {
+          btnApply.disabled = true;
+          btnApply.textContent = 'Selecione uma vaga';
+        }
+      }
+
+      function selectJob(job) {
+        if (!job) return;
+
+        selectedJob = job;
+
+        document.querySelectorAll('.job-card').forEach(card => {
+          card.classList.toggle(
+            'selected',
+            card.dataset.id === String(job.id)
+          );
+
+          const badge = card.querySelector('.selected-badge');
+
+          if (badge) badge.remove();
+
+          if (card.dataset.id === String(job.id)) {
+            const top = card.querySelector('.job-card-top');
+            const selected = document.createElement('span');
+
+            selected.className = 'selected-badge';
+            selected.textContent = 'Selecionada';
+
+            top.appendChild(selected);
+          }
         });
 
-        const btnApply = document.getElementById('btn-apply');
+        document.getElementById('det-title').textContent = job.title;
+        document.getElementById('det-company').textContent = job.company;
+        document.getElementById('det-location').textContent = job.location;
+        document.getElementById('det-salary').textContent = job.salary;
+
+        document.getElementById('det-contract').textContent =
+          `${job.contract} · ${job.modality}`;
+
+        document.getElementById('det-workload').textContent = job.workload;
+
+        document.getElementById('det-activities').textContent =
+          job.description || 'Descrição não informada pela fonte.';
+
+        document.getElementById('det-date').textContent = job.date;
+
+        const reqList = document.getElementById('det-requirements');
+        reqList.replaceChildren();
+
+        const item = document.createElement('li');
+        item.textContent = 'Requisitos não informados pela fonte.';
+        reqList.appendChild(item);
+
+        let sourceLink = document.getElementById('det-source');
+
+        if (!sourceLink) {
+          sourceLink = document.createElement('a');
+          sourceLink.id = 'det-source';
+          sourceLink.textContent = 'Consultar vaga original na Joonow';
+          sourceLink.target = '_blank';
+          sourceLink.rel = 'noopener noreferrer';
+          sourceLink.style.display = 'inline-block';
+          sourceLink.style.marginTop = '12px';
+
+          document.getElementById('det-date')
+            .insertAdjacentElement('afterend', sourceLink);
+        }
+
+        if (job.url) {
+          sourceLink.href = job.url;
+          sourceLink.style.display = 'inline-block';
+        } else {
+          sourceLink.style.display = 'none';
+        }
+
         if (btnApply) {
+          btnApply.disabled = false;
           btnApply.textContent = 'Candidatar-se';
           btnApply.style.backgroundColor = '#1a56db';
-          btnApply.disabled = false;
         }
       }
 
       function renderJobs() {
-        const list = jobsByCity[activeCity] || jobsByCity['rio-das-ostras'];
-        const searchVal = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
-        const modalityVal = document.getElementById('modality-select')?.value || 'all';
+        const list = jobsByCity[activeCity] || [];
+
+        const search = normalize(searchInput?.value);
+        const modality = normalize(modalitySelect?.value || 'all');
 
         const filtered = list.filter(job => {
-          const matchArea = activeArea === 'all' || job.area === activeArea;
-          const matchModality = modalityVal === 'all' || job.modality === modalityVal;
-          const matchSearch = !searchVal || 
-            job.title.toLowerCase().includes(searchVal) || 
-            job.company.toLowerCase().includes(searchVal) ||
-            job.activities.toLowerCase().includes(searchVal);
+          const matchArea =
+            activeArea === 'all' || job.area === activeArea;
+
+          const matchModality =
+            modality === 'all' ||
+            normalize(job.modality) === modality;
+
+          const matchSearch =
+            !search ||
+            normalize(job.title).includes(search) ||
+            normalize(job.company).includes(search) ||
+            normalize(job.location).includes(search);
 
           return matchArea && matchModality && matchSearch;
         });
 
-        jobsContainer.innerHTML = '';
-        jobsCount.textContent = `${filtered.length} oportunidade${filtered.length === 1 ? '' : 's'}`;
+        jobsContainer.replaceChildren();
+
+        jobsCount.textContent =
+          `${filtered.length} oportunidade${filtered.length === 1 ? '' : 's'}`;
 
         if (filtered.length === 0) {
-          jobsContainer.innerHTML = `
-            <div style="background: white; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 2rem; text-align: center; color: #64748b;">
-              <p style="font-weight: 600; color: #0f172a; margin-bottom: 0.5rem;">Nenhuma vaga encontrada</p>
-              <p style="font-size: 0.88rem; margin: 0;">Tente alterar os filtros ou pesquisar por outra palavra-chave.</p>
-            </div>
-          `;
+          const message = document.createElement('p');
+
+          message.textContent = list.length
+            ? 'Nenhuma vaga encontrada. Tente alterar os filtros.'
+            : 'Nenhuma vaga disponível para este município no momento.';
+
+          jobsContainer.appendChild(message);
+          clearDetails();
           return;
         }
 
-        filtered.forEach((job, idx) => {
+        filtered.forEach((job, index) => {
           const card = document.createElement('article');
-          card.className = `job-card ${idx === 0 ? 'selected' : ''}`;
+          card.className = 'job-card';
           card.dataset.id = job.id;
           card.dataset.area = job.area;
           card.dataset.modality = job.modality;
-          card.innerHTML = `
-            <div class="job-card-top">
-              <div class="job-card-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-              </div>
-              <div class="job-card-header-info">
-                <h3 class="job-card-title">${job.title}</h3>
-                <span class="job-card-company">${job.company}</span>
-              </div>
-              ${idx === 0 ? '<span class="selected-badge">Selecionada</span>' : ''}
-            </div>
-            <div class="job-card-bottom">
-              <span class="job-card-meta">${job.modality} · ${job.contract.split('·')[0].trim()} · ${job.location.split('·')[0].trim()} · ${job.workload.split('·')[0].trim()}</span>
-              <svg class="job-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </div>
-          `;
-          card.addEventListener('click', () => selectJob(job));
-          jobsContainer.appendChild(card);
-        });
 
-        if (filtered.length > 0) {
-          selectJob(filtered[0]);
-        }
+          const top = document.createElement('div');
+          top.className = 'job-card-top';
+
+          const icon = document.createElement('div');
+          icon.className = 'job-card-icon';
+
+          icon.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          `;
+
+          const header = document.createElement('div');
+          header.className = 'job-card-header-info';
+
+          const title = document.createElement('h3');
+          title.className = 'job-card-title';
+          title.textContent = job.title;
+
+          const company = document.createElement('span');
+          company.className = 'job-card-company';
+          company.textContent = job.company;
+
+          header.append(title, company);
+          top.append(icon, header);
+
+          const bottom = document.createElement('div');
+          bottom.className = 'job-card-bottom';
+
+          const meta = document.createElement('span');
+          meta.className = 'job-card-meta';
+
+          meta.textContent =
+            `${job.modality} · ${job.contract} · ${job.location}`;
+
+          const arrow = document.createElement('span');
+          arrow.className = 'job-card-arrow';
+          arrow.textContent = '›';
+
+          bottom.append(meta, arrow);
+          card.append(top, bottom);
+
+          card.addEventListener('click', () => selectJob(job));
+
+          jobsContainer.appendChild(card);
+
+          if (index === 0) {
+            selectJob(job);
+          }
+        });
       }
 
-      // Botão Candidatar-se
-      const btnApply = document.getElementById('btn-apply');
+      // Candidatura demonstrativa: não envia dados à empresa.
       if (btnApply) {
         btnApply.addEventListener('click', () => {
-          const title = document.getElementById('det-title').textContent;
-          const loc = document.getElementById('det-location').textContent;
-          alert(`Candidatura enviada com sucesso para a vaga: ${title} (${loc})!\nVocê poderá acompanhar as etapas do processo seletivo na aba Solicitações.`);
-          btnApply.textContent = 'Candidatura Enviada ✓';
-          btnApply.style.backgroundColor = '#16a34a';
-          btnApply.disabled = true;
+          if (!selectedJob) return;
+
+          alert(
+            'Esta é uma demonstração do Conecta Cidadão. ' +
+            'Nenhuma candidatura foi enviada. ' +
+            'Para consultar a oportunidade, utilize o link da vaga original.'
+          );
         });
       }
 
-      // Filtros de área
+      // Filtros de área.
       document.querySelectorAll('.area-chip').forEach(chip => {
         chip.addEventListener('click', () => {
-          document.querySelectorAll('.area-chip').forEach(c => c.classList.remove('active'));
+          document.querySelectorAll('.area-chip').forEach(item =>
+            item.classList.remove('active')
+          );
+
           chip.classList.add('active');
           activeArea = chip.dataset.area;
+
           renderJobs();
         });
       });
 
-      // Busca e modalidade
-      document.getElementById('search-input')?.addEventListener('input', renderJobs);
-      document.getElementById('modality-select')?.addEventListener('change', renderJobs);
-      document.getElementById('btn-search-jobs')?.addEventListener('click', renderJobs);
+      // Busca e modalidade.
+      searchInput?.addEventListener('input', renderJobs);
+      modalitySelect?.addEventListener('change', renderJobs);
 
-      // Escuta troca de município global
-      window.addEventListener('conectaCityChanged', (e) => {
-        if (e.detail && e.detail.cityKey) {
-          activeCity = e.detail.cityKey;
+      document.getElementById('btn-search-jobs')
+        ?.addEventListener('click', renderJobs);
+
+      // Escuta troca de município global.
+      window.addEventListener('conectaCityChanged', event => {
+        const cityKey = event.detail?.cityKey;
+
+        if (!cityNames[cityKey]) return;
+
+        activeCity = cityKey;
+
+        if (jobsByCity[cityKey]) {
           renderJobs();
+        } else {
+          loadJobs(cityKey);
         }
       });
 
-      // Render Inicial
-      renderJobs();
+      // Carregamento inicial.
+      if (!cityNames[activeCity]) {
+        activeCity = 'rio-das-ostras';
+      }
+
+      loadJobs(activeCity);
     });
   </script>
 </body>
