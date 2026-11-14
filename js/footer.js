@@ -168,24 +168,6 @@ class AppFooter extends HTMLElement {
           <span class="assistive-tooltip">Tradutor Libras</span>
         </button>
       </aside>
-
-      <!-- PAINEL INTERATIVO LIBRAS -->
-      <div class="libras-assistant-panel" id="libras-panel" hidden>
-        <div class="libras-panel-header">
-          <strong>🤟 Intérprete Digital em Libras</strong>
-          <button type="button" class="libras-close-btn" id="libras-close-btn" aria-label="Fechar painel Libras">&times;</button>
-        </div>
-        <div class="libras-panel-body">
-          <div class="libras-avatar-stage">
-            <div class="libras-avatar-circle">🤟</div>
-            <span class="libras-status-pill">Tradutor Ativo · Português → Libras</span>
-          </div>
-          <p>Clique em qualquer texto ou botão da página para traduzir o conteúdo para a <strong>Língua Brasileira de Sinais (Libras)</strong>.</p>
-          <div class="libras-quick-actions">
-            <button type="button" class="btn-libras-action" id="btn-libras-translate-page">Traduzir resumo desta página</button>
-          </div>
-        </div>
-      </div>
     `;
 
     this.setupAssistiveControls();
@@ -195,9 +177,6 @@ class AppFooter extends HTMLElement {
     const contrastBtn = this.querySelector('#floating-contrast-btn');
     const footerTrigger = this.querySelector('#footer-accessibility-trigger');
     const librasBtn = this.querySelector('#floating-libras-btn');
-    const librasPanel = this.querySelector('#libras-panel');
-    const librasClose = this.querySelector('#libras-close-btn');
-    const librasTranslateBtn = this.querySelector('#btn-libras-translate-page');
 
     const toggleAccessibility = (e) => {
       if (e) e.preventDefault();
@@ -208,29 +187,79 @@ class AppFooter extends HTMLElement {
     if (contrastBtn) contrastBtn.addEventListener('click', toggleAccessibility);
     if (footerTrigger) footerTrigger.addEventListener('click', toggleAccessibility);
 
-    if (librasBtn && librasPanel) {
+    // O VLibras só é carregado quando o usuário clica no botão personalizado.
+    if (librasBtn) {
       librasBtn.addEventListener('click', () => {
-        const isHidden = librasPanel.hasAttribute('hidden');
-        if (isHidden) {
-          librasPanel.removeAttribute('hidden');
-        } else {
-          librasPanel.setAttribute('hidden', '');
+        // Se já estiver carregado, apenas abre o tradutor.
+        if (window.__vlibrasReady) {
+          document.querySelector('[vw-access-button]')?.click();
+          return;
         }
-      });
-    }
 
-    if (librasClose && librasPanel) {
-      librasClose.addEventListener('click', () => {
-        librasPanel.setAttribute('hidden', '');
-      });
-    }
+        // Evita iniciar vários carregamentos com cliques repetidos.
+        if (window.__vlibrasLoading) return;
 
-    if (librasTranslateBtn) {
-      librasTranslateBtn.addEventListener('click', () => {
-        librasTranslateBtn.textContent = 'Traduzindo sinais... ✓';
-        setTimeout(() => {
-          librasTranslateBtn.textContent = 'Traduzir resumo desta página';
-        }, 2500);
+        window.__vlibrasLoading = true;
+
+        const container = document.createElement('div');
+        container.setAttribute('vw', '');
+        container.className = 'enabled';
+
+        container.innerHTML = `
+          <div vw-access-button class="active"></div>
+          <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+          </div>
+        `;
+
+        document.body.appendChild(container);
+
+        // Esconde somente o botão padrão do VLibras.
+        if (!document.getElementById('vlibras-custom-button-style')) {
+          const style = document.createElement('style');
+          style.id = 'vlibras-custom-button-style';
+          style.textContent = '[vw-access-button] { display: none !important; }';
+          document.head.appendChild(style);
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+        script.async = true;
+
+        script.onload = () => {
+          if (window.VLibras && window.VLibras.Widget) {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+
+            window.__vlibrasReady = true;
+            window.__vlibrasLoading = false;
+
+            // Aguarda a criação do widget antes de acionar sua abertura.
+            const openWidget = (attempt = 0) => {
+              const vlibrasButton = document.querySelector('[vw-access-button]');
+
+              if (vlibrasButton) {
+                vlibrasButton.click();
+              } else if (attempt < 20) {
+                setTimeout(() => openWidget(attempt + 1), 250);
+              }
+            };
+
+            openWidget();
+          } else {
+            window.__vlibrasLoading = false;
+            container.remove();
+            console.error('Não foi possível inicializar o widget VLibras.');
+          }
+        };
+
+        script.onerror = () => {
+          window.__vlibrasLoading = false;
+          container.remove();
+          document.getElementById('vlibras-custom-button-style')?.remove();
+          console.error('Erro ao carregar o VLibras.');
+        };
+
+        document.body.appendChild(script);
       });
     }
   }
