@@ -34,10 +34,42 @@ const MUNICIPALITIES = {
     taxDamAmount: '148,50',
     taxBarcode: '81670000001-4 48502124202-6 89202610281-2 01041820294-8',
     dailyStatus: {
-      waste: { status: 'Operação Normal', badgeClass: 'status-ok', detail: 'Coleta domiciliar e seletiva operando normalmente em Costa Azul, Centro e Jardim Mariléa (turno manhã/noite).' },
-      works: { status: '2 frentes ativas', badgeClass: 'status-warn', detail: 'Obras de macrodrenagem na Av. Governador Roberto Silveira (Costazul) e recapeamento em Jardim Mariléa. Trânsito em meia pista.' },
-      health: { status: 'UPAs 24h e 14 UBS abertas', badgeClass: 'status-ok', detail: 'UPA Parque Âncora e Hospital Dra. Naelma Monteiro com plantão 24h completo. Campanha de Multivacinação ativa nas UBS.' },
-      civilDefense: { status: 'Estável · 26°C', badgeClass: 'status-ok', detail: 'Sem alertas de maré alta ou chuvas intensas nas próximas 24h na Região dos Lagos. Ventos fracos a moderados.' }
+      waste: {
+        status: 'Operação Normal',
+        badgeClass: 'status-ok',
+        detail: 'Ecoponto Municipal CEDRO (Av. Linda, s/n — Nova Esperança · CEP 28893-260) e PEVs Costazul e Jardim Mariléa abertos. Coleta domiciliar operando nos turnos manhã e noite.',
+        mapCategory: 'waste',
+        primaryActionLabel: 'Ver Ecopontos e Reciclagem no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=LimpezaEntulho',
+        secondaryLabel: 'Solicitar Coleta 156'
+      },
+      works: {
+        status: '2 frentes ativas',
+        badgeClass: 'status-warn',
+        detail: 'Macrodrenagem na Av. Governador Roberto Silveira (Costazul · CEP 28895-190) em meia pista e recapeamento na Rua Niterói esq. Nova Friburgo (Jardim Mariléa · CEP 28896-049).',
+        mapCategory: 'works',
+        primaryActionLabel: 'Ver Obras e Ruas no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=AsfaltoBuracos',
+        secondaryLabel: 'Relatar Reparo na Via'
+      },
+      health: {
+        status: 'UPA 24h, Hospital e UBS abertas',
+        badgeClass: 'status-ok',
+        detail: 'UPA 24h Parque Âncora (Rua das Acácias · CEP 28899-422), Hospital Dra. Naelma Monteiro (Rua Nildon Lustosa · CEP 28893-800) e Pronto-Socorro em plantão 24h. UBS Jardim Mariléa e Dona Edméia com vacinação.',
+        mapCategory: 'health',
+        primaryActionLabel: 'Ver UPAs 24h e UBS no Mapa',
+        secondaryUrl: 'healthPage.html#mapa-saude',
+        secondaryLabel: 'Ir para Consultas e Saúde'
+      },
+      civilDefense: {
+        status: 'Estável · 26°C',
+        badgeClass: 'status-ok',
+        detail: 'Base Operacional da Defesa Civil (Rua Niterói, 1899 — Parque da Cidade · CEP 28893-404 · Tel 199) sem alertas de ressaca ou chuva severa nas próximas 24h.',
+        mapCategory: 'civilDefense',
+        primaryActionLabel: 'Ver Bases da Defesa Civil no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=EsgotoBueiro',
+        secondaryLabel: 'Acionar Vistoria 156'
+      }
     }
   },
   'sapucaia': {
@@ -63,10 +95,42 @@ const MUNICIPALITIES = {
     taxDamAmount: '162,30',
     taxBarcode: '81670000001-8 62302124202-1 89202610282-5 02110450118-3',
     dailyStatus: {
-      waste: { status: 'Operação Normal', badgeClass: 'status-ok', detail: 'Caminhões de coleta orgânica e conteinerizada operando dentro do cronograma no Centro, Bairro Vargas e Cohab.' },
-      works: { status: '1 interdição parcial', badgeClass: 'status-warn', detail: 'Manutenção de rede pluvial com caminhão hidrojato na Av. Sapucaia esq. Sete de Setembro das 08h às 17h.' },
-      health: { status: 'HMGV 24h e UBS abertas', badgeClass: 'status-ok', detail: 'Nova ala do Hospital Municipal Getúlio Vargas em funcionamento 24h. UBS Centro e Bairro Vargas com vacinação até 17h.' },
-      civilDefense: { status: 'Atenção Preventiva · 21°C', badgeClass: 'status-info', detail: 'Monitoramento preventivo da bacia hidrográfica sem ocorrências. Equipes de poda e drenagem em prontidão.' }
+      waste: {
+        status: 'Operação Normal',
+        badgeClass: 'status-ok',
+        detail: 'Ecoponto Municipal (Rua Monteiro Lobato, 244 — Cohab · CEP 93212-160) e Coleta Conteinerizada (Av. Sapucaia, 850 · CEP 93210-240) operando normalmente.',
+        mapCategory: 'waste',
+        primaryActionLabel: 'Ver Ecopontos e Coleta no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=LimpezaEntulho',
+        secondaryLabel: 'Solicitar Coleta 156'
+      },
+      works: {
+        status: '1 interdição parcial',
+        badgeClass: 'status-warn',
+        detail: 'Manutenção de rede pluvial com caminhão hidrojato na Av. Sapucaia esq. Rua Sete de Setembro (Centro · CEP 93210-240) das 08h30 às 16h30.',
+        mapCategory: 'works',
+        primaryActionLabel: 'Ver Obras e Ruas no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=AsfaltoBuracos',
+        secondaryLabel: 'Relatar Reparo na Via'
+      },
+      health: {
+        status: 'UPA 24h, HMGV e UBS abertas',
+        badgeClass: 'status-ok',
+        detail: 'UPA 24h Sapucaia (ERS-118, 4400 · CEP 93226-312) e Hospital Getúlio Vargas (Rua Pinheiro Machado, 331 · CEP 93210-180) em plantão 24h. UBS Centro e Vargas abertas.',
+        mapCategory: 'health',
+        primaryActionLabel: 'Ver UPA 24h, Hospital e UBS no Mapa',
+        secondaryUrl: 'healthPage.html#mapa-saude',
+        secondaryLabel: 'Ir para Consultas e Saúde'
+      },
+      civilDefense: {
+        status: 'Atenção Preventiva · 21°C',
+        badgeClass: 'status-info',
+        detail: 'Coordenadoria de Defesa Civil (Av. Leônidas de Souza, 1289 · CEP 93210-140 · Tel 199) em monitoramento preventivo sem ocorrências.',
+        mapCategory: 'civilDefense',
+        primaryActionLabel: 'Ver Defesa Civil no Mapa',
+        secondaryUrl: 'occurrencePage.html?cat=EsgotoBueiro',
+        secondaryLabel: 'Acionar Vistoria 156'
+      }
     }
   }
 };
@@ -749,7 +813,7 @@ function ensureReceiptModalContainer() {
           <span class="receipt-toolbar-title" id="receipt-toolbar-title">Emissão Eletrônica · Conecta Cidadão</span>
         </div>
         <div class="receipt-toolbar-actions">
-          <button type="button" class="btn-receipt-copy" id="btn-receipt-copy-code">📋 Copiar Autenticação</button>
+          <button type="button" class="btn-receipt-copy" id="btn-receipt-copy-code">Copiar Autenticação</button>
           <button type="button" class="btn-receipt-print" id="btn-receipt-trigger-print">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -758,7 +822,7 @@ function ensureReceiptModalContainer() {
             </svg>
             <span>Imprimir / Salvar PDF</span>
           </button>
-          <button type="button" class="btn-receipt-close" id="btn-receipt-close-x" title="Fechar visualização">✕</button>
+          <button type="button" class="btn-receipt-close" id="btn-receipt-close-x" title="Fechar visualização">&times;</button>
         </div>
       </div>
 
@@ -769,10 +833,10 @@ function ensureReceiptModalContainer() {
       </div>
 
       <div class="receipt-modal-footer-actions no-print">
-        <span class="receipt-footer-hint">💡 Dica: Na janela de impressão, escolha <strong>"Salvar como PDF"</strong> ou selecione sua impressora.</span>
+        <span class="receipt-footer-hint">Dica: Na janela de impressão, escolha <strong>"Salvar como PDF"</strong> ou selecione sua impressora.</span>
         <div style="display: flex; gap: 10px;">
           <button type="button" class="btn-receipt-close" id="btn-receipt-close-bottom" style="width: auto; height: auto; border-radius: 999px; padding: 8px 18px; color: #0F172A; border-color: #CBD5E1; font-size: 13px;">Fechar</button>
-          <button type="button" class="btn-receipt-print" id="btn-receipt-trigger-print-bottom">🖨️ Imprimir Agora</button>
+          <button type="button" class="btn-receipt-print" id="btn-receipt-trigger-print-bottom">Imprimir Agora</button>
         </div>
       </div>
     </div>
@@ -869,7 +933,7 @@ function openOfficialReceiptModal(spec = {}, autoPrint = false) {
     const propertyStr = spec.property || citizen.bills?.[0]?.property || fullAddress;
 
     overlay.dataset.copyCode = barcodeLine;
-    if (copyBtn) copyBtn.textContent = '📋 Copiar Linha Digitável';
+    if (copyBtn) copyBtn.textContent = 'Copiar Linha Digitável';
 
     bodyContentHtml = `
       <p class="doc-section-label">1. Identificação do Contribuinte e Imóvel / Inscrição</p>
@@ -929,7 +993,7 @@ function openOfficialReceiptModal(spec = {}, autoPrint = false) {
     const txId = spec.txId || `E3922481220261108${Math.floor(100000 + Math.random() * 899999)}PIX`;
 
     overlay.dataset.copyCode = txId;
-    if (copyBtn) copyBtn.textContent = '📋 Copiar ID Transação Pix';
+    if (copyBtn) copyBtn.textContent = 'Copiar ID Transação Pix';
 
     bodyContentHtml = `
       <div class="doc-legal-box">
@@ -984,7 +1048,7 @@ function openOfficialReceiptModal(spec = {}, autoPrint = false) {
     stampText = 'NADA CONSTA · SITUAÇÃO REGULAR';
 
     overlay.dataset.copyCode = authHash;
-    if (copyBtn) copyBtn.textContent = '📋 Copiar Chave CND';
+    if (copyBtn) copyBtn.textContent = 'Copiar Chave CND';
 
     bodyContentHtml = `
       <div class="doc-legal-box">
@@ -1040,7 +1104,7 @@ function openOfficialReceiptModal(spec = {}, autoPrint = false) {
     stampText = spec.status || app.status || 'AGENDAMENTO CONFIRMADO';
 
     overlay.dataset.copyCode = spec.protocol || app.protocol || docNumber;
-    if (copyBtn) copyBtn.textContent = '📋 Copiar Protocolo SUS';
+    if (copyBtn) copyBtn.textContent = 'Copiar Protocolo SUS';
 
     bodyContentHtml = `
       <p class="doc-section-label">1. Identificação do Paciente (Cadastro Nacional de Saúde)</p>
@@ -1094,7 +1158,7 @@ function openOfficialReceiptModal(spec = {}, autoPrint = false) {
     stampText = spec.statusText || req.badge || 'PROTOCOLO REGISTRADO';
 
     overlay.dataset.copyCode = protoNum;
-    if (copyBtn) copyBtn.textContent = '📋 Copiar Nº Protocolo';
+    if (copyBtn) copyBtn.textContent = 'Copiar Nº Protocolo';
 
     const timelineItems = Array.isArray(spec.timeline) && spec.timeline.length > 0
       ? spec.timeline.map(t => `<li style="margin-bottom:6px;"><strong>${t.date}:</strong> ${t.text}</li>`).join('')

@@ -82,14 +82,28 @@ class AppNavbar extends HTMLElement {
         <div class="civic-verify-drawer" id="civic-verify-drawer" hidden>
           <div class="civic-verify-grid">
             <div class="verify-item">
-              <div class="verify-icon">🏛️</div>
+              <div class="verify-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="22" x2="21" y2="22"/>
+                  <line x1="6" y1="18" x2="6" y2="11"/>
+                  <line x1="10" y1="18" x2="10" y2="11"/>
+                  <line x1="14" y1="18" x2="14" y2="11"/>
+                  <line x1="18" y1="18" x2="18" y2="11"/>
+                  <polygon points="12 2 20 7 4 7"/>
+                </svg>
+              </div>
               <div>
                 <strong>Canais Oficiais nunca pedem senha ou Pix por WhatsApp</strong>
                 <p>Guias de IPTU/ISS e protocolos de zeladoria são gerados exclusivamente dentro deste ambiente oficial verificado.</p>
               </div>
             </div>
             <div class="verify-item">
-              <div class="verify-icon">🔒</div>
+              <div class="verify-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </div>
               <div>
                 <strong>Conexão Criptografada e Proteção LGPD (Lei 13.709/2018)</strong>
                 <p>Seus dados de CPF, Cartão SUS e endereço são utilizados apenas para vincular seus serviços públicos municipais.</p>

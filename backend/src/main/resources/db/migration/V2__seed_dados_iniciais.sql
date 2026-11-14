@@ -4,11 +4,16 @@
 
 -- 1. Unidades de Saúde (`badge_class`: 'badge-open-hours' | 'badge-open-24h' conforme js/health.js)
 insert into public.health_units (name, municipality, badge, badge_class, type, address, phone) values
-  ('UBS Central de Rio das Ostras', 'rio-das-ostras', 'Aberto agora', 'badge-open-hours', 'Unidade Básica de Saúde · Atendimento Geral e Vacinação', 'Av. das Flores, 80 - Centro, Rio das Ostras', '(22) 2771-4010'),
-  ('UPA 24h Parque Âncora', 'rio-das-ostras', 'Plantão 24h', 'badge-open-24h', 'Unidade de Pronto Atendimento · Urgência e Emergência', 'Rod. Amaral Peixoto, Km 162 - Parque Âncora', '(22) 2771-2400'),
-  ('Hospital Municipal Dra. Naelma Monteiro', 'rio-das-ostras', 'Plantão 24h', 'badge-open-24h', 'Hospital Geral · Internação e Maternidade', 'Rua Niterói, s/n - Jardim Mariléa', '(22) 2771-3050'),
-  ('UBS Centro de Sapucaia do Sul', 'sapucaia', 'Aberto agora', 'badge-open-hours', 'Unidade Básica de Saúde · Clínico Geral e Pediatria', 'Rua Tiradentes, 340 - Centro, Sapucaia do Sul', '(51) 3451-8100'),
-  ('Hospital Municipal Getúlio Vargas', 'sapucaia', 'Plantão 24h', 'badge-open-24h', 'Hospital Geral e Pronto-Socorro 24h', 'Rua Pinheiro Machado, 331 - Dílson Batista', '(51) 3451-8200');
+  ('UPA 24h Parque Âncora (Valmir Hespanhol)', 'rio-das-ostras', 'Plantão 24h', 'badge-open-24h', 'Unidade de Pronto Atendimento · Urgência e Emergência 24h', 'Rua das Acácias, s/n (próx. ao nº 615) - Parque Âncora · CEP 28899-422', '(22) 2771-3045 · SAMU 192'),
+  ('Hospital Municipal Dra. Naelma Monteiro da Silva', 'rio-das-ostras', 'Plantão 24h', 'badge-open-24h', 'Hospital Geral Municipal e Maternidade 24h', 'Rua Nildon Lustosa, s/n - Parque Zabulão · CEP 28893-800', '(22) 2771-3050 · SAMU 192'),
+  ('Pronto-Socorro Municipal de Rio das Ostras', 'rio-das-ostras', 'Plantão 24h', 'badge-open-24h', 'Pronto Atendimento Clínico e Ortopédico 24h', 'Rua Laércio Lúcio de Carvalho, 1075 - Parque Zabulão · CEP 28893-392', '(22) 2771-3115 · SAMU 192'),
+  ('UBS Jardim Mariléa', 'rio-das-ostras', '07h às 17h', 'badge-open-hours', 'Unidade Básica de Saúde · Vacinação e Clínico Geral', 'Rua Nova Friburgo, 21 - Jardim Mariléa · CEP 28896-049', '(22) 2771-4120'),
+  ('Centro de Saúde Dona Edméia (Nova Esperança)', 'rio-das-ostras', '07h às 17h', 'badge-open-hours', 'Atenção Básica, Vacinação, Odontologia e Exames SUS', 'Avenida Linda, s/n - Nova Esperança · CEP 28893-260', '(22) 2771-4010'),
+  ('ESF Cláudio Ribeiro (Âncora)', 'rio-das-ostras', '08h às 17h', 'badge-open-hours', 'Estratégia Saúde da Família e Imunização', 'Rua Peperônia, s/n - Cláudio Ribeiro / Âncora · CEP 28899-422', '(22) 2771-4280'),
+  ('UPA 24h Sapucaia do Sul', 'sapucaia', 'Plantão 24h', 'badge-open-24h', 'Unidade de Pronto Atendimento 24 Horas', 'Rodovia ERS-118, nº 4400 (esq. Rua Ursa Maior) - Nova Sapucaia · CEP 93226-312', '(51) 3450-3082 · SAMU 192'),
+  ('Hospital Municipal Getúlio Vargas (HMGV)', 'sapucaia', 'Plantão 24h', 'badge-open-24h', 'Hospital Geral e Pronto-Socorro 24h', 'Rua Pinheiro Machado, 331 - Bairro Diehl · CEP 93210-180', '(51) 3451-8200 · SAMU 192'),
+  ('UBS Centro de Sapucaia do Sul', 'sapucaia', '07h às 18h', 'badge-open-hours', 'Unidade Básica de Saúde · Clínico Geral, Vacinação e Pediatria', 'Rua Nossa Senhora da Conceição esq. Rua Justino Camboim - Centro · CEP 93210-240', '(51) 3451-8000'),
+  ('Centro de Especialidades e UBS Bairro Vargas', 'sapucaia', '08h às 17h', 'badge-open-hours', 'Cardiologia, Pediatria, Vacinação e Exames SUS', 'Rua Santa Catarina, 512 - Bairro Vargas · CEP 93222-180', '(51) 3474-2840');
 
 -- 2. Campanhas de Vacinação
 insert into public.vaccine_campaigns (name, target_audience, municipality, note) values

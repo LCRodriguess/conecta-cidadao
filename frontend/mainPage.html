@@ -5,9 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conecta Cidadão - Portal Oficial de Serviços e Zeladoria</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="../css/mainPage.css">
   <link rel="stylesheet" href="../css/flow.css">
+  <link rel="stylesheet" href="../css/civicMap.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script src="../js/cityManager.js" defer></script>
+  <script src="../js/civicMap.js" defer></script>
   <script src="../js/navbar.js" defer></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/footer.js" defer></script>
@@ -31,21 +35,20 @@
 
         <h1 class="header-title" id="page-greeting">Olá, Mariana! O que você precisa resolver hoje?</h1>
         <p class="header-subtitle" id="page-citizen-summary">
-          CPF <strong>142.890.517-34</strong> · Matrícula <strong>RO-2026-9812</strong> · Rua das Gaivotas, 124 (Costa Azul)
+          CPF <strong>142.890.517-34</strong> · Matrícula <strong>RO-2026-9812</strong> · Rua das Gaivotas, 124 (Costa
+          Azul)
         </p>
 
         <!-- Barra de Busca Direta em Formato Pílula (NYC.gov + Unimed) -->
         <form class="hero-search-bar" id="hero-search-form" role="search">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input
-            type="search"
-            id="hero-search-input"
+          <input type="search" id="hero-search-input"
             placeholder="Faça sua busca aqui (ex: buraco na rua, 2ª via IPTU, consulta SUS, protocolo)..."
-            aria-label="Buscar serviços municipais"
-          >
+            aria-label="Buscar serviços municipais">
           <button type="submit" class="btn-hero-search">Buscar</button>
         </form>
 
@@ -54,14 +57,16 @@
           <!-- Seletor de Município (Rio das Ostras / Sapucaia do Sul) -->
           <div class="municipality-selector" id="municipality-wrapper">
             <div class="municipality-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
-                <circle cx="12" cy="11" r="2.5"/>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z" />
+                <circle cx="12" cy="11" r="2.5" />
               </svg>
             </div>
             <div class="municipality-info">
               <span class="municipality-tag">SEU MUNICÍPIO</span>
-              <button type="button" class="municipality-toggle" id="municipality-toggle" aria-expanded="false" aria-haspopup="true">
+              <button type="button" class="municipality-toggle" id="municipality-toggle" aria-expanded="false"
+                aria-haspopup="true">
                 <strong id="current-city-label">Rio das Ostras · RJ</strong>
                 <span class="trocar-link">Trocar ⌵</span>
               </button>
@@ -71,14 +76,16 @@
             <!-- Dropdown com opções de cidades -->
             <div class="municipality-dropdown" id="municipality-menu">
               <div class="dropdown-city-header">Selecione seu município:</div>
-              <button type="button" class="city-option active" data-city="rio-das-ostras" data-name="Rio das Ostras · RJ" data-other="Sapucaia do Sul - RS">
+              <button type="button" class="city-option active" data-city="rio-das-ostras"
+                data-name="Rio das Ostras · RJ" data-other="Sapucaia do Sul - RS">
                 <div class="city-dot"></div>
                 <div class="city-meta">
                   <strong>Rio das Ostras · RJ</strong>
                   <span>Região dos Lagos</span>
                 </div>
               </button>
-              <button type="button" class="city-option" data-city="sapucaia" data-name="Sapucaia do Sul · RS" data-other="Rio das Ostras - RJ">
+              <button type="button" class="city-option" data-city="sapucaia" data-name="Sapucaia do Sul · RS"
+                data-other="Rio das Ostras - RJ">
                 <div class="city-dot"></div>
                 <div class="city-meta">
                   <strong>Sapucaia do Sul · RS</strong>
@@ -89,8 +96,10 @@
           </div>
 
           <!-- Botão Ouvir Esta Página (Text-to-Speech) -->
-          <button type="button" class="btn-listen-page" id="btn-listen" title="Ouvir o resumo personalizado dos seus dados com voz sintetizada">
-            <svg class="listen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <button type="button" class="btn-listen-page" id="btn-listen"
+            title="Ouvir o resumo personalizado dos seus dados com voz sintetizada">
+            <svg class="listen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
@@ -100,28 +109,38 @@
 
           <!-- Atalho para Login / Trocar Cidadão -->
           <a href="loginPage.html" class="btn-switch-citizen-hero">
-            <span>👤 Trocar Cidadão / Login</span>
+            <span>Trocar Cidadão / Login</span>
           </a>
         </div>
       </div>
 
       <!-- Lado Direito: WIDGET INTERATIVO DE STATUS DIÁRIO DA CIDADE (Inspiração NYC.gov) -->
-      <aside class="nyc-daily-status-card" id="status-diario" role="region" aria-label="Status operacional diário do município" aria-live="polite">
+      <aside class="nyc-daily-status-card" id="status-diario" role="region"
+        aria-label="Status operacional diário do município" aria-live="polite">
         <div class="daily-status-header">
           <div>
             <span class="daily-status-kicker">OPERAÇÃO MUNICIPAL HOJE</span>
-            <h2 class="daily-status-date" id="daily-status-date-label">Domingo, 8 de Novembro</h2>
+            <h2 class="daily-status-date" id="daily-status-date-label">Sábado, 14 de novembro</h2>
           </div>
-          <label class="btn-select-date-pill" for="daily-date-picker">
-            <span>📅 Alterar data</span>
-            <input type="date" id="daily-date-picker" value="2026-11-08" aria-label="Selecionar data de operação">
-          </label>
+          <a href="#mapa-operacional-section" class="daily-status-map-shortcut">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"></path>
+              <circle cx="12" cy="11" r="2.5"></circle>
+            </svg>
+            <span>Ver no mapa</span>
+          </a>
         </div>
 
         <!-- Lista Interativa de 4 Indicadores Operacionais da Cidade -->
         <div class="daily-status-list" id="daily-status-list">
           <button type="button" class="daily-status-item" data-status-key="waste">
-            <span class="status-item-icon">🚛</span>
+            <span class="status-item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+            </span>
             <div class="status-item-main">
               <strong>Coleta de lixo e reciclagem</strong>
               <span class="status-item-badge status-ok" id="status-badge-waste">Operação Normal</span>
@@ -130,7 +149,14 @@
           </button>
 
           <button type="button" class="daily-status-item" data-status-key="works">
-            <span class="status-item-icon">🚧</span>
+            <span class="status-item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </span>
             <div class="status-item-main">
               <strong>Obras e trânsito nas vias</strong>
               <span class="status-item-badge status-warn" id="status-badge-works">2 frentes ativas</span>
@@ -139,7 +165,12 @@
           </button>
 
           <button type="button" class="daily-status-item" data-status-key="health">
-            <span class="status-item-icon">🏥</span>
+            <span class="status-item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </span>
             <div class="status-item-main">
               <strong>UPAs 24h, UBS e Vacinação</strong>
               <span class="status-item-badge status-ok" id="status-badge-health">UPAs 24h abertas</span>
@@ -148,7 +179,12 @@
           </button>
 
           <button type="button" class="daily-status-item" data-status-key="civilDefense">
-            <span class="status-item-icon">🌤️</span>
+            <span class="status-item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
+            </span>
             <div class="status-item-main">
               <strong>Defesa Civil e Alerta Climático</strong>
               <span class="status-item-badge status-ok" id="status-badge-civil">Estável · 26°C</span>
@@ -162,6 +198,19 @@
           <button type="button" class="btn-status-back" id="btn-status-back">‹ Voltar aos indicadores</button>
           <strong id="daily-detail-title">Coleta de Lixo e Reciclagem</strong>
           <p id="daily-detail-desc">Coleta domiciliar e seletiva operando normalmente no seu bairro.</p>
+          <div class="daily-status-actions">
+            <button type="button" class="btn-daily-open-map" id="btn-daily-open-map" data-map-cat="waste">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"></path>
+                <circle cx="12" cy="11" r="2.5"></circle>
+              </svg>
+              <span id="daily-detail-map-btn-label">Ver pontos no Mapa Interativo</span>
+            </button>
+            <a href="healthPage.html" class="btn-daily-secondary-link" id="btn-daily-secondary-link">
+              Ir para a aba do serviço →
+            </a>
+          </div>
         </div>
       </aside>
     </section>
@@ -171,7 +220,7 @@
          ==================================================================== -->
     <section class="unimed-spotlight-strip" aria-label="Busca rápida por bairro e serviço">
       <div class="spotlight-copy">
-        <span class="spotlight-badge">📍 GUIA RÁPIDO DO SEU BAIRRO</span>
+        <span class="spotlight-badge">GUIA RÁPIDO DO SEU BAIRRO</span>
         <h2>Sua busca ainda mais fácil</h2>
         <p>Encontre unidades de saúde, acompanhe obras ou registre ocorrências diretamente no seu bairro.</p>
       </div>
@@ -189,8 +238,9 @@
         <div class="spotlight-field">
           <label for="spotlight-service">O que você procura?</label>
           <select id="spotlight-service">
-            <option value="occurrencePage.html">Relatar buraco, luz ou limpeza (156)</option>
+            <option value="#mapa-operacional-section">Mapa Interativo: UPAs 24h, UBS e Pontos de Reciclagem</option>
             <option value="healthPage.html">Unidades de Saúde (UBS / UPA) e Médicos</option>
+            <option value="occurrencePage.html">Relatar buraco, luz ou limpeza (156)</option>
             <option value="requestsPage.html">Ocorrências já abertas no bairro</option>
             <option value="invoicesPage.html">Guias de IPTU e ISS do imóvel</option>
             <option value="eventsPage.html">Eventos e lazer no bairro</option>
@@ -199,12 +249,97 @@
 
         <button type="submit" class="btn-spotlight-consult">
           <span>Consulte agora</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </button>
       </form>
+    </section>
+
+    <!-- ====================================================================
+         2.5. MAPA INTERATIVO DE UNIDADES, UPAs 24H, ECOPONTOS E OBRAS
+         (Ruas Reais, CEPs Oficiais e Bolhas com Mini-Fotos)
+         ==================================================================== -->
+    <section class="civic-map-section" id="mapa-operacional-section"
+      aria-label="Mapa interativo de UPAs, UBS, pontos de reciclagem e obras">
+      <div class="civic-map-header">
+        <div class="civic-map-title-group">
+          <span class="civic-map-kicker">GEOLOCALIZAÇÃO OFICIAL · RUAS E CEPS REAIS · <span id="home-map-city-label">Rio
+              das Ostras · RJ</span></span>
+          <h2>Mapa da Rede Municipal: UPAs 24h, UBS, Ecopontos de Reciclagem e Vias</h2>
+          <p>Clique nas bolhas com foto no mapa ou nas abas ao lado para consultar rua exata, CEP, telefone de plantão,
+            horário e serviços de cada unidade.</p>
+        </div>
+
+        <div class="civic-map-tabs" id="home-civic-map-tabs" role="tablist" aria-label="Categorias do mapa municipal">
+          <button type="button" class="civic-map-tab active" data-map-cat="all" role="tab" aria-selected="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+              <line x1="8" y1="2" x2="8" y2="18"></line>
+              <line x1="16" y1="6" x2="16" y2="22"></line>
+            </svg>
+            <span>Todos os Pontos no Mapa</span>
+            <span class="tab-count">15</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="health" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            <span>UPAs 24h, Hospital e UBS</span>
+            <span class="tab-count">7</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="waste" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Pontos de Reciclagem e Coleta</span>
+            <span class="tab-count">4</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="works" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Obras e Trânsito</span>
+            <span class="tab-count">2</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="civilDefense" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+            </svg>
+            <span>Defesa Civil 199</span>
+            <span class="tab-count">2</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="civic-map-workspace">
+        <div class="civic-map-left-col">
+          <div class="civic-map-canvas-wrap">
+            <div id="home-civic-leaflet-map" class="civic-leaflet-canvas"
+              aria-label="Mapa interativo Google Maps com ruas reais do município"></div>
+          </div>
+          <div class="civic-units-quick-strip" id="home-civic-map-pills"
+            aria-label="Atalhos rápidos para os pontos do mapa"></div>
+        </div>
+
+        <aside class="civic-place-detail-card" id="home-civic-map-detail" aria-live="polite">
+          <!-- Preenchido dinamicamente ao clicar em uma bolha com foto -->
+        </aside>
+      </div>
     </section>
 
     <!-- ====================================================================
@@ -297,12 +432,14 @@
         </div>
         <h2>Viu um problema na sua rua? Nós cuidamos disso com você.</h2>
         <p>
-          Relate problemas que não são emergências médicas ou policiais — como conservação de asfalto, iluminação, poda preventiva e limpeza. Você também pode consultar o andamento e complementar informações a qualquer momento.
+          Relate problemas que não são emergências médicas ou policiais — como conservação de asfalto, iluminação, poda
+          preventiva e limpeza. Você também pode consultar o andamento e complementar informações a qualquer momento.
         </p>
         <div class="nyc-311-cta-row">
           <a href="occurrencePage.html" class="btn-311-primary">
             <span>Relatar problema agora</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
@@ -372,51 +509,59 @@
                 <span>Acessibilidade Rápida</span>
               </div>
               <div class="access-buttons">
-                <button type="button" class="btn-access" id="btn-increase-font" title="Aumentar o tamanho do texto da tela">
+                <button type="button" class="btn-access" id="btn-increase-font"
+                  title="Aumentar o tamanho do texto da tela">
                   <strong>A+</strong> Aumentar fonte
                 </button>
-                <button type="button" class="btn-access" id="btn-toggle-contrast" title="Alternar modo de alto contraste para leitura">
+                <button type="button" class="btn-access" id="btn-toggle-contrast"
+                  title="Alternar modo de alto contraste para leitura">
                   Alto contraste
                 </button>
               </div>
             </div>
 
             <!-- Ação Principal: Registrar ocorrência -->
-            <a href="occurrencePage.html" class="action-card primary-action" title="Abrir chamado de buraco, iluminação ou vazamento">
+            <a href="occurrencePage.html" class="action-card primary-action"
+              title="Abrir chamado de buraco, iluminação ou vazamento">
               <div class="action-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s2.5-2.14 4.5-4.88"/>
-                  <circle cx="12" cy="10" r="3"/>
-                  <line x1="19" y1="13" x2="19" y2="19"/>
-                  <line x1="16" y1="16" x2="22" y2="16"/>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s2.5-2.14 4.5-4.88" />
+                  <circle cx="12" cy="10" r="3" />
+                  <line x1="19" y1="13" x2="19" y2="19" />
+                  <line x1="16" y1="16" x2="22" y2="16" />
                 </svg>
               </div>
               <div class="action-card-text">
                 <strong>Registrar ocorrência</strong>
                 <span>Usar meu endereço cadastrado</span>
               </div>
-              <svg class="action-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="action-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </a>
 
             <!-- Ação Secundária: Acompanhar solicitações -->
-            <a href="requestsPage.html" class="action-card secondary-action" title="Consultar status de protocolos abertos">
+            <a href="requestsPage.html" class="action-card secondary-action"
+              title="Consultar status de protocolos abertos">
               <div class="action-card-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                  <rect x="8" y="2" width="8" height="4" rx="1"/>
-                  <line x1="9" y1="11" x2="15" y2="11"/>
-                  <line x1="9" y1="15" x2="15" y2="15"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                  <rect x="8" y="2" width="8" height="4" rx="1" />
+                  <line x1="9" y1="11" x2="15" y2="11" />
+                  <line x1="9" y1="15" x2="15" y2="15" />
                 </svg>
               </div>
               <div class="action-card-text">
                 <strong>Acompanhar solicitações</strong>
                 <span id="dash-req-count-sub">1 protocolo vinculado ao seu CPF</span>
               </div>
-              <svg class="action-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
+              <svg class="action-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
               </svg>
             </a>
 
@@ -424,9 +569,11 @@
             <div class="mini-cards-grid">
               <a href="healthPage.html" class="mini-card" title="Acessar serviços de saúde e vacinação">
                 <div class="mini-card-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.66l7.65-7.65.77-.78a5.4 5.4 0 0 0 0-7.65z"/>
-                    <polyline points="3.5 12 7.5 12 9.5 9 12 15 14 10 16.5 12 20.5 12"/>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 20.66l7.65-7.65.77-.78a5.4 5.4 0 0 0 0-7.65z" />
+                    <polyline points="3.5 12 7.5 12 9.5 9 12 15 14 10 16.5 12 20.5 12" />
                   </svg>
                 </div>
                 <strong class="mini-card-title">Saúde SUS</strong>
@@ -435,7 +582,8 @@
 
               <a href="invoicesPage.html" class="mini-card" title="Consultar débitos e emitir 2ª via">
                 <div class="mini-card-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
                   </svg>
@@ -462,10 +610,11 @@
             <div class="debt-card">
               <div class="debt-card-header">
                 <div class="debt-title-group">
-                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
+                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
                   </svg>
                   <strong id="main-bill-title">IPTU 2026 · Cota 10/12</strong>
                 </div>
@@ -483,9 +632,11 @@
                 </div>
               </div>
 
-              <button type="button" class="debt-action-btn" id="main-bill-btn" data-bill="IPTU 2026" data-value="148,50" data-due="26 nov 2026">
+              <button type="button" class="debt-action-btn" id="main-bill-btn" data-bill="IPTU 2026" data-value="148,50"
+                data-due="26 nov 2026">
                 <span>Pagar com Pix ou Baixar DAM</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -496,8 +647,9 @@
             <div class="debt-card" id="second-bill-card">
               <div class="debt-card-header">
                 <div class="debt-title-group">
-                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  <svg class="debt-doc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                   </svg>
                   <strong id="main-bill2-title">Taxa de Coleta e Manejo (TCRS)</strong>
                 </div>
@@ -515,9 +667,11 @@
                 </div>
               </div>
 
-              <button type="button" class="debt-action-btn" id="main-bill2-btn" data-bill="Taxa de Coleta (TCRS)" data-value="64,90" data-due="10 dez 2026">
+              <button type="button" class="debt-action-btn" id="main-bill2-btn" data-bill="Taxa de Coleta (TCRS)"
+                data-value="64,90" data-due="10 dez 2026">
                 <span>Pagar com Pix ou Baixar DAM</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -539,9 +693,11 @@
                   <span class="date-month" id="main-app-month">NOV</span>
                 </div>
                 <div class="appointment-details">
-                  <strong class="appointment-title" id="main-app-title">Clínico Geral · Dra. Mariana Vasconcellos</strong>
+                  <strong class="appointment-title" id="main-app-title">Clínico Geral · Dra. Mariana
+                    Vasconcellos</strong>
                   <span class="appointment-time" id="main-app-time">Quarta-feira · 09h30</span>
-                  <span class="appointment-place" id="main-app-place">UBS Central — Av. das Flores, 80 · Rio das Ostras</span>
+                  <span class="appointment-place" id="main-app-place">UBS Central — Av. das Flores, 80 · Rio das
+                    Ostras</span>
                 </div>
               </div>
 
@@ -552,7 +708,8 @@
 
               <button type="button" class="appointment-action-btn" id="btn-open-appointment">
                 <span>Ver comprovante e orientações</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -611,9 +768,10 @@
             <!-- Caixa de Atualização -->
             <div class="request-update-box">
               <div class="update-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                 </svg>
               </div>
               <div class="update-text" id="main-req-update-box">
@@ -622,16 +780,19 @@
               </div>
             </div>
 
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <div
+              style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
               <a href="requestsPage.html" class="request-action-link">
                 <span>Acompanhar etapas e complementar</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </a>
-              <button type="button" id="btn-main-print-protocol" style="background: #EEF3FF; color: #103FEF; border: 1.5px solid #103FEF; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
-                🖨️ Imprimir Comprovante 156
+              <button type="button" id="btn-main-print-protocol"
+                style="background: #EEF3FF; color: #103FEF; border: 1.5px solid #103FEF; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Imprimir Comprovante 156
               </button>
             </div>
           </div>
@@ -643,7 +804,8 @@
          6. SEÇÃO EDITORIAL "CIDADE VIVA · VIVER BEM" (ESTRATÉGIA DE COMUNICAÇÃO UNIMED)
          Fundo Verde Profundo (#004E4C) + Cards Brancos + Botões Verde-Lima (#B1D34B)
          ==================================================================== -->
-    <section class="unimed-wellness-section" id="cidade-viva" aria-label="Programa Cidade Viva de Prevenção e Qualidade de Vida">
+    <section class="unimed-wellness-section" id="cidade-viva"
+      aria-label="Programa Cidade Viva de Prevenção e Qualidade de Vida">
       <div class="wellness-header">
         <div>
           <span class="wellness-kicker">SAÚDE PREVENTIVA, BEM-ESTAR E CIDADANIA</span>
@@ -660,7 +822,8 @@
           </div>
           <div class="wellness-card-body">
             <h3>Coragem é cuidar de si mesmo: exames preventivos nas UBS</h3>
-            <p>Moradores acima de 40 anos podem agendar check-up urológico e exames laboratoriais sem burocracia pelo Cartão SUS.</p>
+            <p>Moradores acima de 40 anos podem agendar check-up urológico e exames laboratoriais sem burocracia pelo
+              Cartão SUS.</p>
             <a href="healthPage.html" class="btn-lime-cta">CONTINUE LENDO</a>
           </div>
         </article>
@@ -671,7 +834,8 @@
           </div>
           <div class="wellness-card-body">
             <h3>10 minutos contra a Dengue: como solicitar vistoria no seu quarteirão</h3>
-            <p>Encontrou foco de água parada em terreno baldio? Relate pela Central 156 para ação imediata dos agentes de endemias.</p>
+            <p>Encontrou foco de água parada em terreno baldio? Relate pela Central 156 para ação imediata dos agentes
+              de endemias.</p>
             <a href="occurrencePage.html" class="btn-lime-cta">RELATAR FOCO</a>
           </div>
         </article>
@@ -682,7 +846,8 @@
           </div>
           <div class="wellness-card-body">
             <h3>Feiras do Produtor Local e caminhadas orientadas nos parques</h3>
-            <p>Confira os dias das feiras de alimentos orgânicos e os grupos gratuitos de atividade física com educadores da prefeitura.</p>
+            <p>Confira os dias das feiras de alimentos orgânicos e os grupos gratuitos de atividade física com
+              educadores da prefeitura.</p>
             <a href="eventsPage.html" class="btn-lime-cta">VER PROGRAMAÇÃO</a>
           </div>
         </article>
@@ -693,7 +858,8 @@
           </div>
           <div class="wellness-card-body">
             <h3>Qualificação Profissional: 600 vagas em tecnologia e atendimento</h3>
-            <p>Cursos gratuitos com certificação municipal e encaminhamento direto para empresas parceiras da região.</p>
+            <p>Cursos gratuitos com certificação municipal e encaminhamento direto para empresas parceiras da região.
+            </p>
             <a href="worksPage.html" class="btn-lime-cta">INSCREVER-SE</a>
           </div>
         </article>
@@ -712,26 +878,29 @@
           </div>
           <div>
             <h2 class="carousel-title">Notícias & Eventos Municipais</h2>
-            <span class="carousel-city-indicator" id="carousel-city-indicator">Exibindo acontecimentos de: <strong id="carousel-city-name">Rio das Ostras · RJ</strong></span>
+            <span class="carousel-city-indicator" id="carousel-city-indicator">Exibindo acontecimentos de: <strong
+                id="carousel-city-name">Rio das Ostras · RJ</strong></span>
           </div>
         </div>
 
         <!-- Filtros por tipo de conteúdo da cidade ativa -->
         <div class="carousel-filters">
           <button type="button" class="filter-chip active" data-filter="all">Todos os Conteúdos</button>
-          <button type="button" class="filter-chip" data-filter="noticia">📰 Notícias</button>
-          <button type="button" class="filter-chip" data-filter="evento">📅 Eventos da Cidade</button>
+          <button type="button" class="filter-chip" data-filter="noticia">Notícias</button>
+          <button type="button" class="filter-chip" data-filter="evento">Eventos da Cidade</button>
         </div>
 
         <!-- Controles de Navegação -->
         <div class="carousel-controls">
           <button type="button" class="carousel-arrow prev" id="carousel-prev" aria-label="Slide anterior">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
           <button type="button" class="carousel-arrow next" id="carousel-next" aria-label="Próximo slide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
           </button>
@@ -745,7 +914,8 @@
           <article class="news-card" data-city="rio-das-ostras" data-type="noticia">
             <div class="news-card-badge rio">Obras Públicas · Rio das Ostras</div>
             <h3 class="news-card-title">Macrodrenagem e asfaltamento avançam nos bairros Costazul e Jardim Mariléa</h3>
-            <p class="news-card-desc">Mais de 12 km de canalização subterrânea para contenção de alagamentos e nova camada asfáltica são entregues à comunidade nesta semana.</p>
+            <p class="news-card-desc">Mais de 12 km de canalização subterrânea para contenção de alagamentos e nova
+              camada asfáltica são entregues à comunidade nesta semana.</p>
             <div class="news-card-footer">
               <span class="news-time">Hoje, às 10:45</span>
               <span class="news-read-more">Ler notícia completa →</span>
@@ -753,9 +923,10 @@
           </article>
 
           <article class="news-card event" data-city="rio-das-ostras" data-type="evento">
-            <div class="news-card-badge event-badge">🎉 Evento Cultural · Rio das Ostras</div>
+            <div class="news-card-badge event-badge">Evento Cultural · Rio das Ostras</div>
             <h3 class="news-card-title">Festival de Frutos do Mar e Jazz na Praia do Bosque neste fim de semana</h3>
-            <p class="news-card-desc">Dois dias de música instrumental gratuita à beira-mar, feira gastronômica de pescadores locais e espaço kids com oficinas artísticas.</p>
+            <p class="news-card-desc">Dois dias de música instrumental gratuita à beira-mar, feira gastronômica de
+              pescadores locais e espaço kids com oficinas artísticas.</p>
             <div class="news-card-footer">
               <span class="news-time">Sábado e Domingo · A partir das 16h</span>
               <span class="news-read-more">Ver programação →</span>
@@ -764,8 +935,10 @@
 
           <article class="news-card" data-city="rio-das-ostras" data-type="noticia">
             <div class="news-card-badge rio">Educação · Rio das Ostras</div>
-            <h3 class="news-card-title">Prefeitura abre inscrições para 600 vagas em oficinas de tecnologia e robótica</h3>
-            <p class="news-card-desc">Aulas gratuitas para estudantes da rede pública no Polo Universitário, com certificação em programação básica e desenvolvimento web.</p>
+            <h3 class="news-card-title">Prefeitura abre inscrições para 600 vagas em oficinas de tecnologia e robótica
+            </h3>
+            <p class="news-card-desc">Aulas gratuitas para estudantes da rede pública no Polo Universitário, com
+              certificação em programação básica e desenvolvimento web.</p>
             <div class="news-card-footer">
               <span class="news-time">Inscrições até 28 de Novembro</span>
               <span class="news-read-more">Inscrever-se agora →</span>
@@ -773,9 +946,10 @@
           </article>
 
           <article class="news-card event" data-city="rio-das-ostras" data-type="evento">
-            <div class="news-card-badge event-badge">🏄 Esporte & Lazer · Rio das Ostras</div>
+            <div class="news-card-badge event-badge">Esporte & Lazer · Rio das Ostras</div>
             <h3 class="news-card-title">Circuito Municipal de Futevôlei e Corrida Rústica na Orla de Costazul</h3>
-            <p class="news-card-desc">Competição aberta com categorias iniciante, intermediário e máster. Premiação para os três primeiros colocados e tendas de hidratação.</p>
+            <p class="news-card-desc">Competição aberta com categorias iniciante, intermediário e máster. Premiação para
+              os três primeiros colocados e tendas de hidratação.</p>
             <div class="news-card-footer">
               <span class="news-time">Próximo Domingo · Das 08h às 13h</span>
               <span class="news-read-more">Ver inscrições →</span>
@@ -785,8 +959,10 @@
           <!-- CARDS DE SAPUCAIA DO SUL (RS) -->
           <article class="news-card" data-city="sapucaia" data-type="noticia">
             <div class="news-card-badge sapucaia">Saúde · Sapucaia do Sul</div>
-            <h3 class="news-card-title">Hospital Municipal Getúlio Vargas inaugura nova ala de atendimento especializado</h3>
-            <p class="news-card-desc">Com investimento de R$ 4,2 milhões, unidade ganha novos leitos com monitoramento contínuo, consultórios ampliados e triagem digitalizada.</p>
+            <h3 class="news-card-title">Hospital Municipal Getúlio Vargas inaugura nova ala de atendimento especializado
+            </h3>
+            <p class="news-card-desc">Com investimento de R$ 4,2 milhões, unidade ganha novos leitos com monitoramento
+              contínuo, consultórios ampliados e triagem digitalizada.</p>
             <div class="news-card-footer">
               <span class="news-time">Ontem, às 16:30</span>
               <span class="news-read-more">Ler notícia completa →</span>
@@ -794,9 +970,10 @@
           </article>
 
           <article class="news-card event" data-city="sapucaia" data-type="evento">
-            <div class="news-card-badge event-badge">📅 Evento Comunitário · Sapucaia do Sul</div>
+            <div class="news-card-badge event-badge">Evento Comunitário · Sapucaia do Sul</div>
             <h3 class="news-card-title">Feira de Artesanato e Gastronomia Popular na Praça General Freitas</h3>
-            <p class="news-card-desc">Exposição de mais de 60 artesãos locais, food trucks regionais, apresentações de dança tradicional gaúcha e troca solidária de livros.</p>
+            <p class="news-card-desc">Exposição de mais de 60 artesãos locais, food trucks regionais, apresentações de
+              dança tradicional gaúcha e troca solidária de livros.</p>
             <div class="news-card-footer">
               <span class="news-time">Sexta e Sábado · Das 09h às 19h</span>
               <span class="news-read-more">Ver detalhes da feira →</span>
@@ -805,8 +982,10 @@
 
           <article class="news-card" data-city="sapucaia" data-type="noticia">
             <div class="news-card-badge sapucaia">Meio Ambiente · Sapucaia do Sul</div>
-            <h3 class="news-card-title">Mutirão de arborização urbana planta 1.000 mudas nativas no Parque Zoológico</h3>
-            <p class="news-card-desc">Ação da Secretaria de Meio Ambiente envolve escolas municipais e voluntários na recuperação de áreas verdes e nascentes da bacia hidrográfica.</p>
+            <h3 class="news-card-title">Mutirão de arborização urbana planta 1.000 mudas nativas no Parque Zoológico
+            </h3>
+            <p class="news-card-desc">Ação da Secretaria de Meio Ambiente envolve escolas municipais e voluntários na
+              recuperação de áreas verdes e nascentes da bacia hidrográfica.</p>
             <div class="news-card-footer">
               <span class="news-time">Próxima Quarta · 08:30</span>
               <span class="news-read-more">Participar do mutirão →</span>
@@ -814,9 +993,11 @@
           </article>
 
           <article class="news-card event" data-city="sapucaia" data-type="evento">
-            <div class="news-card-badge event-badge">🐎 Tradição Gaúcha · Sapucaia do Sul</div>
-            <h3 class="news-card-title">Encontro Municipal de Tradições Gaúchas e Tertúlia Musical no Parque Centenário</h3>
-            <p class="news-card-desc">Apresentações de invernadas artísticas de CTGs, declamação de poesia, mateada comunitária e fandango gratuito aberto ao público.</p>
+            <div class="news-card-badge event-badge">Tradição Gaúcha · Sapucaia do Sul</div>
+            <h3 class="news-card-title">Encontro Municipal de Tradições Gaúchas e Tertúlia Musical no Parque Centenário
+            </h3>
+            <p class="news-card-desc">Apresentações de invernadas artísticas de CTGs, declamação de poesia, mateada
+              comunitária e fandango gratuito aberto ao público.</p>
             <div class="news-card-footer">
               <span class="news-time">Próximo Sábado · A partir das 14h</span>
               <span class="news-read-more">Ver programação →</span>
@@ -831,12 +1012,14 @@
     <!-- ====================================================================
          8. TRÍADE DE UTILIDADE PÚBLICA, TRANSPARÊNCIA E ANTIFRAUDE (ESTRATÉGIA UNIMED)
          ==================================================================== -->
-    <section class="unimed-utility-trio" id="utilidade-antifraude" aria-label="Avisos de Utilidade Pública e Prevenção a Fraudes">
+    <section class="unimed-utility-trio" id="utilidade-antifraude"
+      aria-label="Avisos de Utilidade Pública e Prevenção a Fraudes">
       <!-- Card 1: Prevenção a Golpes e Fraudes -->
       <article class="utility-banner-card antifraud-card">
         <span class="utility-pill-tag green">SEGURANÇA DIGITAL AO CIDADÃO</span>
         <h3>Dúvida na mensagem? Melhor checar.</h3>
-        <p>A informação certa é a melhor defesa contra golpes. A Prefeitura nunca cobra taxas por WhatsApp para agilizar consultas ou obras.</p>
+        <p>A informação certa é a melhor defesa contra golpes. A Prefeitura nunca cobra taxas por WhatsApp para agilizar
+          consultas ou obras.</p>
         <a href="privacyPage.html" class="utility-card-link">Verificar canais oficiais →</a>
       </article>
 
@@ -844,7 +1027,8 @@
       <article class="utility-banner-card operational-orange-card">
         <span class="utility-pill-tag white">AVISOS OPERACIONAIS & ROTAS</span>
         <h3>Cronograma de Manutenção Preventiva e Vias</h3>
-        <p>Confira as ruas com operação tapa-buraco, poda preventiva e substituição de luminárias programadas para esta semana.</p>
+        <p>Confira as ruas com operação tapa-buraco, poda preventiva e substituição de luminárias programadas para esta
+          semana.</p>
         <a href="requestsPage.html" class="utility-card-link white-link">Consultar cronograma →</a>
       </article>
 
@@ -852,7 +1036,8 @@
       <article class="utility-banner-card citizen-portal-card">
         <span class="utility-pill-tag royal">CONTA CIDADÃ VERIFICADA</span>
         <h3>Mantenha seu Cartão SUS e endereço atualizados</h3>
-        <p>Com o cadastro em dia, você recebe alertas por WhatsApp ou e-mail sempre que seu protocolo mudar de etapa.</p>
+        <p>Com o cadastro em dia, você recebe alertas por WhatsApp ou e-mail sempre que seu protocolo mudar de etapa.
+        </p>
         <a href="accountPage.html" class="utility-card-link">Atualizar meu perfil →</a>
       </article>
     </section>
@@ -860,7 +1045,8 @@
     <!-- Links de Apoio do Rodapé da Página -->
     <footer class="home-bottom-links">
       <button type="button" class="bottom-support-btn" id="btn-open-help">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
           <line x1="12" y1="17" x2="12.01" y2="17"></line>
@@ -869,7 +1055,8 @@
       </button>
 
       <button type="button" class="bottom-support-btn" id="btn-open-privacy">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
         <span>Privacidade e Proteção LGPD</span>
@@ -892,44 +1079,49 @@
 
       <div class="modal-body">
         <div class="modal-amount-box">
-          <span class="modal-amount-label" id="modal-bill-taxpayer">Contribuinte: Mariana Costa Almeida (CPF 142.890.517-34)</span>
+          <span class="modal-amount-label" id="modal-bill-taxpayer">Contribuinte: Mariana Costa Almeida (CPF
+            142.890.517-34)</span>
           <strong class="modal-amount-value" id="modal-bill-amount">R$ 148,50</strong>
           <span class="modal-amount-due" id="modal-bill-due">Vencimento em 26 nov 2026</span>
         </div>
 
         <div class="pix-section">
           <h4>Pague instantaneamente via Pix Oficial</h4>
-          <p>Abra o app do seu banco, escolha <strong>Pagar com Pix</strong> e aponte a câmera para o QR Code abaixo:</p>
+          <p>Abra o app do seu banco, escolha <strong>Pagar com Pix</strong> e aponte a câmera para o QR Code abaixo:
+          </p>
 
           <div class="pix-qr-container">
-            <svg class="qr-svg" width="160" height="160" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="120" height="120" fill="white"/>
-              <rect x="10" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="18" y="18" width="14" height="14" fill="#103FEF"/>
-              <rect x="80" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="88" y="18" width="14" height="14" fill="#103FEF"/>
-              <rect x="10" y="80" width="30" height="30" stroke="#0f172a" stroke-width="4"/>
-              <rect x="18" y="88" width="14" height="14" fill="#103FEF"/>
-              <rect x="48" y="12" width="6" height="6" fill="#0f172a"/>
-              <rect x="58" y="18" width="8" height="6" fill="#0f172a"/>
-              <rect x="48" y="28" width="12" height="6" fill="#0f172a"/>
-              <rect x="14" y="48" width="8" height="6" fill="#0f172a"/>
-              <rect x="28" y="48" width="6" height="12" fill="#0f172a"/>
-              <rect x="44" y="44" width="32" height="32" stroke="#00995D" stroke-width="2"/>
-              <rect x="52" y="52" width="16" height="16" fill="#00995D"/>
-              <rect x="84" y="48" width="8" height="8" fill="#0f172a"/>
-              <rect x="98" y="56" width="6" height="14" fill="#0f172a"/>
-              <rect x="48" y="86" width="14" height="6" fill="#0f172a"/>
-              <rect x="68" y="84" width="8" height="12" fill="#0f172a"/>
-              <rect x="84" y="84" width="18" height="6" fill="#0f172a"/>
-              <rect x="86" y="96" width="12" height="12" fill="#0f172a"/>
+            <svg class="qr-svg" width="160" height="160" viewBox="0 0 120 120" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <rect width="120" height="120" fill="white" />
+              <rect x="10" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4" />
+              <rect x="18" y="18" width="14" height="14" fill="#103FEF" />
+              <rect x="80" y="10" width="30" height="30" stroke="#0f172a" stroke-width="4" />
+              <rect x="88" y="18" width="14" height="14" fill="#103FEF" />
+              <rect x="10" y="80" width="30" height="30" stroke="#0f172a" stroke-width="4" />
+              <rect x="18" y="88" width="14" height="14" fill="#103FEF" />
+              <rect x="48" y="12" width="6" height="6" fill="#0f172a" />
+              <rect x="58" y="18" width="8" height="6" fill="#0f172a" />
+              <rect x="48" y="28" width="12" height="6" fill="#0f172a" />
+              <rect x="14" y="48" width="8" height="6" fill="#0f172a" />
+              <rect x="28" y="48" width="6" height="12" fill="#0f172a" />
+              <rect x="44" y="44" width="32" height="32" stroke="#00995D" stroke-width="2" />
+              <rect x="52" y="52" width="16" height="16" fill="#00995D" />
+              <rect x="84" y="48" width="8" height="8" fill="#0f172a" />
+              <rect x="98" y="56" width="6" height="14" fill="#0f172a" />
+              <rect x="48" y="86" width="14" height="6" fill="#0f172a" />
+              <rect x="68" y="84" width="8" height="12" fill="#0f172a" />
+              <rect x="84" y="84" width="18" height="6" fill="#0f172a" />
+              <rect x="86" y="96" width="12" height="12" fill="#0f172a" />
             </svg>
           </div>
 
           <div class="pix-copia-cola">
             <label for="pix-input-code">Ou copie o código Pix Copia e Cola abaixo:</label>
             <div class="copy-input-group">
-              <input type="text" id="pix-input-code" value="00020126580014br.gov.bcb.pix0136conecta-cidadao-arrecadacao-municipal5204000053039865405148.505802BR5925PREFEITURA MUNICIPAL6014RIO DAS OSTRAS62070503***630489A1" readonly>
+              <input type="text" id="pix-input-code"
+                value="00020126580014br.gov.bcb.pix0136conecta-cidadao-arrecadacao-municipal5204000053039865405148.505802BR5925PREFEITURA MUNICIPAL6014RIO DAS OSTRAS62070503***630489A1"
+                readonly>
               <button type="button" class="btn-copy-pix" id="btn-copy-pix">Copiar Código</button>
             </div>
           </div>
@@ -938,7 +1130,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn-secondary" id="btn-download-pdf">
-          🖨️ Emitir e Imprimir Guia DAM (PDF)
+          Emitir e Imprimir Guia DAM (PDF)
         </button>
         <button type="button" class="btn-primary" id="btn-close-modal-bill">Concluído</button>
       </div>
@@ -955,7 +1147,8 @@
           <h3 id="modal-app-header-title">Comprovante de Agendamento SUS</h3>
           <span class="status-pill confirmed">Confirmado</span>
         </div>
-        <button type="button" class="modal-close" id="modal-appointment-close" aria-label="Fechar modal">&times;</button>
+        <button type="button" class="modal-close" id="modal-appointment-close"
+          aria-label="Fechar modal">&times;</button>
       </div>
 
       <div class="modal-body">
@@ -978,15 +1171,17 @@
           </div>
           <div class="summary-item">
             <span class="summary-label">Orientações ao Cidadão:</span>
-            <span>Chegar com 15 minutos de antecedência munido de documento oficial com foto e Cartão SUS (físico ou digital).</span>
+            <span>Chegar com 15 minutos de antecedência munido de documento oficial com foto e Cartão SUS (físico ou
+              digital).</span>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn-secondary" id="btn-reschedule">Gerenciar na Página de Saúde</button>
-        <button type="button" class="btn-secondary" id="btn-print-sus-voucher" style="border-color: #103FEF; color: #103FEF;">
-          🖨️ Imprimir Comprovante SUS
+        <button type="button" class="btn-secondary" id="btn-print-sus-voucher"
+          style="border-color: #103FEF; color: #103FEF;">
+          Imprimir Comprovante SUS
         </button>
         <button type="button" class="btn-primary" id="btn-confirm-appointment-ok">Entendido</button>
       </div>

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMunicipalitySelector();
   initHeroSearchAndSpotlight();
   initDailyStatusWidget();
+  initHomeCivicMap();
   initNewsCarousel();
   initAccessibilityFeatures();
   initModals();
@@ -48,7 +49,13 @@ function initHeroSearchAndSpotlight() {
         window.location.href = 'occurrencePage.html';
         return;
       }
-      if (q.includes('iptu') || q.includes('pix') || q.includes('iss') || q.includes('boleto') || q.includes('taxa')) {
+      if (q.includes('recicla') || q.includes('ecoponto') || q.includes('coleta') || q.includes('pev')) {
+        if (typeof window.focusCivicMapCategory === 'function') {
+          window.focusCivicMapCategory('waste');
+        }
+      } else if (q.includes('upa') || q.includes('ubs') || q.includes('hospital') || q.includes('posto')) {
+        window.location.href = 'healthPage.html#mapa-saude';
+      } else if (q.includes('iptu') || q.includes('pix') || q.includes('iss') || q.includes('boleto') || q.includes('taxa')) {
         window.location.href = 'invoicesPage.html';
       } else if (q.includes('saude') || q.includes('saúde') || q.includes('sus') || q.includes('vacina') || q.includes('médico') || q.includes('medico') || q.includes('consulta')) {
         window.location.href = 'healthPage.html';
@@ -70,6 +77,11 @@ function initHeroSearchAndSpotlight() {
     spotlightForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const targetUrl = spotlightService.value || 'occurrencePage.html';
+      if (targetUrl.startsWith('#')) {
+        const el = document.querySelector(targetUrl);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       window.location.href = targetUrl;
     });
   }
@@ -79,33 +91,31 @@ function initHeroSearchAndSpotlight() {
 // 2. WIDGET INTERATIVO DE STATUS DIÁRIO DA CIDADE (ESTRATÉGIA NYC.gov)
 // ==========================================================================
 function initDailyStatusWidget() {
-  const datePicker = document.getElementById('daily-date-picker');
   const dateLabel = document.getElementById('daily-status-date-label');
   const listEl = document.getElementById('daily-status-list');
   const detailBox = document.getElementById('daily-status-detail-box');
   const detailTitle = document.getElementById('daily-detail-title');
   const detailDesc = document.getElementById('daily-detail-desc');
   const backBtn = document.getElementById('btn-status-back');
+  const openMapBtn = document.getElementById('btn-daily-open-map');
+  const openMapBtnLabel = document.getElementById('daily-detail-map-btn-label');
+  const secondaryLink = document.getElementById('btn-daily-secondary-link');
 
   const STATUS_TITLES = {
-    waste: '🚛 Coleta de Lixo e Reciclagem',
-    works: '🚧 Obras e Trânsito nas Vias',
-    health: '🏥 UPAs 24h, UBS e Vacinação',
-    civilDefense: '🌤️ Defesa Civil e Alerta Climático'
+    waste: 'Coleta de Lixo e Pontos de Reciclagem',
+    works: 'Obras e Trânsito nas Vias',
+    health: 'UPAs 24h, UBS e Vacinação',
+    civilDefense: 'Defesa Civil e Alerta Climático'
   };
 
-  if (datePicker && dateLabel) {
-    datePicker.addEventListener('change', () => {
-      if (!datePicker.value) return;
-      const [y, m, d] = datePicker.value.split('-').map(Number);
-      const dt = new Date(y, m - 1, d);
-      const formatted = dt.toLocaleDateString('pt-BR', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-      });
-      dateLabel.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  if (dateLabel) {
+    const today = new Date();
+    const formatted = today.toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long'
     });
+    dateLabel.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
   }
 
   document.querySelectorAll('.daily-status-item').forEach(btn => {
@@ -118,10 +128,30 @@ function initDailyStatusWidget() {
       if (detailTitle) detailTitle.textContent = STATUS_TITLES[key] || 'Status Municipal';
       if (detailDesc) detailDesc.textContent = info.detail;
 
+      if (openMapBtn) {
+        openMapBtn.dataset.mapCat = info.mapCategory || key;
+      }
+      if (openMapBtnLabel) {
+        openMapBtnLabel.textContent = info.primaryActionLabel || 'Ver pontos no Mapa Interativo';
+      }
+      if (secondaryLink) {
+        secondaryLink.href = info.secondaryUrl || 'healthPage.html';
+        secondaryLink.textContent = `${info.secondaryLabel || 'Ir para a aba do serviço'} →`;
+      }
+
       listEl.setAttribute('hidden', '');
       detailBox.removeAttribute('hidden');
     });
   });
+
+  if (openMapBtn) {
+    openMapBtn.addEventListener('click', () => {
+      const cat = openMapBtn.dataset.mapCat || 'health';
+      if (typeof window.focusCivicMapCategory === 'function') {
+        window.focusCivicMapCategory(cat);
+      }
+    });
+  }
 
   if (backBtn && listEl && detailBox) {
     backBtn.addEventListener('click', () => {
@@ -129,6 +159,23 @@ function initDailyStatusWidget() {
       listEl.removeAttribute('hidden');
     });
   }
+}
+
+// ==========================================================================
+// 2.5. MAPA INTERATIVO DE UPAs, UBS, ECOPONTOS E OBRAS NA HOME
+// ==========================================================================
+function initHomeCivicMap() {
+  if (typeof window.initCivicMapWidget !== 'function') return;
+  window.initCivicMapWidget({
+    instanceKey: 'main',
+    mapContainerId: 'home-civic-leaflet-map',
+    detailContainerId: 'home-civic-map-detail',
+    pillsContainerId: 'home-civic-map-pills',
+    tabsContainerId: 'home-civic-map-tabs',
+    cityLabelId: 'home-map-city-label',
+    defaultCategory: 'all',
+    widgetMode: 'mainPage'
+  });
 }
 
 // ==========================================================================

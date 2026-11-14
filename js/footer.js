@@ -94,9 +94,9 @@ class AppFooter extends HTMLElement {
                 Cuidar da nossa cidade começa por ouvir você. Serviços públicos em linguagem simples, sem filas e com acompanhamento transparente em tempo real.
               </p>
               <div class="unimed-trust-seals">
-                <span class="trust-seal-pill">📞 Central 156 / 311</span>
-                <span class="trust-seal-pill">🛡️ Protegido pela LGPD</span>
-                <span class="trust-seal-pill">🏛️ Transparência Ativa</span>
+                <span class="trust-seal-pill">Central 156 / 311</span>
+                <span class="trust-seal-pill">Protegido pela LGPD</span>
+                <span class="trust-seal-pill">Transparência Ativa</span>
               </div>
             </div>
 
@@ -140,7 +140,7 @@ class AppFooter extends HTMLElement {
           <div class="nyc-footer-bottom">
             <p>© 2026 ConectaCidadão · Municípios Integrados: <strong>Rio das Ostras (RJ)</strong> e <strong>Sapucaia do Sul (RS)</strong>.</p>
             <div class="nyc-footer-apps">
-              <span class="app-store-badge">📱 App ConectaCidadão (iOS / Android)</span>
+              <span class="app-store-badge">App ConectaCidadão (iOS / Android)</span>
             </div>
           </div>
         </div>

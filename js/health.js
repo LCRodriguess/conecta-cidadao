@@ -19,14 +19,20 @@ let activeInstructionsAppointment = null;
 
 const FALLBACK_UNITS_BY_CITY = {
     'rio-das-ostras': [
-        { name: 'UPA 24h Âncora', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Urgência e Emergência Municipal', address: 'Rodovia Amaral Peixoto, s/n — Âncora · Rio das Ostras', phone: '(22) 2771-3045 · SAMU 192' },
-        { name: 'UBS Central · Jardim Mariléa', badge: '07h às 17h', badgeClass: 'badge-open-hours', type: 'Atenção Básica, Vacinação e Clínico Geral', address: 'Av. das Flores, 80 — Jardim Mariléa · Rio das Ostras', phone: '(22) 2771-4120' },
-        { name: 'Centro de Saúde Extensão do Bosque', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Especialidades Médicas e Exames SUS', address: 'Rua das Acácias, 210 — Extensão do Bosque · Rio das Ostras', phone: '(22) 2771-5090' }
+        { placeId: 'ro-upa-ancora', name: 'UPA 24h Parque Âncora (Valmir Hespanhol)', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Unidade de Pronto Atendimento 24 Horas (Urgência e Emergência)', address: 'Rua das Acácias, s/n (próx. ao nº 615) — Parque Âncora · CEP 28899-422 · Rio das Ostras', phone: '(22) 2771-3045 · SAMU 192' },
+        { placeId: 'ro-hosp-naelma', name: 'Hospital Municipal Dra. Naelma Monteiro da Silva', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Hospital Geral Municipal e Maternidade 24h', address: 'Rua Nildon Lustosa, s/n — Parque Zabulão · CEP 28893-800 · Rio das Ostras', phone: '(22) 2771-3050 · SAMU 192' },
+        { placeId: 'ro-pronto-socorro', name: 'Pronto-Socorro Municipal de Rio das Ostras', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Pronto Atendimento Clínico e Ortopédico 24h', address: 'Rua Laércio Lúcio de Carvalho, 1075 — Parque Zabulão · CEP 28893-392 · Rio das Ostras', phone: '(22) 2771-3115 · SAMU 192' },
+        { placeId: 'ro-ubs-marilea', name: 'UBS Jardim Mariléa', badge: '07h às 17h', badgeClass: 'badge-open-hours', type: 'Atenção Básica, Sala de Vacinação e Clínico Geral', address: 'Rua Nova Friburgo, 21 — Jardim Mariléa · CEP 28896-049 · Rio das Ostras', phone: '(22) 2771-4120' },
+        { placeId: 'ro-ubs-dona-edmeia', name: 'Centro de Saúde Dona Edméia (Nova Esperança)', badge: '07h às 17h', badgeClass: 'badge-open-hours', type: 'Consultas SUS, Vacinação, Odontologia e Exames', address: 'Avenida Linda, s/n — Nova Esperança · CEP 28893-260 · Rio das Ostras', phone: '(22) 2771-4010' },
+        { placeId: 'ro-esf-claudio-ribeiro', name: 'ESF Cláudio Ribeiro (Âncora)', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Saúde da Família, Pré-Natal e Imunização', address: 'Rua Peperônia, s/n — Cláudio Ribeiro / Âncora · CEP 28899-422 · Rio das Ostras', phone: '(22) 2771-4280' },
+        { placeId: 'ro-esf-cidade-praiana', name: 'ESF Cidade Praiana', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Saúde da Família e Sala de Vacinação', address: 'Rua Santa Catarina, s/n — Cidade Praiana · CEP 28897-140 · Rio das Ostras', phone: '(22) 2771-4310' }
     ],
     'sapucaia': [
-        { name: 'Hospital Municipal Getúlio Vargas (HMGV)', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Hospital Geral e Emergência 24h', address: 'Rua Pinheiro Machado, 331 — Díez · Sapucaia do Sul', phone: '(51) 3451-8200 · SAMU 192' },
-        { name: 'UBS Centro · Sapucaia do Sul', badge: '07h às 18h', badgeClass: 'badge-open-hours', type: 'Clínica da Família, Vacinação e Preventivo', address: 'Rua Tiradentes, 340 — Centro · Sapucaia do Sul', phone: '(51) 3474-1910' },
-        { name: 'Centro de Especialidades Bairro Vargas', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Cardiologia, Pediatria e Exames SUS', address: 'Av. Assis Brasil, 512 — Bairro Vargas · Sapucaia do Sul', phone: '(51) 3474-2840' }
+        { placeId: 'sap-upa-24h', name: 'UPA 24h Sapucaia do Sul', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Unidade de Pronto Atendimento 24 Horas', address: 'Rodovia ERS-118, nº 4400 (esq. Rua Ursa Maior) — Nova Sapucaia · CEP 93226-312 · Sapucaia do Sul', phone: '(51) 3450-3082 · SAMU 192' },
+        { placeId: 'sap-hmgv', name: 'Hospital Municipal Getúlio Vargas (HMGV)', badge: 'Plantão 24h', badgeClass: 'badge-open-24h', type: 'Hospital Geral Municipal e Emergência 24h', address: 'Rua Pinheiro Machado, 331 — Bairro Diehl · CEP 93210-180 · Sapucaia do Sul', phone: '(51) 3451-8200 · SAMU 192' },
+        { placeId: 'sap-ubs-centro', name: 'UBS Centro · Sapucaia do Sul', badge: '07h às 18h', badgeClass: 'badge-open-hours', type: 'Clínica da Família, Vacinação e Preventivo', address: 'Rua Nossa Senhora da Conceição esq. Rua Justino Camboim — Centro · CEP 93210-240 · Sapucaia do Sul', phone: '(51) 3451-8000' },
+        { placeId: 'sap-ubs-vargas', name: 'Centro de Especialidades e UBS Bairro Vargas', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Cardiologia, Pediatria, Vacinação e Exames SUS', address: 'Rua Santa Catarina, 512 — Bairro Vargas · CEP 93222-180 · Sapucaia do Sul', phone: '(51) 3474-2840' },
+        { placeId: 'sap-ubs-cohab', name: 'UBS Cohab Blocos', badge: '08h às 17h', badgeClass: 'badge-open-hours', type: 'Unidade Básica de Saúde da Família', address: 'Avenida Alfredo Scharlau, 434 — Cohab · CEP 93212-010 · Sapucaia do Sul', phone: '(51) 3451-8055' }
     ]
 };
 
@@ -51,7 +57,7 @@ function getSimulatedAppointmentsForCity(cityKey) {
             const localApps = JSON.parse(raw).filter(a => a.municipality === cityKey);
             list.push(...localApps);
         }
-    } catch (e) {}
+    } catch (e) { }
 
     if (citizen && citizen.appointment) {
         list.push({
@@ -73,6 +79,48 @@ function getSimulatedAppointmentsForCity(cityKey) {
     return list;
 }
 
+function openScheduleModalForUnit(unitLabel) {
+    const dialog = document.getElementById('appointment-dialog');
+    const locInput = document.getElementById('appointment-location');
+    const susInput = document.getElementById('appointment-sus-card');
+    const citizen = typeof getActiveCitizen === 'function' ? getActiveCitizen() : null;
+
+    if (locInput && unitLabel) {
+        locInput.value = unitLabel;
+    }
+    if (susInput && !susInput.value && citizen && citizen.susCard) {
+        susInput.value = citizen.susCard;
+    }
+    if (dialog && typeof dialog.showModal === 'function') {
+        dialog.showModal();
+    }
+}
+
+function initializeHealthInteractiveMap() {
+    if (typeof window.initCivicMapWidget !== 'function') return;
+
+    const mapCtrl = window.initCivicMapWidget({
+        instanceKey: 'health',
+        mapContainerId: 'health-civic-leaflet-map',
+        detailContainerId: 'health-civic-map-detail',
+        pillsContainerId: 'health-civic-map-pills',
+        cityLabelId: 'health-map-city-label',
+        defaultCategory: 'health',
+        widgetMode: 'healthPage',
+        onScheduleUnitClick: (unitObj) => {
+            openScheduleModalForUnit(`${unitObj.name} — ${unitObj.street} (${unitObj.neighborhood} · CEP ${unitObj.cep})`);
+        }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedUnit = params.get('unit');
+    if (requestedUnit && mapCtrl) {
+        setTimeout(() => {
+            mapCtrl.focusPlaceById(requestedUnit);
+        }, 250);
+    }
+}
+
 // INICIALIZAÇÃO
 document.addEventListener('DOMContentLoaded', () => {
     activeHealthCity = typeof getActiveCity === 'function'
@@ -81,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeAppointmentForm();
     initializeInstructionsDialog();
+    initializeHealthInteractiveMap();
     loadHealthData(activeHealthCity);
 
     window.addEventListener('conectaCityChanged', (event) => {
@@ -211,7 +260,50 @@ function renderUnits(units) {
         phone.className = 'unit-phone';
         phone.textContent = unit.phone || '';
 
-        card.append(top, type, address, phone);
+        const actionsRow = document.createElement('div');
+        actionsRow.style.display = 'flex';
+        actionsRow.style.gap = '8px';
+        actionsRow.style.marginTop = '10px';
+        actionsRow.style.flexWrap = 'wrap';
+
+        const mapBtn = document.createElement('button');
+        mapBtn.type = 'button';
+        mapBtn.textContent = 'Ver bolha no Mapa';
+        mapBtn.style.background = '#EFF6FF';
+        mapBtn.style.color = '#103FEF';
+        mapBtn.style.border = '1.5px solid #BFDBFE';
+        mapBtn.style.borderRadius = '999px';
+        mapBtn.style.padding = '5px 11px';
+        mapBtn.style.fontSize = '11.5px';
+        mapBtn.style.fontWeight = '800';
+        mapBtn.style.cursor = 'pointer';
+        mapBtn.addEventListener('click', () => {
+            if (typeof window.focusHealthMapUnit === 'function' && unit.placeId) {
+                window.focusHealthMapUnit(unit.placeId);
+            } else {
+                const mapSection = document.getElementById('mapa-saude');
+                if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        const schedBtn = document.createElement('button');
+        schedBtn.type = 'button';
+        schedBtn.textContent = 'Agendar aqui';
+        schedBtn.style.background = '#103FEF';
+        schedBtn.style.color = '#FFFFFF';
+        schedBtn.style.border = 'none';
+        schedBtn.style.borderRadius = '999px';
+        schedBtn.style.padding = '5px 11px';
+        schedBtn.style.fontSize = '11.5px';
+        schedBtn.style.fontWeight = '800';
+        schedBtn.style.cursor = 'pointer';
+        schedBtn.addEventListener('click', () => {
+            openScheduleModalForUnit(`${unit.name} — ${unit.address}`);
+        });
+
+        actionsRow.append(mapBtn, schedBtn);
+
+        card.append(top, type, address, phone, actionsRow);
         container.appendChild(card);
     });
 }
@@ -433,7 +525,7 @@ function renderAppointments(appointments) {
         printButton.style.background = '#EEF3FF';
         printButton.style.color = '#103FEF';
         printButton.style.borderColor = '#103FEF';
-        printButton.textContent = '🖨️ Imprimir Comprovante';
+        printButton.textContent = 'Imprimir Comprovante';
 
         printButton.addEventListener('click', () => {
             openSusReceiptForAppointment(appointment);
@@ -601,7 +693,7 @@ async function submitAppointment(event) {
             const list = raw ? JSON.parse(raw) : [];
             list.unshift(payload);
             localStorage.setItem('conecta_cidadao_local_appointments', JSON.stringify(list));
-        } catch (e) {}
+        } catch (e) { }
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Enviar solicitação';

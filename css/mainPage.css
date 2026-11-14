@@ -243,8 +243,15 @@
 }
 
 @keyframes pulseAudio {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(26, 86, 219, 0.3); }
-    50% { box-shadow: 0 0 0 6px rgba(26, 86, 219, 0); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(26, 86, 219, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(26, 86, 219, 0);
+    }
 }
 
 /* ==========================================================================
@@ -301,9 +308,20 @@
 }
 
 @keyframes livePulseAnim {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 .carousel-title {
@@ -1926,21 +1944,43 @@ body.alto-contraste textarea:focus-visible {
     background: #FFFFFF;
     border: 2px solid #000000;
     border-radius: 26px;
-    padding: 24px 22px;
+    padding: 22px 22px;
     box-shadow: var(--sombra-md);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 14px;
+    justify-content: flex-start;
+    gap: 12px;
 }
 
 .daily-status-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1.5px solid #E5E7EB;
+}
+
+.daily-status-map-shortcut {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EEF3FF;
+    color: var(--azul-primario);
+    border: 1.5px solid #BFDBFE;
+    border-radius: var(--raio-pill);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.16s ease;
+}
+
+.daily-status-map-shortcut:hover {
+    background: var(--azul-primario);
+    border-color: var(--azul-primario);
+    color: #FFFFFF;
 }
 
 .daily-status-kicker {
@@ -1983,11 +2023,19 @@ body.alto-contraste textarea:focus-visible {
 .daily-status-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    flex: 1;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.daily-status-list[hidden],
+.daily-status-detail-box[hidden] {
+    display: none !important;
 }
 
 .daily-status-item {
     display: flex;
+    flex: 1;
     align-items: center;
     gap: 12px;
     width: 100%;
@@ -1995,7 +2043,7 @@ body.alto-contraste textarea:focus-visible {
     background: #F8FAFC;
     border: 1.5px solid #E2E8F0;
     border-radius: 14px;
-    padding: 11px 14px;
+    padding: 12px 14px;
     cursor: pointer;
     font-family: inherit;
     transition: all 0.16s ease;
@@ -2086,6 +2134,54 @@ body.alto-contraste textarea:focus-visible {
     font-size: 13.5px;
     color: #1F2937;
     line-height: 1.5;
+}
+
+.daily-status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.btn-daily-open-map {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--azul-primario);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--raio-pill);
+    padding: 9px 14px;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.16s ease;
+}
+
+.btn-daily-open-map:hover {
+    background: var(--azul-primario-hover);
+    transform: translateY(-1px);
+}
+
+.btn-daily-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    color: #0F172A;
+    border: 1.5px solid #CBD5E1;
+    border-radius: var(--raio-pill);
+    padding: 8px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.16s ease;
+}
+
+.btn-daily-secondary-link:hover {
+    border-color: var(--azul-primario);
+    color: var(--azul-primario);
 }
 
 /* --- 8.3 Faixa Spotlight (Inspiração "Guia Médico" Unimed) --- */
@@ -2712,6 +2808,7 @@ body.alto-contraste textarea:focus-visible {
 }
 
 @media (max-width: 1080px) {
+
     .nyc-split-hero,
     .nyc-311-banner {
         grid-template-columns: 1fr;
@@ -2728,6 +2825,7 @@ body.alto-contraste textarea:focus-visible {
 }
 
 @media (max-width: 680px) {
+
     .nyc-popular-grid,
     .wellness-cards-grid {
         grid-template-columns: 1fr;
