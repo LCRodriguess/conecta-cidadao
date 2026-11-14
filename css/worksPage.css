@@ -100,10 +100,11 @@
   margin: 0.15rem 0;
 }
 
-.muni-toggle strong {
+#muni-active-name {
   font-size: 0.95rem;
   color: #0f172a;
   font-weight: 700;
+  margin: 0.15rem 0;
 }
 
 .muni-toggle .trocar-txt {
@@ -351,7 +352,7 @@
   }
 }
 
-/* Lista de Vagas (Coluna Esquerda) */
+/* Lista de Vagas */
 .jobs-list-column {
   display: flex;
   flex-direction: column;
@@ -445,7 +446,7 @@
   flex-shrink: 0;
 }
 
-/* Coluna de Detalhes da Vaga (Coluna Direita) */
+/* Coluna de Detalhes da Vaga */
 .job-details-column {
   position: sticky;
   top: 1.5rem;
@@ -579,6 +580,11 @@
   box-shadow: 0 4px 12px rgba(26, 86, 219, 0.2);
 }
 
+.btn-apply-job:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .details-published-date {
   display: block;
   font-size: 0.78rem;
@@ -650,4 +656,172 @@
 .bottom-support-btn:hover {
   background: #eff6ff;
   border-color: #1a56db;
+}
+
+/* Mensagem quando não existem vagas */
+.empty-jobs {
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+}
+
+.empty-jobs h3 {
+  margin-top: 0;
+  color: #334155;
+}
+
+.empty-jobs p {
+  margin-bottom: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Modal de candidatura */
+.application-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(460px, calc(100% - 32px));
+  max-width: 460px;
+  max-height: calc(100% - 32px);
+  border: none;
+  border-radius: 18px;
+  padding: 0;
+  color: #263247;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+}
+
+.application-modal::backdrop {
+  background: rgba(15, 23, 42, .58);
+  backdrop-filter: blur(3px);
+}
+
+.application-modal-content {
+  position: relative;
+  padding: 32px;
+  text-align: center;
+}
+
+.application-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 17px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.application-modal-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.application-modal-tag {
+  display: block;
+  margin-bottom: 9px;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.application-modal-content h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  color: #1e293b;
+}
+
+.application-modal-description {
+  margin: 0 0 20px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.application-modal-job {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px;
+  margin-bottom: 17px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  text-align: left;
+}
+
+.application-modal-job strong {
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.application-modal-job span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.application-modal-notice {
+  margin: 0 0 20px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.application-modal-action,
+.application-modal-secondary {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.application-modal-action {
+  border: none;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+
+.application-modal-action:hover {
+  background: #1d4ed8;
+}
+
+.application-modal-secondary {
+  margin-top: 9px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #475569;
+}
+
+.application-modal-secondary:hover {
+  background: #f8fafc;
+}
+
+.application-modal-action[hidden] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .home-bottom-links {
+    flex-wrap: wrap;
+  }
+
+  .application-modal-content {
+    padding: 28px 22px;
+  }
 }
