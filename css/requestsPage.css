@@ -763,3 +763,383 @@
         width: 100%;
     }
 }
+
+
+/* ALTO CONTRASTE - PÁGINA DE SOLICITAÇÕES
+   Fundo escuro, textos brancos e títulos amarelos */
+
+/* ---------- Estrutura e breadcrumb ---------- */
+
+body.alto-contraste .page-container {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .breadcrumb {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .breadcrumb a {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .breadcrumb .current {
+    color: #ffffff !important;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+body.alto-contraste .header-titles .page-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .header-titles .page-subtitle {
+    color: #ffffff !important;
+}
+
+/* ---------- Seletor de município ---------- */
+
+body.alto-contraste .municipality-icon {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-tag {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-toggle strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .muni-toggle .trocar-txt {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-alt {
+    color: #dddddd !important;
+}
+
+body.alto-contraste .muni-dropdown {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .muni-opt {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .muni-opt:hover {
+    background: #333333 !important;
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-opt.active {
+    background: #333300 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* ---------- Filtros ---------- */
+
+body.alto-contraste .tab-chip {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .tab-chip:hover {
+    background: #333333 !important;
+    border-color: #ffff00 !important;
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .tab-chip.active {
+    background: #333300 !important;
+    border: 1.5px solid #ffff00 !important;
+    color: #ffff00 !important;
+}
+
+/* ---------- Nova solicitação ---------- */
+
+body.alto-contraste .btn-new-protocol {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .btn-new-protocol:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* ---------- Cards de protocolos ---------- */
+
+body.alto-contraste .protocol-card {
+    background: #111111 !important;
+    border: 1.5px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .protocol-card:hover {
+    background: #222222 !important;
+    border-color: #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .protocol-card.selected {
+    background: #222222 !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .protocol-id {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .protocol-title {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .protocol-meta {
+    color: #dddddd !important;
+}
+
+body.alto-contraste .protocol-footer {
+    border-top: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .protocol-date {
+    color: #dddddd !important;
+}
+
+body.alto-contraste .protocol-arrow {
+    color: #ffff00 !important;
+}
+
+/* ---------- Status dos protocolos ---------- */
+
+/* Em andamento */
+
+body.alto-contraste .badge-status.in-progress,
+body.alto-contraste .details-status-badge.in-progress {
+    background: #102c50 !important;
+    color: #ffffff !important;
+    border: 1px solid #60a5fa !important;
+}
+
+/* Equipe enviada */
+
+body.alto-contraste .badge-status.dispatched,
+body.alto-contraste .details-status-badge.dispatched {
+    background: #493000 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* Concluídas */
+
+body.alto-contraste .badge-status.completed,
+body.alto-contraste .details-status-badge.completed {
+    background: #123b24 !important;
+    color: #ffffff !important;
+    border: 1px solid #4ade80 !important;
+}
+
+/* ---------- Painel de detalhes ---------- */
+
+body.alto-contraste .protocol-details-card {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .details-protocol-id {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .details-service-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .details-address-text {
+    color: #ffffff !important;
+}
+
+/* ---------- Progresso do atendimento ---------- */
+
+body.alto-contraste .stepper-box {
+    background: #222222 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .stepper-heading {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .step-circle {
+    background: #000000 !important;
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .step-completed .step-circle {
+    background: #16a34a !important;
+    border-color: #4ade80 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .step-current .step-circle {
+    background: #1a56db !important;
+    border-color: #ffff00 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(255, 255, 0, 0.2) !important;
+}
+
+body.alto-contraste .step-label {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .step-current .step-label {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .step-line {
+    background: #777777 !important;
+}
+
+body.alto-contraste .step-line.active {
+    background: #4ade80 !important;
+}
+
+/* ---------- Histórico de movimentações ---------- */
+
+body.alto-contraste .timeline-heading {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .timeline-date {
+    color: #dddddd !important;
+}
+
+body.alto-contraste .timeline-action {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .timeline-desc {
+    color: #dddddd !important;
+}
+
+body.alto-contraste .timeline-bullet {
+    background: #ffff00 !important;
+}
+
+/* ---------- Botões de ação ---------- */
+
+body.alto-contraste .protocol-action-buttons {
+    border-top: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .btn-action-outline {
+    background: #111111 !important;
+    border: 1.5px solid #ffffff !important;
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-action-outline:hover {
+    background: #333333 !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-action-primary {
+    background: #1a56db !important;
+    border: 1px solid #ffff00 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .btn-action-primary:hover {
+    background: #1546b5 !important;
+}
+
+/* ---------- Formulário de complemento ---------- */
+
+body.alto-contraste #complement-form {
+    background: #222222 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste #complement-form h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste #complement-form p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste #complement-description {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste #complement-description::placeholder {
+    color: #cccccc !important;
+    opacity: 1 !important;
+}
+
+body.alto-contraste #complement-description:focus {
+    border: 2px solid #ffff00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.2) !important;
+}
+
+body.alto-contraste #btn-cancel-complement {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste #btn-cancel-complement:hover {
+    background: #333333 !important;
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste #btn-submit-complement {
+    background: #1a56db !important;
+    border: 1px solid #ffff00 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste #btn-submit-complement:hover {
+    background: #1546b5 !important;
+}
+
+body.alto-contraste #btn-submit-complement:disabled {
+    opacity: 0.6 !important;
+}
+
+/* ---------- Rodapé de suporte ---------- */
+
+body.alto-contraste .home-bottom-links {
+    border-top: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .bottom-support-btn:hover {
+    background: #333333 !important;
+    border-color: #ffff00 !important;
+}
+
+/* ---------- Foco de acessibilidade ---------- */
+
+body.alto-contraste button:focus-visible,
+body.alto-contraste a:focus-visible,
+body.alto-contraste textarea:focus-visible {
+    outline: 2px solid #ffff00 !important;
+    outline-offset: 3px;
+}

@@ -663,3 +663,208 @@
     flex-wrap: wrap;
   }
 }
+
+/* ALTO CONTRASTE - PÁGINA DE EVENTOS
+   Ajustes específicos desta página */
+
+/* Card de busca e filtros */
+body:is(.alto-contraste, .modo-acessibilidade) .search-filter-card,
+body:is(.alto-contraste, .modo-acessibilidade) .event-card,
+body:is(.alto-contraste, .modo-acessibilidade) .event-details-card,
+body:is(.alto-contraste, .modo-acessibilidade) .event-guidance-card {
+  background: #181818 !important;
+  color: #ffffff !important;
+  border: 1px solid #777777 !important;
+  box-shadow: none !important;
+}
+
+/* Títulos */
+body:is(.alto-contraste, .modo-acessibilidade) .page-title,
+body:is(.alto-contraste, .modo-acessibilidade) .results-count,
+body:is(.alto-contraste, .modo-acessibilidade) .event-title,
+body:is(.alto-contraste, .modo-acessibilidade) .details-title,
+body:is(.alto-contraste, .modo-acessibilidade) .details-section-title,
+body:is(.alto-contraste, .modo-acessibilidade) .guidance-title {
+  color: #ffff00 !important;
+}
+
+/* Textos gerais */
+body:is(.alto-contraste, .modo-acessibilidade) .page-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .event-datetime,
+body:is(.alto-contraste, .modo-acessibilidade) .event-location,
+body:is(.alto-contraste, .modo-acessibilidade) .event-desc,
+body:is(.alto-contraste, .modo-acessibilidade) .event-year,
+body:is(.alto-contraste, .modo-acessibilidade) .details-summary,
+body:is(.alto-contraste, .modo-acessibilidade) .field-label,
+body:is(.alto-contraste, .modo-acessibilidade) .field-value,
+body:is(.alto-contraste, .modo-acessibilidade) .field-sub,
+body:is(.alto-contraste, .modo-acessibilidade) .details-section-text,
+body:is(.alto-contraste, .modo-acessibilidade) .guidance-text,
+body:is(.alto-contraste, .modo-acessibilidade) .search-field-group label,
+body:is(.alto-contraste, .modo-acessibilidade) .date-field-group label {
+  color: #ffffff !important;
+}
+
+/* Breadcrumb */
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb,
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb .current {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb a {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* Município */
+body:is(.alto-contraste, .modo-acessibilidade) .municipality-icon {
+  color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-tag,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-alt {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle strong {
+  color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle .trocar-txt {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* Dropdown de municípios */
+body:is(.alto-contraste, .modo-acessibilidade) .muni-dropdown {
+  background: #202020 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt {
+  background: #202020 !important;
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt.active {
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+/* Campos de busca e data */
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box input,
+body:is(.alto-contraste, .modo-acessibilidade) .date-input-box input {
+  background: #242424 !important;
+  color: #ffffff !important;
+  border: 1px solid #aaaaaa !important;
+  color-scheme: dark;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box input::placeholder {
+  color: #cccccc !important;
+  opacity: 1;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box .search-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .date-input-box .calendar-icon {
+  color: #ffff00 !important;
+}
+
+/* Foco dos campos */
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box input:focus,
+body:is(.alto-contraste, .modo-acessibilidade) .date-input-box input:focus {
+  border-color: #ffff00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.25) !important;
+}
+
+/* Categorias */
+body:is(.alto-contraste, .modo-acessibilidade) .category-chip {
+  background: #242424 !important;
+  color: #ffffff !important;
+  border: 1px solid #aaaaaa !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .category-chip:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .category-chip.active {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Cartões da lista de eventos */
+body:is(.alto-contraste, .modo-acessibilidade) .event-card:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .event-card.selected {
+  border: 2px solid #ffff00 !important;
+  box-shadow: none !important;
+}
+
+/* Data do evento */
+body:is(.alto-contraste, .modo-acessibilidade) .event-date-box {
+  background: #242424 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .date-day,
+body:is(.alto-contraste, .modo-acessibilidade) .date-month {
+  color: #ffff00 !important;
+}
+
+/* Identificadores e categorias dos eventos */
+body:is(.alto-contraste, .modo-acessibilidade) .event-badge,
+body:is(.alto-contraste, .modo-acessibilidade) .details-badge {
+  background: #242424 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+/* Detalhes do evento */
+body:is(.alto-contraste, .modo-acessibilidade) .details-section {
+  border-top-color: #777777 !important;
+}
+
+/* Botões */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-filter-agenda {
+  background: #103FEF !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-back-events {
+  background: #242424 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-back-events:hover {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Botões e links do rodapé */
+body:is(.alto-contraste, .modo-acessibilidade) .bottom-support-btn {
+  background: #242424 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .bottom-support-btn:hover {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Divisórias */
+body:is(.alto-contraste, .modo-acessibilidade) .home-bottom-links {
+  border-top-color: #777777 !important;
+}
+
+/* Foco de teclado */
+body:is(.alto-contraste, .modo-acessibilidade) a:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}

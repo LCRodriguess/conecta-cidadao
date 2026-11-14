@@ -585,3 +585,187 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ALTO CONTRASTE - LOGIN PAGE */
+
+body.alto-contraste,
+body.modo-acessibilidade {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+/* Painéis principais */
+body:is(.alto-contraste, .modo-acessibilidade) .auth-showcase-panel,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-form-card {
+    background: #111111 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+/* Textos e títulos */
+body:is(.alto-contraste, .modo-acessibilidade) .showcase-title,
+body:is(.alto-contraste, .modo-acessibilidade) .simulator-box-header h2,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-card-header h2,
+body:is(.alto-contraste, .modo-acessibilidade) .antifraud-text strong {
+    color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .showcase-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .simulator-helper,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-card-header p,
+body:is(.alto-contraste, .modo-acessibilidade) .antifraud-text p,
+body:is(.alto-contraste, .modo-acessibilidade) .field-hint,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-card-footer p,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-divider {
+    color: #FFFFFF !important;
+}
+
+/* Cards de cidadãos */
+body:is(.alto-contraste, .modo-acessibilidade) .demo-citizen-card,
+body:is(.alto-contraste, .modo-acessibilidade) .demo-citizen-card.active {
+    background: #222222 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-identity strong,
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-city,
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-data-pills,
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-data-pills strong {
+    color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-data-pills {
+    background: #111111 !important;
+    border: 1px solid #666666 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-avatar {
+    background: #000000 !important;
+    color: #FFFF00 !important;
+    border: 1px solid #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .demo-cit-current {
+    background: #FFFF00 !important;
+    color: #000000 !important;
+}
+
+/* Formulário */
+body:is(.alto-contraste, .modo-acessibilidade) .form-field label,
+body:is(.alto-contraste, .modo-acessibilidade) .checkbox-label {
+    color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .form-field input {
+    background: #222222 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    color-scheme: dark;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .form-field input::placeholder {
+    color: #CCCCCC !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .form-field input:focus {
+    background: #111111 !important;
+    border-color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-toggle-eye {
+    background: #333333 !important;
+    color: #FFFF00 !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .link-forgot-pass {
+    color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .checkbox-label input {
+    accent-color: #FFFF00 !important;
+}
+
+/* Botões principais: preservam identidade visual */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-pill-care-primary {
+    background: #00995D !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-pill-govbr {
+    background: #103FEF !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .govbr-mark {
+    background: #FFFFFF !important;
+    color: #103FEF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-fill-cpf,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-instant-login {
+    background: #333333 !important;
+    color: #FFFF00 !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-pill-outline-black {
+    background: #222222 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFFFF !important;
+}
+
+/* Segurança e alertas */
+body:is(.alto-contraste, .modo-acessibilidade) .unimed-antifraud-callout {
+    background: #222222 !important;
+    border: 1px solid #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .antifraud-text strong,
+body:is(.alto-contraste, .modo-acessibilidade) .antifraud-text p {
+    color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .auth-api-feedback {
+    background: #123D22 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .auth-api-feedback.error {
+    background: #4A0000 !important;
+    color: #FFFFFF !important;
+    border-color: #FFFF00 !important;
+}
+
+/* Divisores e rodapé */
+body:is(.alto-contraste, .modo-acessibilidade) .auth-divider::before,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-divider::after,
+body:is(.alto-contraste, .modo-acessibilidade) .auth-card-footer {
+    border-color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb,
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb .current {
+    color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb a {
+    color: #FFFF00 !important;
+}
+
+/* Foco de navegação */
+body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) a:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible {
+    outline: 3px solid #FFFF00 !important;
+    outline-offset: 3px !important;
+}

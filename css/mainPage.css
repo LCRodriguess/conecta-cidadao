@@ -1400,6 +1400,7 @@
     line-height: 1.35;
 }
 
+
 /* ==========================================================================
    6. ACESSIBILIDADE GLOBAL (CLASSES ATIVADAS DINAMICAMENTE)
    ========================================================================== */
@@ -1409,39 +1410,335 @@ html.font-large {
     font-size: 112%;
 }
 
-/* Alto Contraste */
+/* ALTO CONTRASTE */
 body.alto-contraste {
-    background-color: #000000 !important;
+    background: #000000 !important;
     color: #ffffff !important;
 }
 
-body.alto-contraste .topbar,
+/* Fundos principais e cartões */
+body.alto-contraste .home-container,
 body.alto-contraste .dash-card,
 body.alto-contraste .debt-card,
 body.alto-contraste .appointment-card,
 body.alto-contraste .request-status-card,
 body.alto-contraste .banner-carousel-section,
 body.alto-contraste .news-card,
-body.alto-contraste .modal-card {
+body.alto-contraste .modal-card,
+body.alto-contraste .hero-left-pane,
+body.alto-contraste .nyc-daily-status-card,
+body.alto-contraste .unimed-spotlight-strip,
+body.alto-contraste .nyc-service-tile,
+body.alto-contraste .nyc-311-banner,
+body.alto-contraste .citizen-mini-profile-box,
+body.alto-contraste .utility-banner-card.antifraud-card,
+body.alto-contraste .utility-banner-card.citizen-portal-card {
     background: #111111 !important;
+    color: #ffffff !important;
     border-color: #ffffff !important;
+}
+
+/* Seção verde: mantém o fundo escuro e o texto legível */
+body.alto-contraste .unimed-wellness-section {
+    background: #111111 !important;
+    border: 2px solid #ffffff !important;
     color: #ffffff !important;
 }
 
-body.alto-contraste h1,
-body.alto-contraste h2,
-body.alto-contraste h3,
-body.alto-contraste strong {
+/* Títulos */
+body.alto-contraste .header-title,
+body.alto-contraste .carousel-title,
+body.alto-contraste .card-title,
+body.alto-contraste .block-title,
+body.alto-contraste .news-card-title,
+body.alto-contraste .debt-title-group strong,
+body.alto-contraste .debt-value,
+body.alto-contraste .debt-due-date,
+body.alto-contraste .appointment-title,
+body.alto-contraste .request-title,
+body.alto-contraste .modal-title-group h3,
+body.alto-contraste .modal-amount-value,
+body.alto-contraste .pix-section h4,
+body.alto-contraste .summary-item strong,
+body.alto-contraste .hero-left-pane .header-title,
+body.alto-contraste .daily-status-date,
+body.alto-contraste .spotlight-copy h2,
+body.alto-contraste .section-main-title,
+body.alto-contraste .tile-content strong,
+body.alto-contraste .nyc-311-left h2,
+body.alto-contraste .nyc-311-stat-box strong,
+body.alto-contraste .cit-mini-info strong,
+body.alto-contraste .wellness-header h2,
+body.alto-contraste .wellness-card-body h3,
+body.alto-contraste .utility-banner-card h3 {
     color: #ffff00 !important;
 }
 
-body.alto-contraste p,
-body.alto-contraste span {
-    color: #e2e8f0 !important;
+/* Textos comuns */
+body.alto-contraste .header-subtitle,
+body.alto-contraste .municipality-tag,
+body.alto-contraste .municipality-alt,
+body.alto-contraste .carousel-city-indicator,
+body.alto-contraste .news-card-desc,
+body.alto-contraste .news-time,
+body.alto-contraste .block-badge-count,
+body.alto-contraste .debt-label,
+body.alto-contraste .appointment-time,
+body.alto-contraste .appointment-place,
+body.alto-contraste .tag-type,
+body.alto-contraste .request-protocol-label,
+body.alto-contraste .request-meta,
+body.alto-contraste .step-label,
+body.alto-contraste .update-text p,
+body.alto-contraste .modal-badge-city,
+body.alto-contraste .modal-amount-label,
+body.alto-contraste .pix-section p,
+body.alto-contraste .summary-label,
+body.alto-contraste .summary-item span,
+body.alto-contraste .spotlight-copy p,
+body.alto-contraste .tile-content span,
+body.alto-contraste .nyc-311-left p,
+body.alto-contraste .nyc-311-stat-box span,
+body.alto-contraste .cit-mini-meta-list,
+body.alto-contraste .wellness-header p,
+body.alto-contraste .wellness-card-body p,
+body.alto-contraste .utility-banner-card p {
+    color: #ffffff !important;
 }
 
-body.alto-contraste a {
-    color: #60a5fa !important;
+/* Componentes internos e áreas de informação */
+body.alto-contraste .news-card-footer,
+body.alto-contraste .debt-card-body,
+body.alto-contraste .appointment-tags,
+body.alto-contraste .daily-status-header,
+body.alto-contraste .cit-mini-meta-list {
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .daily-status-item,
+body.alto-contraste .daily-status-detail-box,
+body.alto-contraste .nyc-311-stat-box,
+body.alto-contraste .modal-amount-box,
+body.alto-contraste .modal-footer,
+body.alto-contraste .citizen-sync-pill {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .daily-status-item strong,
+body.alto-contraste .daily-status-detail-box strong,
+body.alto-contraste .daily-status-detail-box p {
+    color: #ffffff !important;
+}
+
+/* Dropdown de municípios */
+body.alto-contraste .municipality-dropdown {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .dropdown-city-header {
+    color: #ffff00 !important;
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .city-option {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .city-option:hover,
+body.alto-contraste .city-option.active {
+    background: #333333 !important;
+}
+
+body.alto-contraste .city-meta strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .city-meta span {
+    color: #ffffff !important;
+}
+
+/* Campos de busca, seleção e cópia */
+body.alto-contraste input,
+body.alto-contraste select,
+body.alto-contraste textarea,
+body.alto-contraste .spotlight-field select,
+body.alto-contraste .copy-input-group input {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste input::placeholder,
+body.alto-contraste textarea::placeholder {
+    color: #cccccc !important;
+}
+
+body.alto-contraste select option {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Botões neutros */
+body.alto-contraste .btn-listen-page,
+body.alto-contraste .btn-access,
+body.alto-contraste .carousel-arrow,
+body.alto-contraste .btn-secondary {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Botões azuis: preserva a identidade visual */
+body.alto-contraste .btn-hero-search,
+body.alto-contraste .btn-311-primary,
+body.alto-contraste .btn-copy-pix,
+body.alto-contraste .btn-primary,
+body.alto-contraste .filter-chip.active {
+    background: #103feF !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Botões verdes */
+body.alto-contraste .btn-spotlight-consult,
+body.alto-contraste .btn-wellness-all {
+    background: #007a4b !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* Botão secundário do 311 */
+body.alto-contraste .btn-311-secondary {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Ações e links */
+body.alto-contraste .trocar-link,
+body.alto-contraste .carousel-city-indicator strong,
+body.alto-contraste .news-read-more,
+body.alto-contraste .debt-action-btn,
+body.alto-contraste .appointment-action-btn,
+body.alto-contraste .request-action-link,
+body.alto-contraste .bottom-support-btn,
+body.alto-contraste .section-see-all-link,
+body.alto-contraste .utility-card-link,
+body.alto-contraste .cit-mini-links a {
+    color: #ffff00 !important;
+}
+
+/* Ícones e indicadores */
+body.alto-contraste .municipality-icon,
+body.alto-contraste .mini-card-icon,
+body.alto-contraste .status-chevron,
+body.alto-contraste .debt-doc-icon,
+body.alto-contraste .update-icon {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .mini-card,
+body.alto-contraste .daily-status-item:hover {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .mini-card-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .mini-card-desc {
+    color: #ffffff !important;
+}
+
+/* Stepper */
+body.alto-contraste .step-circle {
+    background: #222222 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .stepper-step.completed .step-circle,
+body.alto-contraste .stepper-step.active .step-circle {
+    background: #103fef !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .stepper-step.completed .step-label,
+body.alto-contraste .stepper-step.active .step-label {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .stepper-line {
+    background: #777777 !important;
+}
+
+body.alto-contraste .stepper-line.completed {
+    background: #ffff00 !important;
+}
+
+/* Cards de bem-estar: evita texto escuro sobre fundo escuro */
+body.alto-contraste .wellness-card {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .wellness-card-body h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .wellness-card-body p {
+    color: #ffffff !important;
+}
+
+/* Faixa de utilidade pública */
+body.alto-contraste .utility-banner-card.operational-orange-card {
+    background: #713500 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .utility-banner-card.citizen-portal-card {
+    background: #111111 !important;
+}
+
+/* Modal */
+body.alto-contraste .app-modal {
+    background: transparent !important;
+}
+
+body.alto-contraste .modal-header,
+body.alto-contraste .modal-footer {
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .qr-svg {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .modal-close {
+    color: #ffffff !important;
+}
+
+/* Rodapé e divisórias */
+body.alto-contraste .home-bottom-links {
+    border-color: #ffffff !important;
+}
+
+/* Foco visível para navegação por teclado */
+body.alto-contraste button:focus-visible,
+body.alto-contraste a:focus-visible,
+body.alto-contraste input:focus-visible,
+body.alto-contraste select:focus-visible,
+body.alto-contraste textarea:focus-visible {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 3px !important;
 }
 
 /* ==========================================================================
@@ -2435,4 +2732,561 @@ body.alto-contraste a {
     .wellness-cards-grid {
         grid-template-columns: 1fr;
     }
+}
+
+
+/* 9. COMPLEMENTO DE ALTO CONTRASTE - AJUSTES FINAIS */
+
+/* ---------- HERO E CABEÇALHO ---------- */
+
+body.alto-contraste .hero-care-pill {
+    background: #1c1c1c !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .hero-left-pane .header-subtitle,
+body.alto-contraste .hero-left-pane .header-subtitle strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .hero-search-bar {
+    background: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .hero-search-bar input {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .hero-search-bar input::placeholder {
+    color: #cccccc !important;
+}
+
+body.alto-contraste .btn-switch-citizen-hero {
+    background: #1c1c1c !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* ---------- STATUS DIÁRIO ---------- */
+
+body.alto-contraste .daily-status-kicker,
+body.alto-contraste .daily-status-date {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-select-date-pill {
+    background: #103fef !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .daily-status-item {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .status-item-main strong {
+    color: #ffffff !important;
+}
+
+/* Mantém as cores dos indicadores, garantindo legibilidade */
+body.alto-contraste .status-item-badge.status-ok {
+    background: #064e3b !important;
+    color: #ffffff !important;
+    border: 1px solid #86efac !important;
+}
+
+body.alto-contraste .status-item-badge.status-warn {
+    background: #713f12 !important;
+    color: #ffffff !important;
+    border: 1px solid #facc15 !important;
+}
+
+body.alto-contraste .status-item-badge.status-info {
+    background: #1e3a8a !important;
+    color: #ffffff !important;
+    border: 1px solid #93c5fd !important;
+}
+
+body.alto-contraste .daily-status-detail-box {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .daily-status-detail-box strong,
+body.alto-contraste .daily-status-detail-box p {
+    color: #ffffff !important;
+}
+
+/* ---------- SPOTLIGHT ---------- */
+
+body.alto-contraste .spotlight-badge {
+    background: #1c1c1c !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .spotlight-copy h2 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .spotlight-copy p,
+body.alto-contraste .spotlight-field label {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .spotlight-field select {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .btn-spotlight-consult {
+    background: #007a4b !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* ---------- SERVIÇOS POPULARES ---------- */
+
+body.alto-contraste .section-kicker {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .section-main-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .nyc-service-tile {
+    background: #111111 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .tile-content strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .tile-content span {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .tile-chevron {
+    color: #ffff00 !important;
+}
+
+/* ---------- MÓDULO 156 ---------- */
+
+body.alto-contraste .nyc-311-badge-group {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .nyc-311-mark {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .nyc-311-subtitle {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .nyc-311-left h2 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .nyc-311-left p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .nyc-311-stat-box {
+    background: #1c1c1c !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .nyc-311-stat-box .stat-big {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .nyc-311-stat-box strong,
+body.alto-contraste .nyc-311-stat-box span {
+    color: #ffffff !important;
+}
+
+/* ---------- PERFIL DO CIDADÃO ---------- */
+
+body.alto-contraste .citizen-sync-pill {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .citizen-mini-profile-box {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .cit-mini-avatar {
+    background: #004e4c !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .cit-mini-info strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .cit-mini-info span {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .cit-mini-meta-list {
+    color: #ffffff !important;
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .cit-mini-links a {
+    color: #ffff00 !important;
+}
+
+/* ---------- ACESSIBILIDADE E MINI CARDS ---------- */
+
+body.alto-contraste .access-header {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-access {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .btn-access:hover {
+    background: #333333 !important;
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .action-card.secondary-action {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .action-card.secondary-action .action-card-text strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .action-card.secondary-action .action-card-text span {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .mini-card {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .mini-card-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .mini-card-desc {
+    color: #ffffff !important;
+}
+
+/* ---------- CARROSSEL DE NOTÍCIAS ---------- */
+
+body.alto-contraste .carousel-live-badge {
+    background: #4c0000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ff7777 !important;
+}
+
+body.alto-contraste .carousel-city-indicator,
+body.alto-contraste .carousel-city-indicator strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .filter-chip {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .filter-chip.active {
+    background: #103fef !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .carousel-arrow {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .news-card {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .news-card:hover {
+    background: #222222 !important;
+}
+
+body.alto-contraste .news-card-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .news-card-desc,
+body.alto-contraste .news-time {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .news-card-footer {
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .news-read-more {
+    color: #ffff00 !important;
+}
+
+/* ---------- CARDS FINANCEIROS E AGENDAMENTOS ---------- */
+
+body.alto-contraste .debt-card,
+body.alto-contraste .appointment-card {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .debt-title-group strong,
+body.alto-contraste .debt-value,
+body.alto-contraste .debt-due-date,
+body.alto-contraste .appointment-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .debt-label,
+body.alto-contraste .appointment-time,
+body.alto-contraste .appointment-place,
+body.alto-contraste .tag-type {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .appointment-date-badge {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .date-number,
+body.alto-contraste .date-month {
+    color: #ffff00 !important;
+}
+
+/* ---------- SOLICITAÇÕES E STEPPER ---------- */
+
+body.alto-contraste .request-status-card {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .request-title {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .request-protocol-label,
+body.alto-contraste .request-meta {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .request-update-box {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .update-text strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .update-text p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .request-action-link {
+    color: #ffff00 !important;
+}
+
+/* ---------- CIDADE VIVA / SAÚDE ---------- */
+
+body.alto-contraste .unimed-wellness-section {
+    background: #111111 !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .wellness-kicker {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .wellness-header h2 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .wellness-header p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .wellness-card {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .wellness-card-visual {
+    border-bottom: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .wellness-cat-tag {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .wellness-card-body h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .wellness-card-body p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .btn-lime-cta {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* ---------- UTILIDADE PÚBLICA ---------- */
+
+body.alto-contraste .utility-banner-card {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .utility-banner-card h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .utility-banner-card p {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+body.alto-contraste .utility-pill-tag {
+    background: #1c1c1c !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .utility-card-link,
+body.alto-contraste .utility-card-link.white-link {
+    color: #ffff00 !important;
+}
+
+/* ---------- MODAIS ---------- */
+
+body.alto-contraste .modal-card {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .modal-header,
+body.alto-contraste .modal-footer {
+    background: #1c1c1c !important;
+    border-color: #777777 !important;
+}
+
+body.alto-contraste .modal-title-group h3,
+body.alto-contraste .modal-amount-value,
+body.alto-contraste .pix-section h4,
+body.alto-contraste .summary-item strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .modal-badge-city,
+body.alto-contraste .modal-amount-label,
+body.alto-contraste .pix-section p,
+body.alto-contraste .summary-label,
+body.alto-contraste .summary-item span {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .modal-amount-box {
+    background: #1c1c1c !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .copy-input-group input {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .btn-secondary {
+    background: #1c1c1c !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .btn-primary,
+body.alto-contraste .btn-copy-pix {
+    background: #103fef !important;
+    color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* ---------- RODAPÉ ---------- */
+
+body.alto-contraste .home-bottom-links {
+    border-color: #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn {
+    color: #ffff00 !important;
+}
+
+/* ---------- LINKS, ÍCONES E FOCO ---------- */
+
+body.alto-contraste .section-see-all-link,
+body.alto-contraste .trocar-link,
+body.alto-contraste .debt-action-btn,
+body.alto-contraste .appointment-action-btn {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .municipality-icon,
+body.alto-contraste .mini-card-icon,
+body.alto-contraste .debt-doc-icon,
+body.alto-contraste .update-icon,
+body.alto-contraste .status-chevron,
+body.alto-contraste .tile-chevron {
+    color: #ffff00 !important;
+}
+
+/* Garante leitura dos textos dentro dos cartões sem alterar botões coloridos */
+body.alto-contraste .dash-card,
+body.alto-contraste .dash-card p,
+body.alto-contraste .dash-card label,
+body.alto-contraste .dash-card small {
+    color: #ffffff !important;
+}
+
+body.alto-contraste button:focus-visible,
+body.alto-contraste a:focus-visible,
+body.alto-contraste input:focus-visible,
+body.alto-contraste select:focus-visible,
+body.alto-contraste textarea:focus-visible {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 3px !important;
 }

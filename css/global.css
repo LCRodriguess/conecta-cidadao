@@ -2102,3 +2102,82 @@ body.modo-acessibilidade {
         print-color-adjust: exact !important;
     }
 }
+
+/* ==========================================================
+   ALTO CONTRASTE — DROPDOWNS DA NAVBAR
+   Serviços e Acesso Rápido
+   ========================================================== */
+
+body:is(.alto-contraste, .modo-acessibilidade) .nav-dropdown-menu,
+body:is(.alto-contraste, .modo-acessibilidade) .quick-access-drawer {
+    background: #111111 !important;
+    border: 1px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+/* Títulos dos menus */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-section-title,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-header strong,
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row-title,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-item strong {
+    color: #FFFF00 !important;
+}
+
+/* Textos de apoio */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row-desc,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-header span,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-item span {
+    color: #FFFFFF !important;
+}
+
+/* Links e opções */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-item {
+    background: #111111 !important;
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Ícones e setas */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row-arrow {
+    color: #FFFF00 !important;
+}
+
+/* Cartão azul de serviços */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-blue-card {
+    background: #1A1A1A !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+/* Rodapé do menu */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-footer {
+    background: #111111 !important;
+    border-top: 1px solid #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-footer-btn {
+    background: #222222 !important;
+    color: #FFFF00 !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+/* Hover e foco */
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-item:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-footer-btn:hover {
+    background: #FFFF00 !important;
+    color: #000000 !important;
+    border-color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-row:hover *,
+body:is(.alto-contraste, .modo-acessibilidade) .qa-drawer-item:hover *,
+body:is(.alto-contraste, .modo-acessibilidade) .dropdown-footer-btn:hover * {
+    color: #000000 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #servicos-toggle,
+body:is(.alto-contraste, .modo-acessibilidade) #quick-access-toggle {
+    color: #FFFF00 !important;
+}

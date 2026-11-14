@@ -825,3 +825,355 @@
     padding: 28px 22px;
   }
 }
+
+/* ==========================================================================
+   9. ALTO CONTRASTE - PÁGINA DE EMPREGOS
+   Fundos escuros, textos brancos e títulos amarelos
+   ========================================================================== */
+
+body.alto-contraste {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Cabeçalho e breadcrumb */
+body.alto-contraste .breadcrumb,
+body.alto-contraste .breadcrumb .current,
+body.alto-contraste .header-titles .page-subtitle,
+body.alto-contraste .muni-tag,
+body.alto-contraste .muni-alt {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .breadcrumb a,
+body.alto-contraste .muni-toggle .trocar-txt,
+body.alto-contraste .municipality-icon {
+  color: #60a5fa !important;
+}
+
+body.alto-contraste .header-titles .page-title,
+body.alto-contraste #muni-active-name {
+  color: #ffff00 !important;
+}
+
+/* Cartão de busca e filtros */
+body.alto-contraste .search-filter-card {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .search-field-group label,
+body.alto-contraste .modality-field-group label {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .search-input-box input,
+body.alto-contraste .select-box select {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .search-input-box input::placeholder {
+  color: #cccccc !important;
+  opacity: 1;
+}
+
+body.alto-contraste .select-box select option {
+  background: #111111 !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .search-input-box .search-icon {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-search-jobs {
+  background: #1a56db !important;
+  color: #ffffff !important;
+  border: 1px solid #60a5fa !important;
+}
+
+body.alto-contraste .btn-search-jobs:hover {
+  background: #1546b5 !important;
+}
+
+/* Filtros por área */
+body.alto-contraste .area-chip {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .area-chip:hover {
+  background: #292929 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+body.alto-contraste .area-chip.active {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border: 2px solid #ffff00 !important;
+  font-weight: 800 !important;
+}
+
+/* Cabeçalho dos resultados */
+body.alto-contraste .results-count {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .results-sort {
+  color: #ffffff !important;
+}
+
+/* Cards das vagas */
+body.alto-contraste .job-card {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+body.alto-contraste .job-card:hover {
+  background: #222222 !important;
+  border-color: #ffff00 !important;
+}
+
+body.alto-contraste .job-card.selected {
+  background: #1a1a1a !important;
+  border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste .job-card-icon {
+  background: #222222 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .job-card-title {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .job-card-company,
+body.alto-contraste .job-card-meta {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .job-card-bottom {
+  border-top-color: #666666 !important;
+}
+
+body.alto-contraste .selected-badge {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .job-card-arrow {
+  color: #ffff00 !important;
+}
+
+/* Painel de detalhes da vaga */
+body.alto-contraste .job-details-card {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .details-badge {
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+body.alto-contraste .details-title,
+body.alto-contraste .details-section-title,
+body.alto-contraste .spec-value {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .details-company-row,
+body.alto-contraste .spec-label,
+body.alto-contraste .details-workload,
+body.alto-contraste .details-section-text,
+body.alto-contraste .details-list,
+body.alto-contraste .details-advice,
+body.alto-contraste .details-published-date {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .details-grid-specs {
+  border-top-color: #666666 !important;
+  border-bottom-color: #666666 !important;
+}
+
+body.alto-contraste .dot-separator {
+  color: #ffff00 !important;
+}
+
+/* Botão de candidatura */
+body.alto-contraste .btn-apply-job {
+  background: #1a56db !important;
+  color: #ffffff !important;
+  border: 1px solid #60a5fa !important;
+}
+
+body.alto-contraste .btn-apply-job:hover {
+  background: #1546b5 !important;
+}
+
+body.alto-contraste .btn-apply-job:disabled {
+  background: #333333 !important;
+  color: #cccccc !important;
+  border-color: #888888 !important;
+  opacity: 1 !important;
+}
+
+/* Card de orientação */
+body.alto-contraste .job-tip-card {
+  background: #111111 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .tip-icon,
+body.alto-contraste .tip-text strong {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .tip-text span {
+  color: #ffffff !important;
+}
+
+/* Estado sem vagas */
+body.alto-contraste .empty-jobs {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .empty-jobs h3 {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .empty-jobs p {
+  color: #ffffff !important;
+}
+
+/* Rodapé */
+body.alto-contraste .home-bottom-links {
+  border-top-color: #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn {
+  background: #111111 !important;
+  color: #60a5fa !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn:hover {
+  background: #292929 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Dropdown de municípios */
+body.alto-contraste .muni-dropdown {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+}
+
+body.alto-contraste .muni-opt {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .muni-opt:hover {
+  background: #292929 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-opt.active {
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+/* Modal de candidatura */
+body.alto-contraste .application-modal {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .application-modal-content {
+  background: #111111 !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .application-modal-content h2 {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .application-modal-description,
+body.alto-contraste .application-modal-notice {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .application-modal-close {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .application-modal-icon {
+  background: #292929 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .application-modal-tag {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .application-modal-job {
+  background: #000000 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .application-modal-job strong {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .application-modal-job span {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .application-modal-action {
+  background: #1a56db !important;
+  color: #ffffff !important;
+  border: 1px solid #60a5fa !important;
+}
+
+body.alto-contraste .application-modal-action:hover {
+  background: #1546b5 !important;
+}
+
+body.alto-contraste .application-modal-secondary {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .application-modal-secondary:hover {
+  background: #292929 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Foco visível para navegação por teclado */
+body.alto-contraste a:focus-visible,
+body.alto-contraste button:focus-visible,
+body.alto-contraste input:focus-visible,
+body.alto-contraste select:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+
+/* Garante que elementos ocultos continuem ocultos */
+body.alto-contraste [hidden] {
+  display: none !important;
+}

@@ -802,3 +802,187 @@
     padding: 1.2rem;
   }
 }
+
+
+/* ALTO CONTRASTE - PÁGINA DE CONSULTAS E SAÚDE */
+
+body:is(.alto-contraste, .modo-acessibilidade) {
+  background: #000000 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+/* Textos e títulos */
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb,
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb .current,
+body:is(.alto-contraste, .modo-acessibilidade) .header-titles .page-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-tag,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-alt,
+body:is(.alto-contraste, .modo-acessibilidade) .app-doctor,
+body:is(.alto-contraste, .modo-acessibilidade) .app-cartao-sus,
+body:is(.alto-contraste, .modo-acessibilidade) .meta-item,
+body:is(.alto-contraste, .modo-acessibilidade) .vac-target,
+body:is(.alto-contraste, .modo-acessibilidade) .unit-address,
+body:is(.alto-contraste, .modo-acessibilidade) .unit-phone,
+body:is(.alto-contraste, .modo-acessibilidade) .instructions-content p,
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form > p:first-of-type {
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .page-title,
+body:is(.alto-contraste, .modo-acessibilidade) .section-card-title,
+body:is(.alto-contraste, .modo-acessibilidade) .app-specialty,
+body:is(.alto-contraste, .modo-acessibilidade) .vac-name,
+body:is(.alto-contraste, .modo-acessibilidade) .units-card-title,
+body:is(.alto-contraste, .modo-acessibilidade) .unit-name,
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form h2,
+body:is(.alto-contraste, .modo-acessibilidade) .instructions-content h2 {
+  color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb a,
+body:is(.alto-contraste, .modo-acessibilidade) .municipality-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle strong,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle .trocar-txt,
+body:is(.alto-contraste, .modo-acessibilidade) .vac-where,
+body:is(.alto-contraste, .modo-acessibilidade) .unit-type,
+body:is(.alto-contraste, .modo-acessibilidade) .meta-item svg {
+  color: #FFFF00 !important;
+}
+
+/* Cards e superfícies */
+body:is(.alto-contraste, .modo-acessibilidade) .health-section-card,
+body:is(.alto-contraste, .modo-acessibilidade) .units-sidebar-card,
+body:is(.alto-contraste, .modo-acessibilidade) .appointment-card,
+body:is(.alto-contraste, .modo-acessibilidade) .vaccine-item,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-dropdown {
+  background: #111111 !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+/* Separadores */
+body:is(.alto-contraste, .modo-acessibilidade) .app-meta-grid,
+body:is(.alto-contraste, .modo-acessibilidade) .health-unit-card,
+body:is(.alto-contraste, .modo-acessibilidade) .home-bottom-links {
+  border-color: #FFFFFF !important;
+}
+
+/* Seletor de município */
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt {
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt.active {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+/* Status dos agendamentos */
+body:is(.alto-contraste, .modo-acessibilidade) .app-type-badge.confirmed {
+  background: #123D22 !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .app-type-badge.scheduled {
+  background: #102B50 !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Vacinação */
+body:is(.alto-contraste, .modo-acessibilidade) .vac-badge.active {
+  background: #102B50 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Unidades de saúde */
+body:is(.alto-contraste, .modo-acessibilidade) .badge-open-24h,
+body:is(.alto-contraste, .modo-acessibilidade) .badge-open-hours {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* SAMU: mantém destaque de emergência */
+body:is(.alto-contraste, .modo-acessibilidade) .samu-card {
+  background: #300000 !important;
+  border: 2px solid #FF5555 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .samu-title,
+body:is(.alto-contraste, .modo-acessibilidade) .samu-number,
+body:is(.alto-contraste, .modo-acessibilidade) .samu-desc,
+body:is(.alto-contraste, .modo-acessibilidade) .samu-icon {
+  color: #FFFFFF !important;
+}
+
+/* Modal de agendamento e orientações */
+body:is(.alto-contraste, .modo-acessibilidade) .appointment-dialog {
+  background: #111111 !important;
+  border: 2px solid #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form label {
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form input,
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form select {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+  color-scheme: dark;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form input::placeholder {
+  color: #CCCCCC !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form input:focus,
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-form select:focus {
+  border-color: #FFFF00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.25) !important;
+}
+
+/* Botões */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-app-action,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-app-cancel {
+  color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-app-action {
+  border-color: #FFFF00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #btn-cancel-appointment {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .bottom-support-btn {
+  background: #111111 !important;
+  color: #FFFF00 !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Feedback */
+body:is(.alto-contraste, .modo-acessibilidade) #appointment-feedback {
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Foco acessível */
+body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) a:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) select:focus-visible {
+  outline: 3px solid #FFFF00 !important;
+  outline-offset: 3px !important;
+}

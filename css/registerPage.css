@@ -486,3 +486,279 @@
         position: static;
     }
 }
+
+
+/* ALTO CONTRASTE - CADASTRO ÚNICO CIDADÃO
+   Fundo escuro, textos brancos e títulos amarelos */
+
+body.alto-contraste {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* ---------- Breadcrumb ---------- */
+
+body.alto-contraste .breadcrumb,
+body.alto-contraste .breadcrumb .current {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .breadcrumb a {
+    color: #ffff00 !important;
+}
+
+/* ---------- Card principal e cabeçalho ---------- */
+
+body.alto-contraste .register-form-card {
+    background: #111111 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .register-card-top h1 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .register-card-top p {
+    color: #ffffff !important;
+}
+
+/* ---------- Badges ---------- */
+
+body.alto-contraste .badge-pill-royal,
+body.alto-contraste .badge-pill-care {
+    background: #222222 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* ---------- Simulador de dados ---------- */
+
+body.alto-contraste .real-person-generator-bar {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 1.5px solid #ffff00 !important;
+}
+
+body.alto-contraste .generator-tag {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .generator-info strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .generator-info span {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .btn-gen-person {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .btn-gen-person:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* ---------- Feedback do cadastro ---------- */
+
+body.alto-contraste .reg-feedback-banner {
+    background: #222222 !important;
+    color: #ffffff !important;
+    border: 1.5px solid #ffff00 !important;
+}
+
+body.alto-contraste .reg-dot {
+    background: #ffff00 !important;
+}
+
+/* ---------- Fieldsets e legendas ---------- */
+
+body.alto-contraste .reg-fieldset {
+    background: #111111 !important;
+    border: 1.5px solid #ffffff !important;
+}
+
+body.alto-contraste .reg-fieldset legend {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .step-num {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+/* ---------- Labels e campos ---------- */
+
+body.alto-contraste .reg-field label {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .reg-field input,
+body.alto-contraste .reg-field select {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1.5px solid #ffffff !important;
+}
+
+body.alto-contraste .reg-field input::placeholder {
+    color: #cccccc !important;
+    opacity: 1 !important;
+}
+
+body.alto-contraste .reg-field input:focus,
+body.alto-contraste .reg-field select:focus {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+    outline: 2px solid #ffff00 !important;
+    outline-offset: 2px;
+}
+
+/* Opções dos seletores */
+
+body.alto-contraste .reg-field select option {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+/* ---------- Busca de CEP ---------- */
+
+body.alto-contraste .btn-lookup-cep {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .btn-lookup-cep:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* ---------- Consentimento LGPD ---------- */
+
+body.alto-contraste .lgpd-consent-box {
+    background: #222222 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .consent-check {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .consent-check strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .consent-check input {
+    accent-color: #ffff00 !important;
+}
+
+/* ---------- Botões de acesso e cadastro ---------- */
+
+body.alto-contraste .btn-pill-back-login {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.alto-contraste .btn-pill-back-login:hover {
+    background: #333333 !important;
+    color: #ffff00 !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste .btn-pill-submit-register {
+    background: #00995d !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .btn-pill-submit-register:hover {
+    background: #007a4a !important;
+    color: #ffffff !important;
+}
+
+/* ---------- Sidebar de benefícios ---------- */
+
+body.alto-contraste .sidebar-care-card {
+    background: #111111 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .care-kicker {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .sidebar-care-card h2 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .care-benefits-list strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .care-benefits-list p {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .benefit-check {
+    background: #292900 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+
+/* ---------- Prévia do Cartão Cidadão ---------- */
+
+body.alto-contraste .sidebar-preview-card {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.alto-contraste .preview-tag {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .digital-id-preview {
+    background: #000000 !important;
+    border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .id-preview-top strong {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .id-gold-badge {
+    background: #ffff00 !important;
+    color: #000000 !important;
+}
+
+body.alto-contraste .id-preview-row {
+    color: #ffffff !important;
+}
+
+body.alto-contraste .id-preview-row strong {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .id-preview-footer {
+    color: #ffff00 !important;
+    border-top: 1px solid #ffffff !important;
+}
+
+/* ---------- Foco por teclado ---------- */
+
+body.alto-contraste button:focus-visible,
+body.alto-contraste a:focus-visible,
+body.alto-contraste input:focus-visible,
+body.alto-contraste select:focus-visible {
+    outline: 2px solid #ffff00 !important;
+    outline-offset: 3px;
+}

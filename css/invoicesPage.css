@@ -731,3 +731,173 @@
   background: #eff6ff;
   border-color: #1a56db;
 }
+
+
+/* ALTO CONTRASTE - PÁGINA DE TRIBUTOS E IPTU */
+
+body.alto-contraste,
+body.modo-acessibilidade {
+  background: #000000 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+}
+
+/* Textos gerais */
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb,
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb .current,
+body:is(.alto-contraste, .modo-acessibilidade) .header-titles .page-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-tag,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-alt,
+body:is(.alto-contraste, .modo-acessibilidade) .tax-search-hint,
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-property,
+body:is(.alto-contraste, .modo-acessibilidade) .amount-label,
+body:is(.alto-contraste, .modo-acessibilidade) .due-info,
+body:is(.alto-contraste, .modo-acessibilidade) .barcode-preview,
+body:is(.alto-contraste, .modo-acessibilidade) .cert-desc,
+body:is(.alto-contraste, .modo-acessibilidade) .paid-details span,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-instructions,
+body:is(.alto-contraste, .modo-acessibilidade) .summary-label,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-timer-row {
+  color: #FFFFFF !important;
+}
+
+/* Títulos */
+body:is(.alto-contraste, .modo-acessibilidade) .page-title,
+body:is(.alto-contraste, .modo-acessibilidade) .section-column-title,
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-title,
+body:is(.alto-contraste, .modo-acessibilidade) .amount-val,
+body:is(.alto-contraste, .modo-acessibilidade) .cert-title,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-modal-title,
+body:is(.alto-contraste, .modo-acessibilidade) .summary-price,
+body:is(.alto-contraste, .modo-acessibilidade) .paid-details strong {
+  color: #FFFF00 !important;
+}
+
+/* Links e ícones */
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb a,
+body:is(.alto-contraste, .modo-acessibilidade) .municipality-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle strong,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle .trocar-txt,
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box .search-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .due-info svg {
+  color: #FFFF00 !important;
+}
+
+/* Cards e superfícies */
+body:is(.alto-contraste, .modo-acessibilidade) .tax-search-card,
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-card,
+body:is(.alto-contraste, .modo-acessibilidade) .info-sidebar-card,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-dropdown,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-modal-dialog {
+  background: #111111 !important;
+  border: 1px solid #FFFFFF !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+/* Campos de consulta */
+body:is(.alto-contraste, .modo-acessibilidade) .tax-search-field label,
+body:is(.alto-contraste, .modo-acessibilidade) .tax-year-field label {
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box input,
+body:is(.alto-contraste, .modo-acessibilidade) .tax-year-field select,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-copy-box input {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+  color-scheme: dark;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .search-input-box input::placeholder {
+  color: #CCCCCC !important;
+}
+
+/* Dropdown de municípios */
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt {
+  color: #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt.active {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+/* Status das guias */
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-badge.urgent,
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-badge.future {
+  background: #222222 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Certidão negativa */
+body:is(.alto-contraste, .modo-acessibilidade) .cert-status-badge {
+  background: #123D22 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Parcelas quitadas */
+body:is(.alto-contraste, .modo-acessibilidade) .paid-dot {
+  background: #123D22 !important;
+  color: #FFFFFF !important;
+}
+
+/* Botões principais: preservam destaque azul */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-search-tax,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-pay-pix,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-simulate-pix {
+  background: #103FEF !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Botões secundários */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-emit-dam,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-emit-cnd,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-copy-code,
+body:is(.alto-contraste, .modo-acessibilidade) .bottom-support-btn {
+  background: #222222 !important;
+  color: #FFFF00 !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Botão de recibo criado pelo JavaScript */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-print-paid-receipt {
+  background: #222222 !important;
+  color: #FFFF00 !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+/* Modal Pix */
+body:is(.alto-contraste, .modo-acessibilidade) .pix-modal-overlay {
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .pix-qr-container {
+  background: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-close-modal {
+  color: #FFFFFF !important;
+}
+
+/* Separadores */
+body:is(.alto-contraste, .modo-acessibilidade) .invoice-due-row,
+body:is(.alto-contraste, .modo-acessibilidade) .pix-value-summary,
+body:is(.alto-contraste, .modo-acessibilidade) .home-bottom-links {
+  border-color: #FFFFFF !important;
+}
+
+/* Foco acessível */
+body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) a:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) select:focus-visible {
+  outline: 3px solid #FFFF00 !important;
+  outline-offset: 3px !important;
+}

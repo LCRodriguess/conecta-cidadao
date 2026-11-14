@@ -555,3 +555,268 @@
   background: #eff6ff;
   border-color: #1a56db;
 }
+
+
+/* ALTO CONTRASTE - PÁGINA DE REGISTRO DE OCORRÊNCIA
+   Fundo escuro, textos brancos e títulos amarelos */
+
+body.alto-contraste {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- Textos e cabeçalho ---------- */
+
+body.alto-contraste .breadcrumb,
+body.alto-contraste .breadcrumb .current,
+body.alto-contraste .header-titles .page-subtitle,
+body.alto-contraste .muni-tag,
+body.alto-contraste .muni-alt {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .breadcrumb a,
+body.alto-contraste .municipality-icon,
+body.alto-contraste .muni-toggle .trocar-txt {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .header-titles .page-title,
+body.alto-contraste .form-section-title,
+body.alto-contraste .guide-title {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-toggle strong {
+  color: #ffffff !important;
+}
+
+/* ---------- Cards principais ---------- */
+
+body.alto-contraste .form-section-card,
+body.alto-contraste .guideline-card {
+  background: #111111 !important;
+  border: 1.5px solid #ffffff !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Categorias ---------- */
+
+body.alto-contraste .category-radio-card {
+  background: #000000 !important;
+  border: 1.5px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .category-radio-card .cat-icon {
+  background: #222222 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .category-radio-card .cat-label {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .category-radio-card:hover {
+  background: #222222 !important;
+  border-color: #ffff00 !important;
+}
+
+body.alto-contraste .category-radio-card.selected {
+  background: #292900 !important;
+  border: 2px solid #ffff00 !important;
+  box-shadow: none !important;
+}
+
+body.alto-contraste .category-radio-card.selected .cat-label {
+  color: #ffff00 !important;
+}
+
+/* ---------- Campos do formulário ---------- */
+
+body.alto-contraste .form-group label {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .form-group input,
+body.alto-contraste .form-group textarea {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+body.alto-contraste .form-group input::placeholder,
+body.alto-contraste .form-group textarea::placeholder {
+  color: #c8c8c8 !important;
+  opacity: 1 !important;
+}
+
+body.alto-contraste .form-group input:focus,
+body.alto-contraste .form-group textarea:focus {
+  border: 2px solid #ffff00 !important;
+  outline: 2px solid #ffff00 !important;
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
+
+/* ---------- Seletor de município ---------- */
+
+body.alto-contraste .muni-dropdown {
+  background: #111111 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+body.alto-contraste .muni-opt {
+  background: #111111 !important;
+  color: #ffffff !important;
+}
+
+body.alto-contraste .muni-opt:hover {
+  background: #333333 !important;
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .muni-opt.active {
+  background: #292900 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+/* ---------- Botão de localização ---------- */
+
+body.alto-contraste .btn-geo-location {
+  background: #222222 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .btn-geo-location:hover {
+  background: #444400 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- Upload de foto ---------- */
+
+body.alto-contraste .upload-dropzone {
+  background: #000000 !important;
+  color: #ffff00 !important;
+  border: 2px dashed #ffffff !important;
+}
+
+body.alto-contraste .upload-dropzone:hover {
+  background: #222222 !important;
+  border-color: #ffff00 !important;
+}
+
+body.alto-contraste .dropzone-text {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .dropzone-hint {
+  color: #dddddd !important;
+}
+
+body.alto-contraste .file-preview-name {
+  color: #ffff00 !important;
+}
+
+/* ---------- Aviso de privacidade ---------- */
+
+body.alto-contraste .privacy-notice-box {
+  background: #222222 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .privacy-notice-box svg {
+  color: #ffff00 !important;
+}
+
+/* ---------- Botão de envio ---------- */
+
+body.alto-contraste .btn-submit-occurrence {
+  background: #1a56db !important;
+  color: #ffffff !important;
+  border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste .btn-submit-occurrence:hover {
+  background: #1546b5 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- Orientações laterais ---------- */
+
+body.alto-contraste .guide-badge {
+  background: #292900 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste .guide-steps-list li strong {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .guide-steps-list li span {
+  color: #ffffff !important;
+}
+
+/* ---------- Card de urgência ---------- */
+
+body.alto-contraste .support-card {
+  background: #111111 !important;
+  border-color: #ffff00 !important;
+}
+
+body.alto-contraste .guide-desc {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .em-item {
+  background: #000000 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .em-name {
+  color: #ffffff !important;
+}
+
+body.alto-contraste .em-number {
+  color: #ffff00 !important;
+}
+
+/* ---------- Rodapé de ações ---------- */
+
+body.alto-contraste .home-bottom-links {
+  border-top: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body.alto-contraste .bottom-support-btn svg {
+  color: #ffff00 !important;
+}
+
+body.alto-contraste .bottom-support-btn:hover {
+  background: #333333 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+/* ---------- Foco por teclado ---------- */
+
+body.alto-contraste button:focus-visible,
+body.alto-contraste a:focus-visible,
+body.alto-contraste .category-radio-card:focus-within,
+body.alto-contraste .upload-dropzone:focus-within {
+  outline: 2px solid #ffff00 !important;
+  outline-offset: 3px;
+}

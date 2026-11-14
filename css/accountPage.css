@@ -582,3 +582,220 @@ input:checked + .slider:before {
   background: #eff6ff;
   border-color: #1a56db;
 }
+
+/* ALTO CONTRASTE - PÁGINA MINHA CONTA CIDADÃ
+   Fundo escuro, textos brancos e títulos amarelos*/
+
+body:is(.alto-contraste, .modo-acessibilidade) {
+  background: #080808 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+/* Fundo geral */
+body:is(.alto-contraste, .modo-acessibilidade) .page-container {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+/* Cards principais */
+body:is(.alto-contraste, .modo-acessibilidade) .profile-card,
+body:is(.alto-contraste, .modo-acessibilidade) .setting-card {
+  background: #181818 !important;
+  color: #ffffff !important;
+  border: 1px solid #777777 !important;
+  box-shadow: none !important;
+}
+
+/* Títulos amarelos */
+body:is(.alto-contraste, .modo-acessibilidade) .page-title,
+body:is(.alto-contraste, .modo-acessibilidade) .setting-card-title,
+body:is(.alto-contraste, .modo-acessibilidade) .profile-name {
+  color: #ffff00 !important;
+}
+
+/* Textos gerais */
+body:is(.alto-contraste, .modo-acessibilidade) .page-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .profile-sub,
+body:is(.alto-contraste, .modo-acessibilidade) .info-label,
+body:is(.alto-contraste, .modo-acessibilidade) .info-value,
+body:is(.alto-contraste, .modo-acessibilidade) .setting-card-subtitle,
+body:is(.alto-contraste, .modo-acessibilidade) .setting-hint-text,
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-name,
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-desc,
+body:is(.alto-contraste, .modo-acessibilidade) .steps-notice,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-tag,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-alt,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-setting-label,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-setting-avail,
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-state-text {
+  color: #ffffff !important;
+}
+
+/* Breadcrumb */
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb,
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb .current {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .breadcrumb a {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* Município */
+body:is(.alto-contraste, .modo-acessibilidade) .municipality-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-setting-icon,
+body:is(.alto-contraste, .modo-acessibilidade) .shield-icon {
+  color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle strong,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-setting-inline strong {
+  color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-toggle .trocar-txt,
+body:is(.alto-contraste, .modo-acessibilidade) .btn-text-change {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* Dropdown de municípios */
+body:is(.alto-contraste, .modo-acessibilidade) .muni-dropdown {
+  background: #202020 !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt {
+  background: #202020 !important;
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt:hover,
+body:is(.alto-contraste, .modo-acessibilidade) .muni-opt.active {
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+/* Área interna do município */
+body:is(.alto-contraste, .modo-acessibilidade) .municipality-setting-row {
+  background: #242424 !important;
+  border: 1px solid #777777 !important;
+}
+
+/* Seletor de cidadãos preenchido pelo JavaScript */
+body:is(.alto-contraste, .modo-acessibilidade) #account-citizens-selector button {
+  background: #242424 !important;
+  border: 2px solid #aaaaaa !important;
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #account-citizens-selector button strong,
+body:is(.alto-contraste, .modo-acessibilidade) #account-citizens-selector button span {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #account-citizens-selector button small {
+  color: #ffff00 !important;
+}
+
+/* Links e ações */
+body:is(.alto-contraste, .modo-acessibilidade) .quick-link-item,
+body:is(.alto-contraste, .modo-acessibilidade) .quick-link-label {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .quick-link-item:hover {
+  color: #ffff00 !important;
+}
+
+/* Botões de ação: preserva a distinção entre cores */
+body:is(.alto-contraste, .modo-acessibilidade) .btn-save-prefs {
+  background: #103FEF !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-logout {
+  background: #242424 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .btn-logout:hover {
+  background: #ffff00 !important;
+  color: #000000 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Links inline do perfil e botões do simulador */
+body:is(.alto-contraste, .modo-acessibilidade) .profile-badge-row a {
+  color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) #account-citizens-selector button:hover {
+  border-color: #ffff00 !important;
+}
+
+/* Badge de cadastro */
+body:is(.alto-contraste, .modo-acessibilidade) .profile-role-badge {
+  background: #242424 !important;
+  color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+}
+
+/* Avatar */
+body:is(.alto-contraste, .modo-acessibilidade) .avatar-circle {
+  background: #242424 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+/* Divisórias */
+body:is(.alto-contraste, .modo-acessibilidade) .profile-divider,
+body:is(.alto-contraste, .modo-acessibilidade) .card-item-separator,
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-row {
+  border-color: #777777 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .profile-divider,
+body:is(.alto-contraste, .modo-acessibilidade) .card-item-separator {
+  background: #777777 !important;
+}
+
+/* Interruptores de notificação */
+body:is(.alto-contraste, .modo-acessibilidade) .slider {
+  background-color: #555555 !important;
+  border: 1px solid #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) input:checked + .slider {
+  background-color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .slider:before {
+  background-color: #ffffff !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-state-text {
+  color: #ffff00 !important;
+}
+
+body:is(.alto-contraste, .modo-acessibilidade) .toggle-state-text.text-muted {
+  color: #ffffff !important;
+}
+
+/* Foco de teclado */
+body:is(.alto-contraste, .modo-acessibilidade) a:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
+body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+
+/* Ajuste de borda do card do simulador */
+body:is(.alto-contraste, .modo-acessibilidade) .setting-card[style] {
+  border-color: #ffff00 !important;
+}
