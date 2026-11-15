@@ -253,7 +253,7 @@
 
     <!-- Rodapé de Ações -->
     <footer class="home-bottom-links">
-      <button type="button" class="bottom-support-btn" onclick="alert('Central de Ocorrências e Ouvidoria:\nTelefone: 156\nAtendimento presencial no Paço Municipal.')">
+      <button type="button" class="bottom-support-btn" onclick="window.openOfficialChannelsModal && window.openOfficialChannelsModal({ title: 'Central de Ocorrências e Ouvidoria', email: 'ouvidoria@conectacidadao.gov.br', phone: '156', hours: 'Atendimento presencial no Paço Municipal', subject: 'Ouvidoria e Zeladoria 156' })">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -314,27 +314,6 @@
           card.classList.add('selected');
         });
       });
-
-      // Botão de Geolocalização
-      const btnGeo = document.getElementById('btn-geo');
-      if (btnGeo) {
-        btnGeo.addEventListener('click', () => {
-          btnGeo.textContent = 'Localizando...';
-          const data = cityContextData[activeCity] || cityContextData['rio-das-ostras'];
-          setTimeout(() => {
-            document.getElementById('occ-street').value = data.gpsStreet;
-            document.getElementById('occ-neighborhood').value = data.gpsBairro;
-            document.getElementById('occ-number').value = data.gpsNumber;
-            btnGeo.innerHTML = `
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Localização obtida (${data.cityClean.split('·')[0].trim()})</span>
-            `;
-            btnGeo.style.color = '#16a34a';
-          }, 400);
-        });
-      }
 
       // Drag and drop / File Upload
       const dropzone = document.getElementById('dropzone');

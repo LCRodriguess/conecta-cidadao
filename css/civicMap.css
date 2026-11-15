@@ -1,10 +1,3 @@
-/* ==========================================================================
-   CONECTA CIDADÃO - MAPA ESTILO GOOGLE MAPS COM BOLHAS DE FOTO (civicMap.css)
-   Renderiza o mapa interativo com cartografia Google Maps (Mapa / Satélite),
-   marcadores em formato de bolha com mini-foto, filtro de camadas e painel
-   lateral estilo Google Maps Places com rua, CEP, telefone e rota.
-   ========================================================================== */
-
 .civic-map-section {
   background: #FFFFFF;
   border: 2px solid #000000;
@@ -235,17 +228,23 @@
   box-shadow: 0 4px 12px rgba(16, 63, 239, 0.18);
 }
 
-.quick-pill-thumb {
-  width: 38px !important;
-  height: 38px !important;
-  min-width: 38px;
-  min-height: 38px;
-  max-width: 38px;
-  max-height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #103FEF;
-  background: #E2E8F0;
+.quick-pill-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 10px;
+  background: #103FEF;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16);
+}
+
+.quick-pill-icon svg {
+  width: 18px;
+  height: 18px;
   display: block;
 }
 
@@ -268,9 +267,7 @@
   color: #475569;
 }
 
-/* ==========================================================================
-   BOLHAS COM MINI-FOTOS NO MAPA (Custom Pin Estilo Google Maps)
-   ========================================================================== */
+/* BOLHAS COM MINI-FOTOS NO MAPA (Custom Pin Estilo Google Maps) */
 .civic-bubble-leaflet-icon {
   background: transparent !important;
   border: none !important;
@@ -293,41 +290,86 @@
   z-index: 950 !important;
 }
 
-.bubble-avatar-ring {
+.bubble-avatar-ring,
+.civic-pin-circle {
   position: relative;
-  width: 54px;
-  height: 54px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  padding: 3px;
   background: #103FEF;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4), 0 0 0 2.5px #FFFFFF;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.35), 0 0 0 2.5px #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.bubble-avatar-ring.type-upa-24h {
+.civic-pin-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.civic-pin-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.bubble-avatar-ring.type-upa-24h,
+.quick-pill-icon.type-upa-24h,
+.detail-header-icon-box.type-upa-24h {
   background: #DC2626;
 }
 
-.bubble-avatar-ring.type-ubs {
+.bubble-avatar-ring.type-ubs,
+.quick-pill-icon.type-ubs,
+.detail-header-icon-box.type-ubs {
   background: #103FEF;
 }
 
-.bubble-avatar-ring.type-waste {
+.bubble-avatar-ring.type-waste,
+.quick-pill-icon.type-waste,
+.detail-header-icon-box.type-waste {
   background: #059669;
 }
 
-.bubble-avatar-ring.type-works {
+.bubble-avatar-ring.type-works,
+.quick-pill-icon.type-works,
+.detail-header-icon-box.type-works {
   background: #D97706;
 }
 
-.bubble-avatar-ring.type-civil {
+.bubble-avatar-ring.type-civil,
+.quick-pill-icon.type-civil,
+.detail-header-icon-box.type-civil {
   background: #0284C7;
 }
 
-.civic-photo-bubble.active-marker .bubble-avatar-ring {
-  box-shadow: 0 8px 22px rgba(16, 63, 239, 0.55), 0 0 0 3.5px #FACC15;
+.bubble-avatar-ring.type-security,
+.quick-pill-icon.type-security,
+.detail-header-icon-box.type-security {
+  background: #0F172A;
+}
+
+.bubble-avatar-ring.type-transit,
+.quick-pill-icon.type-transit,
+.detail-header-icon-box.type-transit {
+  background: #B45309;
+}
+
+.bubble-avatar-ring.type-civic,
+.quick-pill-icon.type-civic,
+.detail-header-icon-box.type-civic {
+  background: #4F46E5;
+}
+
+.civic-photo-bubble.active-marker .bubble-avatar-ring,
+.civic-photo-bubble.active-marker .civic-pin-circle {
+  box-shadow: 0 6px 18px rgba(16, 63, 239, 0.5), 0 0 0 3px #FACC15;
 }
 
 .bubble-mini-photo {
@@ -379,6 +421,18 @@
   border-top-color: #0284C7;
 }
 
+.bubble-avatar-ring.type-security ~ .bubble-pointer {
+  border-top-color: #0F172A;
+}
+
+.bubble-avatar-ring.type-transit ~ .bubble-pointer {
+  border-top-color: #B45309;
+}
+
+.bubble-avatar-ring.type-civic ~ .bubble-pointer {
+  border-top-color: #4F46E5;
+}
+
 .bubble-floating-label {
   margin-top: 2px;
   background: rgba(15, 23, 42, 0.92);
@@ -392,9 +446,7 @@
   border: 1px solid rgba(255, 255, 255, 0.75);
 }
 
-/* ==========================================================================
-   PAINEL DE DETALHES LATERAL (ESTILO GOOGLE MAPS PLACE CARD)
-   ========================================================================== */
+/* Painel de detalhes lateral (estilo google maps place card) */
 .civic-place-detail-card {
   background: #F8FAFC;
   border: 2px solid #CBD5E1;
@@ -406,31 +458,53 @@
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
 
-.detail-photo-banner {
-  position: relative;
-  width: 100%;
-  height: 175px;
-  background: #0F172A;
-  overflow: hidden;
+.detail-clean-header {
+  padding: 16px 18px 14px;
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.detail-photo-banner img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-  display: block;
-}
-
-.detail-photo-overlay {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+.detail-header-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.detail-header-icon-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-header-icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 10px;
+  background: #103FEF;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.16);
+}
+
+.detail-header-icon-box svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.detail-header-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .detail-status-badge {
@@ -560,19 +634,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  min-height: 42px;
-  padding: 10px 16px;
-  border-radius: 999px;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 8px;
   border: none;
   background: #103FEF;
   color: #FFFFFF !important;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   font-family: inherit;
   text-decoration: none !important;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(16, 63, 239, 0.2);
   transition: background 0.16s ease, transform 0.14s ease;
 }
 
@@ -581,30 +656,171 @@
   transform: translateY(-1px);
 }
 
-.btn-detail-secondary {
+.detail-quick-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-detail-secondary,
+.btn-detail-streetview {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  min-height: 38px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1.5px solid #CBD5E1;
-  background: #FFFFFF;
-  color: #0F172A !important;
-  font-size: 12.5px;
-  font-weight: 700;
+  min-height: 36px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  color: #1E293B !important;
+  font-size: 12px;
+  font-weight: 600;
   font-family: inherit;
   text-decoration: none !important;
   cursor: pointer;
+  white-space: nowrap;
   transition: all 0.15s ease;
 }
 
 .btn-detail-secondary:hover {
   border-color: #103FEF;
   color: #103FEF !important;
+  background: #EFF6FF;
+}
+
+.btn-detail-streetview:hover {
+  border-color: #0F172A;
+  color: #0F172A !important;
+  background: #EEF2F6;
+}
+
+/* POPUP DIRETO NO MAPA (Leaflet Popup ao clicar no pino) */
+.civic-map-popup-wrap .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.22);
+  border: 1px solid #CBD5E1;
+}
+
+.civic-map-popup-wrap .leaflet-popup-content {
+  margin: 14px;
+  width: 270px !important;
+  font-family: inherit;
+}
+
+.civic-leaflet-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.civic-popup-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.civic-popup-cep {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  background: #F1F5F9;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+}
+
+.civic-popup-kicker {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #103FEF;
+}
+
+.civic-popup-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.25;
+}
+
+.civic-popup-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.35;
+  padding: 6px 0;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.civic-popup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-popup-primary {
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: #103FEF;
+  color: #FFFFFF !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  transition: background 0.15s ease;
+}
+
+.btn-popup-primary:hover {
+  background: #0B2EC4;
+}
+
+.civic-popup-quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.btn-popup-action {
+  height: 34px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
   background: #F8FAFC;
+  color: #1E293B !important;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.btn-popup-action:hover,
+.btn-popup-route:hover {
+  border-color: #103FEF;
+  color: #103FEF !important;
+  background: #EFF6FF;
 }
 
 /* Alto Contraste */

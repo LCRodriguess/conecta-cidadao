@@ -290,6 +290,46 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('det-proto-address').textContent =
             getAddress(occurrence);
 
+        const photoBox = document.getElementById('det-proto-photo-box');
+        const photoImg = document.getElementById('det-proto-photo');
+        const reqLightbox = document.getElementById('req-photo-lightbox');
+        const reqLightboxImg = document.getElementById('req-lightbox-img');
+        const btnCloseReqLightbox = document.getElementById('btn-close-req-lightbox');
+
+        function openReqLightbox() {
+            if (!reqLightbox || !reqLightboxImg || !photoImg?.src) return;
+            reqLightboxImg.src = photoImg.src;
+            reqLightbox.style.display = 'flex';
+            reqLightbox.hidden = false;
+        }
+        if (photoImg && !photoImg.dataset.boundZoom) {
+            photoImg.dataset.boundZoom = '1';
+            photoImg.addEventListener('click', openReqLightbox);
+        }
+        if (btnCloseReqLightbox && reqLightbox && !reqLightbox.dataset.boundClose) {
+            reqLightbox.dataset.boundClose = '1';
+            btnCloseReqLightbox.addEventListener('click', () => {
+                reqLightbox.hidden = true;
+                reqLightbox.style.display = 'none';
+            });
+            reqLightbox.addEventListener('click', (e) => {
+                if (e.target === reqLightbox) {
+                    reqLightbox.hidden = true;
+                    reqLightbox.style.display = 'none';
+                }
+            });
+        }
+
+        if (photoBox && photoImg) {
+            if (occurrence.photoUrl) {
+                photoImg.src = occurrence.photoUrl;
+                photoBox.hidden = false;
+            } else {
+                photoImg.removeAttribute('src');
+                photoBox.hidden = true;
+            }
+        }
+
         updateStepper(status.step);
 
         timelineList.replaceChildren();
@@ -397,6 +437,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('det-proto-address').textContent =
             'Quando houver uma solicitação, os detalhes aparecerão aqui.';
+
+        const photoBox = document.getElementById('det-proto-photo-box');
+        const photoImg = document.getElementById('det-proto-photo');
+        if (photoBox && photoImg) {
+            photoImg.removeAttribute('src');
+            photoBox.hidden = true;
+        }
 
         timelineList.replaceChildren();
 
@@ -515,7 +562,6 @@ document.addEventListener('DOMContentLoaded', () => {
         selectOccurrence(occurrenceToSelect);
     }
 
-    // Abre o formulário de complemento.
     btnSendComplement.addEventListener('click', () => {
 
         if (!selectedOccurrence) {
@@ -527,12 +573,10 @@ document.addEventListener('DOMContentLoaded', () => {
         complementDescription.focus();
     });
 
-    // Cancela o envio.
     btnCancelComplement.addEventListener('click', () => {
         closeComplementForm();
     });
 
-    // Envia o complemento para a API.
     btnSubmitComplement.addEventListener('click', async () => {
 
         if (!selectedOccurrence) {
@@ -576,7 +620,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             closeComplementForm();
 
-            // Atualiza o histórico da ocorrência selecionada.
             await selectOccurrence(selectedOccurrence);
 
         } catch (error) {
@@ -597,7 +640,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Configura os filtros.
     document.querySelectorAll('.tab-chip').forEach(chip => {
 
         chip.addEventListener('click', () => {
@@ -614,7 +656,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Escuta a troca de município.
     window.addEventListener('conectaCityChanged', event => {
 
         if (event.detail && event.detail.cityKey) {
@@ -625,7 +666,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Emissão e impressão do comprovante oficial do protocolo selecionado
     const btnPrintProtocol = document.getElementById('btn-print-protocol');
     if (btnPrintProtocol) {
         btnPrintProtocol.addEventListener('click', async () => {
@@ -666,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Busca as ocorrências na API (com fallback transparente para dados reais simulados).
+    // Busca as ocorrências na API; se estiver offline, usa os registros locais de demonstração.
     async function loadOccurrences() {
 
         try {

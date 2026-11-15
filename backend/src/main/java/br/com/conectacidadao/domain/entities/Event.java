@@ -41,6 +41,12 @@ public class Event
     @Column(name = "before_text")
     private String before;
 
+    @Column(name = "source_type", nullable = false)
+    private String sourceType = "MANUAL";
+
+    @Column(name = "source_url")
+    private String sourceUrl;
+
     public Event() 
     {
 
@@ -174,5 +180,25 @@ public class Event
     public void setBefore(String before) 
     {
         this.before = before;
+    }
+
+    public String getSourceType()
+    {
+        return sourceType;
+    }
+
+    public void setSourceType(String sourceType)
+    {
+        this.sourceType = (sourceType == null || sourceType.isBlank()) ? "MANUAL" : sourceType;
+    }
+
+    public String getSourceUrl()
+    {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl)
+    {
+        this.sourceUrl = sourceUrl;
     }
 }

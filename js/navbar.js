@@ -24,33 +24,32 @@ class AppNavbar extends HTMLElement {
     const cityShort = activeCitizen.cityKey === 'sapucaia' ? 'Sapucaia do Sul' : 'Rio das Ostras';
 
     this.innerHTML = `
-      <!-- FAIXA SUPERIOR DE CONFIANÇA OFICIAL (Inspiração NYC.gov + Simulador de Dados Reais) -->
       <div class="civic-trust-bar">
         <div class="civic-trust-container">
           <div class="civic-trust-left">
             <span class="civic-flag-badge" aria-hidden="true">GOV</span>
             <span class="civic-trust-text">Portal Oficial Municipal · <strong>ConectaCidadão</strong></span>
-            <button type="button" class="civic-verify-btn" id="civic-verify-toggle" aria-expanded="false">
-              <span>Como verificar</span>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
           </div>
 
-          <!-- Seletor de Cidadão Simulado (Consumo de Dados Reais) -->
           <div class="civic-trust-right">
+            <a href="adminPage.html" class="civic-admin-btn ${currentPath.includes('adminpage') ? 'active' : ''}" title="Acessar Painel Administrativo">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>${activeCitizen.roleLabel ? `Admin: ${activeCitizen.roleLabel}` : 'Painel Admin'}</span>
+            </a>
+
             <div class="citizen-switcher-wrapper" id="citizen-switcher-wrapper">
-              <button type="button" class="citizen-switcher-btn" id="citizen-switcher-toggle" title="Alternar pessoa real simulada para testar dados de CPF, SUS, IPTU e protocolos">
+              <button type="button" class="citizen-switcher-btn" id="citizen-switcher-toggle" title="Alternar perfil fictício de demonstração">
                 <span class="live-citizen-dot"></span>
-                <span class="citizen-switcher-label">Cidadão ativo: <strong id="trust-citizen-name">${firstName}</strong> (${activeCitizen.cpf})</span>
+                <span class="citizen-switcher-label">Perfil ativo: <strong id="trust-citizen-name">${firstName}</strong> (${activeCitizen.cpf})</span>
                 <span class="citizen-switcher-Action">Trocar perfil ⌵</span>
               </button>
 
               <div class="citizen-switcher-menu" id="citizen-switcher-menu">
                 <div class="citizen-menu-header">
-                  <strong>Simulador de Dados Reais de Pessoas</strong>
-                  <span>Selecione um cidadão para carregar CPF, SUS, IPTU e protocolos reais:</span>
+                  <strong>Perfis de Demonstração</strong>
+                  <span>Selecione um perfil para testar CPF, SUS, IPTU e protocolos:</span>
                 </div>
                 <div class="citizen-menu-list" id="citizen-menu-list">
                   ${allCitizens.map(cit => {
@@ -78,45 +77,10 @@ class AppNavbar extends HTMLElement {
           </div>
         </div>
 
-        <!-- Painel Expansível "Como Verificar" (Estilo NYC.gov Official Website) -->
-        <div class="civic-verify-drawer" id="civic-verify-drawer" hidden>
-          <div class="civic-verify-grid">
-            <div class="verify-item">
-              <div class="verify-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="3" y1="22" x2="21" y2="22"/>
-                  <line x1="6" y1="18" x2="6" y2="11"/>
-                  <line x1="10" y1="18" x2="10" y2="11"/>
-                  <line x1="14" y1="18" x2="14" y2="11"/>
-                  <line x1="18" y1="18" x2="18" y2="11"/>
-                  <polygon points="12 2 20 7 4 7"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Canais Oficiais nunca pedem senha ou Pix por WhatsApp</strong>
-                <p>Guias de IPTU/ISS e protocolos de zeladoria são gerados exclusivamente dentro deste ambiente oficial verificado.</p>
-              </div>
-            </div>
-            <div class="verify-item">
-              <div class="verify-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Conexão Criptografada e Proteção LGPD (Lei 13.709/2018)</strong>
-                <p>Seus dados de CPF, Cartão SUS e endereço são utilizados apenas para vincular seus serviços públicos municipais.</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- BARRA DE NAVEGAÇÃO PRINCIPAL (Fusão NYC.gov + Unimed) -->
       <nav class="topbar" aria-label="Navegação Principal">
         <div class="topbar-container">
-          <!-- 1. Marca / Logo -->
           <a href="mainPage.html" class="topbar-brand" title="Conecta Cidadão - Página Inicial">
             <div class="brand-logo-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -132,11 +96,9 @@ class AppNavbar extends HTMLElement {
             </div>
           </a>
 
-          <!-- 2. Navegação Central Enxuta (NYC.gov Task-First) -->
           <div class="topbar-nav" id="topbar-nav">
             <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
 
-            <!-- Início -->
             <a href="mainPage.html" class="nav-item ${isInicio ? 'active' : ''}" id="nav-inicio">
               <div class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -147,7 +109,6 @@ class AppNavbar extends HTMLElement {
               <span class="nav-label">Início</span>
             </a>
 
-            <!-- Serviços (Dropdown com Linguagem Simples) -->
             <div class="nav-dropdown-wrapper" id="servicos-dropdown-wrapper">
               <button type="button" class="nav-item nav-servicos-btn ${isServicos ? 'active' : ''}" id="servicos-toggle" aria-expanded="false" aria-haspopup="true">
                 <div class="nav-icon">
@@ -300,7 +261,6 @@ class AppNavbar extends HTMLElement {
               </div>
             </div>
 
-            <!-- Solicitações -->
             <a href="requestsPage.html" class="nav-item ${isSolicitacoes ? 'active' : ''}" id="nav-solicitacoes">
               <div class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -313,7 +273,6 @@ class AppNavbar extends HTMLElement {
               <span class="nav-label">Solicitações</span>
             </a>
 
-            <!-- Minha Conta -->
             <a href="accountPage.html" class="nav-item ${isMinhaConta ? 'active' : ''}" id="nav-conta">
               <div class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -326,9 +285,7 @@ class AppNavbar extends HTMLElement {
             </a>
           </div>
 
-          <!-- 3. Lado Direito: Gatilho ACESSO RÁPIDO (Unimed) + Avisos + Botão Cidadão (#00995D) -->
           <div class="topbar-right-cluster">
-            <!-- Gatilho ACESSO RÁPIDO (Estratégia de Comunicação Visual Unimed) -->
             <div class="quick-access-wrapper" id="quick-access-wrapper">
               <button type="button" class="btn-quick-access-trigger" id="quick-access-toggle" aria-expanded="false">
                 <span>ACESSO RÁPIDO</span>
@@ -367,11 +324,14 @@ class AppNavbar extends HTMLElement {
                     <strong>Meu Cadastro Cidadão</strong>
                     <span>Atualize CPF, Cartão SUS e notificações</span>
                   </a>
+                  <a href="adminPage.html" class="qa-drawer-item">
+                    <strong>Painel Admin</strong>
+                    <span>Gerencie eventos, ocorrências e sincronização</span>
+                  </a>
                 </div>
               </div>
             </div>
 
-            <!-- Sino de Avisos -->
             <div class="topbar-alerts-wrapper" id="alerts-wrapper">
               <button type="button" class="nav-item nav-alert-btn" id="alerts-toggle" title="Avisos e atualizações do seu CPF">
                 <div class="nav-bell-container">
@@ -412,7 +372,6 @@ class AppNavbar extends HTMLElement {
               </div>
             </div>
 
-            <!-- Botão Pílula Verde Cuidado (Unimed #00995D) — Área do Cidadão / Login -->
             <a href="loginPage.html" class="btn-citizen-pill" title="Acessar Login, Trocar Conta ou Cadastrar Cidadão">
               <span class="citizen-pill-avatar" id="nav-citizen-avatar">${activeCitizen.avatarInitials || 'MA'}</span>
               <div class="citizen-pill-meta">
@@ -429,24 +388,6 @@ class AppNavbar extends HTMLElement {
   }
 
   setupInteractivity() {
-    // 1. Verificar Portal Oficial (NYC.gov Trust Drawer)
-    const verifyToggle = this.querySelector('#civic-verify-toggle');
-    const verifyDrawer = this.querySelector('#civic-verify-drawer');
-    if (verifyToggle && verifyDrawer) {
-      verifyToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isHidden = verifyDrawer.hasAttribute('hidden');
-        if (isHidden) {
-          verifyDrawer.removeAttribute('hidden');
-          verifyToggle.setAttribute('aria-expanded', 'true');
-        } else {
-          verifyDrawer.setAttribute('hidden', '');
-          verifyToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    // 2. Seletor de Cidadão Simulado (Dados Reais)
     const citToggle = this.querySelector('#citizen-switcher-toggle');
     const citMenu = this.querySelector('#citizen-switcher-menu');
     if (citToggle && citMenu) {
@@ -465,14 +406,13 @@ class AppNavbar extends HTMLElement {
         if (typeof setActiveCitizen === 'function') {
           const updated = setActiveCitizen(citizenId, true);
           if (updated) {
-            this.showToast(`Dados reais carregados: ${updated.name} (${updated.cpf})`);
+            this.showToast(`Perfil de demonstração carregado: ${updated.name} (${updated.cpf})`);
             this.connectedCallback();
           }
         }
       });
     });
 
-    // 3. Dropdown ACESSO RÁPIDO (Unimed)
     const qaToggle = this.querySelector('#quick-access-toggle');
     const qaDrawer = this.querySelector('#quick-access-drawer');
     if (qaToggle && qaDrawer) {
@@ -487,7 +427,6 @@ class AppNavbar extends HTMLElement {
       });
     }
 
-    // 4. Dropdown de Serviços
     const servicosToggle = this.querySelector('#servicos-toggle');
     const servicosMenu = this.querySelector('#servicos-menu');
 
@@ -505,7 +444,6 @@ class AppNavbar extends HTMLElement {
       });
     }
 
-    // 5. Dropdown de Avisos
     const alertsToggle = this.querySelector('#alerts-toggle');
     const alertsMenu = this.querySelector('#alerts-menu');
     const alertsBadge = this.querySelector('#alerts-badge');
@@ -536,7 +474,6 @@ class AppNavbar extends HTMLElement {
       });
     }
 
-    // Acessibilidade: Alternar Alto Contraste
     const btnAcessibilidade = this.querySelector('#btn-acessibilidade');
     if (btnAcessibilidade) {
       btnAcessibilidade.addEventListener('click', (e) => {
@@ -549,7 +486,6 @@ class AppNavbar extends HTMLElement {
       });
     }
 
-    // Privacidade
     const btnPrivacidade = this.querySelector('#btn-privacidade');
     if (btnPrivacidade) {
       btnPrivacidade.addEventListener('click', (e) => {

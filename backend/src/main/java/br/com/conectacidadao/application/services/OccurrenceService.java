@@ -18,7 +18,6 @@ public class OccurrenceService
         this.occurrenceRepository = occurrenceRepository;
     }
 
-    // Cadastrar ocorrência
     public Occurrence create(Occurrence occurrence) 
     {
         occurrence.setStatus(OccurrenceStatus.Recebido);
@@ -37,20 +36,17 @@ public class OccurrenceService
         return occurrenceRepository.save(occurrence);
     }
 
-    // Listar todas as ocorrências
     public List<Occurrence> findAll() 
     {
         return occurrenceRepository.findAll();
     }
 
-    // Buscar ocorrência por ID
     public Occurrence findById(UUID id) 
     {
         return occurrenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ocorrência não encontrada."));
     }
 
-    // Atualizar ocorrência
     public Occurrence update(UUID id, Occurrence updatedOccurrence) 
     {
         Occurrence occurrence = findById(id);
@@ -64,11 +60,13 @@ public class OccurrenceService
         occurrence.setNeighborhood(updatedOccurrence.getNeighborhood());
         occurrence.setReferencePoint(updatedOccurrence.getReferencePoint());
         occurrence.setPhotoUrl(updatedOccurrence.getPhotoUrl());
+        if (updatedOccurrence.getStatus() != null) {
+            occurrence.setStatus(updatedOccurrence.getStatus());
+        }
 
         return occurrenceRepository.save(occurrence);
     }
 
-    // Excluir ocorrência
     public void delete(UUID id) 
     {
         Occurrence occurrence = findById(id);

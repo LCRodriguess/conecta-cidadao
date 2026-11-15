@@ -1,4 +1,4 @@
-package br.com.conectacidadao.application;
+package br.com.conectacidadao.application.services;
 
 import java.util.UUID;
 import br.com.conectacidadao.domain.entities.HealthUnit;

@@ -1,7 +1,7 @@
 package br.com.conectacidadao.controller;
 
 import java.util.UUID;
-import br.com.conectacidadao.application.HealthUnitService;
+import br.com.conectacidadao.application.services.HealthUnitService;
 import br.com.conectacidadao.domain.entities.HealthUnit;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

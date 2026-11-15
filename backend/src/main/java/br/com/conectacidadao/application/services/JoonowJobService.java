@@ -197,7 +197,7 @@ public class JoonowJobService {
             return "";
         }
 
-        return value.asText("");
+        return value.asString("");
     }
 
     private String normalize(String value) {

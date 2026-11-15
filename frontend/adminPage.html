@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin - Conecta Cidadão</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/flow.css">
+  <link rel="stylesheet" href="../css/adminPage.css">
+  <script src="../js/cityManager.js"></script>
+  <script src="../js/navbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+  <script src="../js/admin.js" defer></script>
+</head>
+
+<body>
+  <app-navbar></app-navbar>
+
+  <main class="admin-page-container">
+    <header class="admin-header">
+      <div>
+        <span class="admin-kicker">Acesso Restrito · Equipe Interna</span>
+        <h1 class="admin-title">Painel Administrativo</h1>
+        <p class="admin-subtitle">Selecione o perfil de atuação para acessar apenas as ferramentas da sua equipe.</p>
+      </div>
+
+      <div class="admin-header-actions">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#334155;">
+          <span>Visão:</span>
+          <select id="admin-view-selector" class="admin-city-select" aria-label="Seletor de visão administrativa">
+            <option value="ti">1. Admin TI / Infra</option>
+            <option value="zeladoria">2. Equipe de Zeladoria</option>
+            <option value="suporte">3. Equipe de Suporte</option>
+          </select>
+        </label>
+        <select id="admin-city-select" class="admin-city-select" aria-label="Município gerenciado">
+          <option value="rio-das-ostras">Rio das Ostras · RJ</option>
+          <option value="sapucaia">Sapucaia do Sul · RS</option>
+        </select>
+        <button type="button" class="btn-admin-secondary" id="btn-refresh-admin">
+          Atualizar Dados
+        </button>
+      </div>
+    </header>
+
+    <!-- Seletor dos 3 Perfis Admin -->
+    <section class="admin-role-tabs" aria-label="Perfis Administrativos">
+      <button type="button" class="admin-role-tab active" data-role="ti">
+        <strong>1. Admin TI / Infra</strong>
+        <span>Auditoria, velocidade, servidor, banco e logs</span>
+      </button>
+      <button type="button" class="admin-role-tab" data-role="zeladoria">
+        <strong>2. Equipe de Zeladoria</strong>
+        <span>Somente ocorrências 156 e despachos urbanos</span>
+      </button>
+      <button type="button" class="admin-role-tab" data-role="suporte">
+        <strong>3. Equipe de Suporte</strong>
+        <span>Somente atendimento a dúvidas dos cidadãos</span>
+      </button>
+    </section>
+
+    <div class="admin-feedback" id="admin-feedback" hidden></div>
+
+    <!-- Admin TI / Infra -->
+    <section id="panel-role-ti" class="admin-role-panel">
+      <div class="admin-kpi-grid">
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Servidor Backend</span>
+          <strong class="admin-kpi-value" id="ti-server-status">—</strong>
+          <small class="admin-kpi-sub" id="ti-uptime">Uptime: —</small>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Banco PostgreSQL / Supabase</span>
+          <strong class="admin-kpi-value" id="ti-db-status">—</strong>
+          <small class="admin-kpi-sub" id="ti-db-latency">Latência: —</small>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Memória JVM</span>
+          <strong class="admin-kpi-value" id="ti-jvm-memory">—</strong>
+          <small class="admin-kpi-sub">Uso atual / limite</small>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Velocidade Média APIs</span>
+          <strong class="admin-kpi-value" id="ti-avg-speed">—</strong>
+          <small class="admin-kpi-sub">Medição em tempo real</small>
+        </article>
+      </div>
+
+      <div class="admin-main-grid">
+        <div class="admin-panel-card">
+          <div class="admin-card-head">
+            <h2>Teste de Velocidade dos Endpoints</h2>
+            <button type="button" class="btn-admin-primary" id="btn-run-speedtest">Medir Agora</button>
+          </div>
+          <div class="admin-list" id="ti-speed-list">
+            <div class="admin-empty">Clique em "Medir Agora" ou atualize para testar a velocidade.</div>
+          </div>
+        </div>
+
+        <div class="admin-panel-card">
+          <div class="admin-card-head">
+            <h2>Logs Completos de Auditoria</h2>
+            <input type="text" id="ti-log-search" class="admin-inline-search" placeholder="Filtrar logs...">
+          </div>
+          <div class="admin-list" id="ti-audit-logs-list">
+            <div class="admin-empty">Carregando logs de auditoria...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Equipe de Zeladoria -->
+    <section id="panel-role-zeladoria" class="admin-role-panel" hidden>
+      <div class="admin-kpi-grid">
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Total de Ocorrências</span>
+          <strong class="admin-kpi-value" id="zel-total">0</strong>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Recebidas / Em Análise</span>
+          <strong class="admin-kpi-value" id="zel-pending">0</strong>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Equipe Enviada</span>
+          <strong class="admin-kpi-value" id="zel-dispatched">0</strong>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Concluídas</span>
+          <strong class="admin-kpi-value" id="zel-done">0</strong>
+        </article>
+      </div>
+
+      <div class="admin-panel-card">
+        <div class="admin-card-head">
+          <h2>Chamados</h2>
+          <input type="text" id="zel-search" class="admin-inline-search" placeholder="Buscar protocolo, rua ou título...">
+        </div>
+        <div class="kanban-board cols-4" id="zeladoria-kanban">
+          <div class="kanban-column" data-status="Recebido">
+            <div class="kanban-col-header">
+              <span>Recebido</span>
+              <span class="kanban-col-count" id="zel-count-Recebido">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="Recebido"></div>
+          </div>
+          <div class="kanban-column" data-status="EmAnalise">
+            <div class="kanban-col-header">
+              <span>Em Análise</span>
+              <span class="kanban-col-count" id="zel-count-EmAnalise">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="EmAnalise"></div>
+          </div>
+          <div class="kanban-column" data-status="EquipeEnviada">
+            <div class="kanban-col-header">
+              <span>Equipe Enviada</span>
+              <span class="kanban-col-count" id="zel-count-EquipeEnviada">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="EquipeEnviada"></div>
+          </div>
+          <div class="kanban-column" data-status="Concluida">
+            <div class="kanban-col-header">
+              <span>Concluída</span>
+              <span class="kanban-col-count" id="zel-count-Concluida">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="Concluida"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Equipe de Suporte -->
+    <section id="panel-role-suporte" class="admin-role-panel" hidden>
+      <div class="admin-kpi-grid">
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Dúvidas Abertas</span>
+          <strong class="admin-kpi-value" id="sup-open">0</strong>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Em Atendimento</span>
+          <strong class="admin-kpi-value" id="sup-progress">0</strong>
+        </article>
+        <article class="admin-kpi-card">
+          <span class="admin-kpi-label">Respondidas</span>
+          <strong class="admin-kpi-value" id="sup-answered">0</strong>
+        </article>
+      </div>
+
+      <div class="admin-panel-card">
+        <div class="admin-card-head">
+          <h2>Chamados</h2>
+          <input type="text" id="sup-search" class="admin-inline-search" placeholder="Buscar chamado ou tema...">
+        </div>
+        <div class="kanban-board cols-3" id="suporte-kanban">
+          <div class="kanban-column" data-status="Aberta">
+            <div class="kanban-col-header">
+              <span>Abertas</span>
+              <span class="kanban-col-count" id="sup-count-Aberta">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="Aberta"></div>
+          </div>
+          <div class="kanban-column" data-status="Em Atendimento">
+            <div class="kanban-col-header">
+              <span>Em Atendimento</span>
+              <span class="kanban-col-count" id="sup-count-EmAtendimento">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="Em Atendimento"></div>
+          </div>
+          <div class="kanban-column" data-status="Respondida">
+            <div class="kanban-col-header">
+              <span>Respondidas</span>
+              <span class="kanban-col-count" id="sup-count-Respondida">0</span>
+            </div>
+            <div class="kanban-col-body" data-status="Respondida"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Detalhes do Chamado (Foto, Descrição Completa e Histórico) -->
+  <div class="admin-modal-backdrop" id="ticket-detail-modal" hidden>
+    <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="td-title">
+      <div class="admin-modal-head">
+        <div>
+          <span class="admin-badge" id="td-protocol">—</span>
+          <span class="admin-badge" id="td-priority">—</span>
+          <h3 id="td-title" style="margin:6px 0 0;font-size:18px;font-weight:800;color:#0F172A;">Detalhes do Chamado</h3>
+        </div>
+        <button type="button" class="admin-modal-close" id="btn-close-ticket-modal" aria-label="Fechar">×</button>
+      </div>
+      <div class="admin-modal-body">
+        <p class="td-meta" id="td-meta">—</p>
+        <p class="td-desc" id="td-desc">—</p>
+        <div id="td-photo-wrap" hidden>
+          <img id="td-photo" src="" alt="Foto enviada pelo cidadão" class="td-photo-img" title="Clique na foto para ampliar">
+        </div>
+        <div class="td-history-box">
+          <strong>Histórico / Despachos</strong>
+          <ul id="td-history-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox: Foto em Tela Cheia -->
+  <div class="photo-lightbox-backdrop" id="admin-photo-lightbox" hidden>
+    <button type="button" class="photo-lightbox-close" id="btn-close-admin-lightbox" aria-label="Fechar foto">×</button>
+    <img id="admin-lightbox-img" src="" alt="Foto completa da ocorrência" class="photo-lightbox-img">
+  </div>
+
+  <app-footer></app-footer>
+</body>
+
+</html>

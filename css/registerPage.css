@@ -1,11 +1,3 @@
-/* ==========================================================================
-   CONECTA CIDADÃO - REGISTER PAGE (registerPage.css)
-   Fusão Visual:
-   - Beleza & Estratégia Visual: NYC.gov (Alto contraste, botões pílula, #103FEF)
-   - Estratégia de Comunicação Visual: Unimed (#004E4C, #00995D, #B1D34B,
-     tom acolhedor e prévia do Cartão Cidadão)
-   ========================================================================== */
-
 @import url('global.css');
 
 .register-page-container {
@@ -21,9 +13,7 @@
     align-items: start;
 }
 
-/* ==========================================================================
-   COLUNA ESQUERDA: CARD DO FORMULÁRIO DE CADASTRO
-   ========================================================================== */
+/* Coluna esquerda: card do formulário de cadastro */
 
 .register-form-card {
     background: #FFFFFF;
@@ -329,9 +319,7 @@
     transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   COLUNA DIREITA: SIDEBAR DE BENEFÍCIOS & PRÉVIA DO CARTÃO CIDADÃO
-   ========================================================================== */
+/* Coluna direita: sidebar de benefícios & prévia do cartão cidadão */
 
 .register-sidebar {
     display: flex;

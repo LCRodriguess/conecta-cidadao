@@ -36,6 +36,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Fallback local em memória caso Supabase esteja indisponível -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Migrações versionadas do schema (src/main/resources/db/migration) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,10 +1,3 @@
-// ==========================================================================
-// CONECTA CIDADÃO - GERENCIADOR GLOBAL DE MUNICÍPIO, AUTENTICAÇÃO E DADOS REAIS (cityManager.js)
-// Simula consumo de dados reais de cidadãos (CPF, Cartão SUS, endereço,
-// tributos, agendamentos médicos e protocolos de zeladoria) sincronizados
-// com o município selecionado (Rio das Ostras · RJ e Sapucaia do Sul · RS).
-// ==========================================================================
-
 const CITY_STORAGE_KEY = 'conecta_cidadao_active_city';
 const CITIZEN_STORAGE_KEY = 'conecta_cidadao_active_citizen_id';
 const CUSTOM_CITIZENS_KEY = 'conecta_cidadao_custom_citizens';
@@ -135,9 +128,7 @@ const MUNICIPALITIES = {
   }
 };
 
-// ==========================================================================
-// BASE SIMULADA DE DADOS REAIS DE PESSOAS (CIDADÃOS CADASTRADOS)
-// ==========================================================================
+// Perfis de demonstração pré-cadastrados por município
 const DEFAULT_CITIZENS = [
   {
     id: 'cit-ro-01',
@@ -392,6 +383,108 @@ const DEFAULT_CITIZENS = [
       updateDate: 'Laudo técnico emitido · Meio Ambiente',
       updateText: 'Engenheiro agrônomo da Secretaria de Meio Ambiente realizou vistoria e autorizou poda de condução programada para esta semana.'
     }
+  },
+  {
+    id: 'adm-ti-01',
+    role: 'ti',
+    roleLabel: 'Admin TI / Infra',
+    name: 'Lucas Andrade',
+    socialName: '',
+    cpf: '001.111.222-33',
+    birthDate: '1991-06-12',
+    email: 'ti.infra@conectacidadao.gov.br',
+    phone: '(22) 99900-0001',
+    susCard: '898 0000 0000 0001',
+    cityKey: 'rio-das-ostras',
+    cep: '28895-664',
+    street: 'Rua Campo de Albacora',
+    number: '75',
+    complement: 'Sala TI',
+    neighborhood: 'Loteamento Atlântica',
+    enrollment: 'ADM-TI-001',
+    electoralZone: 'Equipe Técnica · TI e Infraestrutura',
+    accountLevel: 'Admin TI / Infra',
+    avatarInitials: 'TI',
+    memberSince: 'Janeiro de 2024',
+    bills: [],
+    appointment: {
+      day: '—', month: '', title: 'Sem agendamentos', specialty: 'Perfil Administrativo TI/Infra',
+      time: '—', place: 'Centro Administrativo', status: 'Ativo', protocol: 'ADM-TI'
+    },
+    activeRequest: {
+      protocol: 'ADM-TI-01', title: 'Monitoramento e Auditoria', category: 'Outro',
+      categoryLabel: 'TI / Infra', status: 'Ativo', badge: 'TI/Infra', step: 1,
+      openedAt: 'Hoje', address: 'Sede Administrativa', updateDate: 'Online',
+      updateText: 'Acesso completo a auditoria, velocidade, servidor, banco e logs.'
+    }
+  },
+  {
+    id: 'adm-zel-01',
+    role: 'zeladoria',
+    roleLabel: 'Equipe de Zeladoria',
+    name: 'Marcos Vinícius',
+    socialName: '',
+    cpf: '002.222.333-44',
+    birthDate: '1985-09-20',
+    email: 'zeladoria@conectacidadao.gov.br',
+    phone: '(51) 99900-0002',
+    susCard: '898 0000 0000 0002',
+    cityKey: 'sapucaia',
+    cep: '93210-140',
+    street: 'Av. Leônidas de Souza',
+    number: '1289',
+    complement: 'Secretaria de Obras',
+    neighborhood: 'Santa Catarina',
+    enrollment: 'ADM-ZEL-002',
+    electoralZone: 'Equipe Operacional · Zeladoria 156',
+    accountLevel: 'Equipe de Zeladoria',
+    avatarInitials: 'ZL',
+    memberSince: 'Fevereiro de 2024',
+    bills: [],
+    appointment: {
+      day: '—', month: '', title: 'Sem agendamentos', specialty: 'Perfil Operacional Zeladoria',
+      time: '—', place: 'Secretaria de Obras', status: 'Ativo', protocol: 'ADM-ZEL'
+    },
+    activeRequest: {
+      protocol: 'ADM-ZEL-01', title: 'Fila de Zeladoria 156', category: 'Outro',
+      categoryLabel: 'Zeladoria', status: 'Ativo', badge: 'Zeladoria', step: 1,
+      openedAt: 'Hoje', address: 'Secretaria de Obras', updateDate: 'Em campo',
+      updateText: 'Acesso exclusivo à gestão de ocorrências urbanas 156.'
+    }
+  },
+  {
+    id: 'adm-sup-01',
+    role: 'suporte',
+    roleLabel: 'Equipe de Suporte',
+    name: 'Camila Ferreira',
+    socialName: '',
+    cpf: '003.333.444-55',
+    birthDate: '1994-03-08',
+    email: 'suporte@conectacidadao.gov.br',
+    phone: '(22) 99900-0003',
+    susCard: '898 0000 0000 0003',
+    cityKey: 'rio-das-ostras',
+    cep: '28895-664',
+    street: 'Rua Campo de Albacora',
+    number: '75',
+    complement: 'Ouvidoria / Suporte',
+    neighborhood: 'Loteamento Atlântica',
+    enrollment: 'ADM-SUP-003',
+    electoralZone: 'Equipe de Atendimento · Suporte ao Cidadão',
+    accountLevel: 'Equipe de Suporte',
+    avatarInitials: 'SP',
+    memberSince: 'Março de 2024',
+    bills: [],
+    appointment: {
+      day: '—', month: '', title: 'Sem agendamentos', specialty: 'Perfil Atendimento Suporte',
+      time: '—', place: 'Central de Atendimento', status: 'Ativo', protocol: 'ADM-SUP'
+    },
+    activeRequest: {
+      protocol: 'ADM-SUP-01', title: 'Atendimento a Dúvidas', category: 'Outro',
+      categoryLabel: 'Suporte', status: 'Ativo', badge: 'Suporte', step: 1,
+      openedAt: 'Hoje', address: 'Central 156', updateDate: 'Online',
+      updateText: 'Acesso exclusivo ao atendimento de dúvidas dos cidadãos.'
+    }
   }
 ];
 
@@ -461,7 +554,16 @@ function setActiveCitizen(citizenId, syncCity = true) {
   return citizen;
 }
 
-// Simula autenticação assíncrona de pessoa real por CPF, e-mail ou ID rápido
+function getActiveRole() {
+  const citizen = getActiveCitizen();
+  return (citizen && citizen.role) ? citizen.role : 'citizen';
+}
+
+function isAdminRole() {
+  const role = getActiveRole();
+  return role === 'ti' || role === 'zeladoria' || role === 'suporte';
+}
+
 async function authenticateCitizenAsync(identifier, password) {
   await new Promise(resolve => setTimeout(resolve, 380));
   const all = getAllCitizens();
@@ -478,7 +580,7 @@ async function authenticateCitizenAsync(identifier, password) {
   });
 
   if (!matched && digitsInput.length === 11) {
-    // Se digitou um CPF novo válido de 11 dígitos no login rápido, cria sessão simulada realista
+    // Cria uma sessão temporária quando o usuário informa um CPF válido ainda não cadastrado
     matched = registerNewCitizenSync({
       name: 'Cidadão Conecta Verificado',
       cpf: formatCpfMask(digitsInput),
@@ -499,7 +601,6 @@ async function authenticateCitizenAsync(identifier, password) {
   return matched;
 }
 
-// Registra uma nova pessoa real simulada no banco local e já ativa sua sessão
 function registerNewCitizenSync(payload) {
   const cityKey = payload.cityKey && MUNICIPALITIES[payload.cityKey] ? payload.cityKey : getActiveCity();
   const isRio = cityKey === 'rio-das-ostras';
@@ -605,7 +706,6 @@ function formatCpfMask(value) {
   return `${d.slice(0, 3)}.${d.slice(3, 6)}.${d.slice(6, 9)}-${d.slice(9, 11)}`;
 }
 
-// Obtém os dados completos do município ativo mesclados com os dados reais do cidadão ativo
 function getActiveCityData(key) {
   const k = key || getActiveCity();
   const baseCity = MUNICIPALITIES[k] || MUNICIPALITIES['rio-das-ostras'];
@@ -629,7 +729,6 @@ function getActiveCityData(key) {
   return baseCity;
 }
 
-// Obtém a cidade atualmente ativa (ou padrão 'rio-das-ostras')
 function getActiveCity() {
   try {
     const stored = localStorage.getItem(CITY_STORAGE_KEY);
@@ -642,8 +741,7 @@ function getActiveCity() {
   return 'rio-das-ostras';
 }
 
-// Salva e notifica todas as partes da aplicação sobre a troca de cidade
-// Também seleciona automaticamente um cidadão real daquela cidade caso o atual seja de outra
+// Troca o município ativo e garante que o cidadão selecionado pertença a ele
 function setActiveCity(cityKey) {
   if (!MUNICIPALITIES[cityKey]) return;
   try {
@@ -743,9 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ==========================================================================
-   MOTOR OFICIAL DE EMISSÃO E IMPRESSÃO DE COMPROVANTES E GUIAS MUNICIPAIS
-   ========================================================================== */
+// Emissão e impressão de comprovantes e guias municipais
 
 function generateAuthHash(seedStr) {
   let hash = 0x811c9dc5;

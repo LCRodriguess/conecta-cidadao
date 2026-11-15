@@ -125,10 +125,46 @@
 
     </section>
 
-    <!-- Resultados -->
+    <!-- Resultados e Ações -->
     <div class="results-header">
-      <h2 class="results-count" id="events-count">Carregando atividades...</h2>
+      <div class="results-title-group">
+        <h2 class="results-count" id="events-count">Carregando atividades...</h2>
+        <span class="calendar-active-day-pill" id="calendar-active-day-pill" hidden>
+          <span id="calendar-active-day-label"></span>
+          <button type="button" id="btn-clear-calendar-day" aria-label="Limpar filtro de dia">×</button>
+        </span>
+      </div>
+      <div class="results-actions-group">
+        <button type="button" class="btn-sync-events" id="btn-sync-events">
+          Atualizar Agenda
+        </button>
+        <button type="button" class="btn-new-event" id="btn-open-new-event">
+          + Publicar Evento
+        </button>
+      </div>
     </div>
+
+    <div class="sync-feedback-banner" id="sync-feedback-banner" hidden></div>
+
+    <!-- Calendário Mensal de Eventos -->
+    <section class="events-calendar-card" id="events-calendar-card" aria-label="Calendário mensal de eventos">
+      <div class="calendar-header">
+        <div>
+          <span class="calendar-kicker">Calendário Municipal</span>
+          <h3 class="calendar-month-title" id="calendar-month-title">Mês / Ano</h3>
+        </div>
+        <div class="calendar-nav">
+          <button type="button" class="calendar-nav-btn" id="btn-cal-prev" aria-label="Mês anterior">‹</button>
+          <button type="button" class="calendar-today-btn" id="btn-cal-today">Hoje</button>
+          <button type="button" class="calendar-nav-btn" id="btn-cal-next" aria-label="Próximo mês">›</button>
+        </div>
+      </div>
+
+      <div class="calendar-weekdays">
+        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      </div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </section>
 
     <section class="events-layout-grid">
 
@@ -171,6 +207,10 @@
             <p class="details-section-text" id="det-event-before">—</p>
           </div>
 
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-source-link" id="det-event-source-link" hidden>
+            Ver publicação oficial ↗
+          </a>
+
           <button type="button" class="btn-back-events" id="btn-subscribe">
             Voltar à lista de atividades
           </button>
@@ -191,7 +231,7 @@
     <footer class="home-bottom-links">
 
       <button type="button" class="bottom-support-btn"
-        onclick="alert('Central Cultural e Esportiva:\nAtendimento das 08h às 18h\nTelefone: 156\nE-mail: eventos@conectacidadao.gov.br')">
+        onclick="window.openOfficialChannelsModal && window.openOfficialChannelsModal({ title: 'Central Cultural e Esportiva', email: 'eventos@conectacidadao.gov.br', phone: '156', hours: 'Atendimento das 08h às 18h', subject: 'Atendimento Cultural e Esportivo' })">
 
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
@@ -213,6 +253,63 @@
     </footer>
 
   </main>
+
+  <!-- Modal: Publicar Evento Manual -->
+  <div class="event-modal-backdrop" id="new-event-modal" hidden>
+    <div class="event-modal-card" role="dialog" aria-modal="true" aria-labelledby="new-event-modal-title">
+      <div class="event-modal-header">
+        <h3 id="new-event-modal-title">Publicar Evento no Mural</h3>
+        <button type="button" class="event-modal-close" id="btn-close-new-event" aria-label="Fechar">×</button>
+      </div>
+      <form id="new-event-form" class="event-modal-form">
+        <div class="form-row-2">
+          <label>
+            <span>Categoria</span>
+            <select id="new-ev-category" required>
+              <option value="Cultura">Cultura</option>
+              <option value="EsporteELazer">Esporte e lazer</option>
+              <option value="Oficinas">Oficinas</option>
+              <option value="ParaFamilias">Para famílias</option>
+            </select>
+          </label>
+          <label>
+            <span>Data</span>
+            <input type="date" id="new-ev-date" required>
+          </label>
+        </div>
+        <label>
+          <span>Título do evento</span>
+          <input type="text" id="new-ev-title" placeholder="Ex.: Feira Cultural no Centro" required>
+        </label>
+        <div class="form-row-2">
+          <label>
+            <span>Início</span>
+            <input type="time" id="new-ev-start" value="09:00" required>
+          </label>
+          <label>
+            <span>Término</span>
+            <input type="time" id="new-ev-end" value="12:00" required>
+          </label>
+        </div>
+        <label>
+          <span>Local completo</span>
+          <input type="text" id="new-ev-location" placeholder="Ex.: Praça General Freitas, Centro" required>
+        </label>
+        <label>
+          <span>Público-alvo</span>
+          <input type="text" id="new-ev-audience" value="Livre para todas as idades" required>
+        </label>
+        <label>
+          <span>Descrição</span>
+          <textarea id="new-ev-desc" rows="3" placeholder="Detalhes da programação..." required></textarea>
+        </label>
+        <div class="event-modal-actions">
+          <button type="button" class="btn-modal-cancel" id="btn-cancel-new-event">Cancelar</button>
+          <button type="submit" class="btn-modal-submit" id="btn-submit-new-event">Salvar no Mural</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <app-footer></app-footer>
 

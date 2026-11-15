@@ -29,6 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentCategory = 'all';
     let requestNumber = 0;
+    let allLoadedEvents = [];
+    let selectedCalendarDay = null;
+    let calendarCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const calendarGrid = document.getElementById('calendar-grid');
+    const calendarMonthTitle = document.getElementById('calendar-month-title');
+    const activeDayPill = document.getElementById('calendar-active-day-pill');
+    const activeDayLabel = document.getElementById('calendar-active-day-label');
+    const btnClearDay = document.getElementById('btn-clear-calendar-day');
+    const btnSyncEvents = document.getElementById('btn-sync-events');
+    const syncFeedbackBanner = document.getElementById('sync-feedback-banner');
+    const detSourceLink = document.getElementById('det-event-source-link');
 
     const categoryMap = {
         'Cultura': 'Cultura',
@@ -141,6 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('det-event-before').textContent =
             event.before || 'Não há orientações adicionais.';
+
+        if (detSourceLink) {
+            if (event.sourceUrl) {
+                detSourceLink.href = event.sourceUrl;
+                detSourceLink.hidden = false;
+            } else {
+                detSourceLink.hidden = true;
+            }
+        }
     }
 
     // CRIAÇÃO DOS CARDS
@@ -180,6 +201,12 @@ document.addEventListener('DOMContentLoaded', () => {
         meta.appendChild(
             createElement('span', 'event-badge', getCategoryLabel(event.category))
         );
+
+        if (event.sourceType === 'AUTO_PORTAL') {
+            meta.appendChild(
+                createElement('span', 'event-source-badge', 'Portal Oficial')
+            );
+        }
 
         meta.appendChild(
             createElement('span', 'event-year', formatYear(event.date))
@@ -259,6 +286,129 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('det-event-loc-sub').textContent = '';
         document.getElementById('det-event-audience').textContent = '—';
         document.getElementById('det-event-before').textContent = '—';
+        if (detSourceLink) {
+            detSourceLink.hidden = true;
+        }
+    }
+
+    // CALENDÁRIO MENSAL
+    function toIsoDate(year, monthIndex, day) {
+        return [
+            year,
+            String(monthIndex + 1).padStart(2, '0'),
+            String(day).padStart(2, '0')
+        ].join('-');
+    }
+
+    function renderCalendar() {
+        if (!calendarGrid || !calendarMonthTitle) return;
+
+        const year = calendarCursor.getFullYear();
+        const month = calendarCursor.getMonth();
+
+        const monthLabel = calendarCursor.toLocaleDateString('pt-BR', {
+            month: 'long',
+            year: 'numeric'
+        });
+        calendarMonthTitle.textContent =
+            monthLabel.charAt(0).toUpperCase() + monthLabel.slice(1);
+
+        const eventsByDate = {};
+        allLoadedEvents.forEach(ev => {
+            if (!ev.date) return;
+            if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
+            eventsByDate[ev.date].push(ev);
+        });
+
+        const firstWeekday = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        calendarGrid.replaceChildren();
+
+        for (let i = 0; i < firstWeekday; i++) {
+            const emptyCell = createElement('div', 'calendar-day empty');
+            calendarGrid.appendChild(emptyCell);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const iso = toIsoDate(year, month, day);
+            const dayEvents = eventsByDate[iso] || [];
+            const isToday = iso === todayFormatted;
+            const isSelected = iso === selectedCalendarDay;
+
+            const cell = createElement('button', 'calendar-day');
+            cell.type = 'button';
+            if (isToday) cell.classList.add('today');
+            if (isSelected) cell.classList.add('selected');
+            if (dayEvents.length > 0) cell.classList.add('has-events');
+
+            const numSpan = createElement('span', 'calendar-day-num', String(day));
+            cell.appendChild(numSpan);
+
+            if (dayEvents.length > 0) {
+                const countPill = createElement(
+                    'span',
+                    'calendar-day-count',
+                    `${dayEvents.length}`
+                );
+                cell.appendChild(countPill);
+
+                const firstTitle = createElement(
+                    'span',
+                    'calendar-day-preview',
+                    dayEvents[0].title
+                );
+                cell.appendChild(firstTitle);
+            }
+
+            cell.addEventListener('click', () => {
+                selectedCalendarDay = selectedCalendarDay === iso ? null : iso;
+                updateActiveDayPill();
+                renderCalendar();
+                renderFilteredList();
+            });
+
+            calendarGrid.appendChild(cell);
+        }
+    }
+
+    function updateActiveDayPill() {
+        if (!activeDayPill || !activeDayLabel) return;
+        if (selectedCalendarDay) {
+            activeDayLabel.textContent = `Dia ${formatDate(selectedCalendarDay)}`;
+            activeDayPill.hidden = false;
+        } else {
+            activeDayPill.hidden = true;
+        }
+    }
+
+    function renderFilteredList() {
+        const list = selectedCalendarDay
+            ? allLoadedEvents.filter(ev => ev.date === selectedCalendarDay)
+            : allLoadedEvents;
+
+        eventsContainer.replaceChildren();
+        eventsCount.textContent =
+            `${list.length} atividade${list.length === 1 ? '' : 's'}`;
+
+        if (list.length === 0) {
+            showMessage(
+                'Nenhuma atividade encontrada',
+                selectedCalendarDay
+                    ? 'Não há eventos cadastrados para este dia. Clique em × para ver toda a agenda.'
+                    : 'Tente alterar os termos da busca ou selecionar outro período ou categoria.'
+            );
+            clearDetails();
+            return;
+        }
+
+        list.forEach((event, index) => {
+            const card = createEventCard(event);
+            eventsContainer.appendChild(card);
+            if (index === 0) {
+                selectEvent(event);
+            }
+        });
     }
 
     // FILTRO DE DATA
@@ -331,30 +481,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            eventsContainer.replaceChildren();
-
-            eventsCount.textContent =
-                `${events.length} atividade${events.length === 1 ? '' : 's'}`;
-
-            if (events.length === 0) {
-                showMessage(
-                    'Nenhuma atividade encontrada',
-                    'Tente alterar os termos da busca ou selecionar outro período ou categoria.'
-                );
-
-                clearDetails();
-                return;
-            }
-
-            events.forEach((event, index) => {
-                const card = createEventCard(event);
-
-                eventsContainer.appendChild(card);
-
-                if (index === 0) {
-                    selectEvent(event);
-                }
-            });
+            allLoadedEvents = Array.isArray(events) ? events : [];
+            renderCalendar();
+            renderFilteredList();
 
         } catch (error) {
             if (currentRequest !== requestNumber) {
@@ -362,10 +491,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             console.error('Erro ao carregar eventos:', error);
+            allLoadedEvents = [];
+            renderCalendar();
 
             showMessage(
                 'Não foi possível carregar os eventos',
-                'Verifique se o backend está em execução e tente novamente.'
+                'Verifique se o backend está em execução (porta 8080) e tente novamente.'
             );
 
             clearDetails();
@@ -475,6 +606,132 @@ document.addEventListener('DOMContentLoaded', () => {
         eventsContainer.scrollIntoView({ behavior: 'smooth' });
     });
 
+    // NAVEGAÇÃO DO CALENDÁRIO
+    const btnCalPrev = document.getElementById('btn-cal-prev');
+    const btnCalNext = document.getElementById('btn-cal-next');
+    const btnCalToday = document.getElementById('btn-cal-today');
+
+    if (btnCalPrev) {
+        btnCalPrev.addEventListener('click', () => {
+            calendarCursor = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth() - 1, 1);
+            renderCalendar();
+        });
+    }
+    if (btnCalNext) {
+        btnCalNext.addEventListener('click', () => {
+            calendarCursor = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth() + 1, 1);
+            renderCalendar();
+        });
+    }
+    if (btnCalToday) {
+        btnCalToday.addEventListener('click', () => {
+            calendarCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+            selectedCalendarDay = null;
+            updateActiveDayPill();
+            renderCalendar();
+            renderFilteredList();
+        });
+    }
+    if (btnClearDay) {
+        btnClearDay.addEventListener('click', () => {
+            selectedCalendarDay = null;
+            updateActiveDayPill();
+            renderCalendar();
+            renderFilteredList();
+        });
+    }
+
+    // SINCRONIZAÇÃO AUTOMÁTICA COM PORTAL DA PREFEITURA
+    if (btnSyncEvents) {
+        btnSyncEvents.addEventListener('click', async () => {
+            btnSyncEvents.disabled = true;
+            btnSyncEvents.textContent = 'Sincronizando...';
+
+            try {
+                const resp = await fetch(`${API_URL}/sync/${encodeURIComponent(currentCity)}`, {
+                    method: 'POST'
+                });
+                const data = await resp.json();
+                if (syncFeedbackBanner) {
+                    syncFeedbackBanner.textContent = `${data.source}: ${data.message}`;
+                    syncFeedbackBanner.hidden = false;
+                }
+                await renderEvents();
+            } catch (err) {
+                if (syncFeedbackBanner) {
+                    syncFeedbackBanner.textContent = 'Não foi possível sincronizar agora. Verifique o servidor backend.';
+                    syncFeedbackBanner.hidden = false;
+                }
+            } finally {
+                btnSyncEvents.disabled = false;
+                btnSyncEvents.textContent = 'Atualizar Agenda';
+            }
+        });
+    }
+
+    // MODAL PUBLICAR EVENTO MANUAL
+    const modal = document.getElementById('new-event-modal');
+    const btnOpenModal = document.getElementById('btn-open-new-event');
+    const btnCloseModal = document.getElementById('btn-close-new-event');
+    const btnCancelModal = document.getElementById('btn-cancel-new-event');
+    const newEventForm = document.getElementById('new-event-form');
+    const newEvDateInput = document.getElementById('new-ev-date');
+
+    function closeEventModal() {
+        if (modal) modal.hidden = true;
+    }
+
+    if (btnOpenModal && modal) {
+        btnOpenModal.addEventListener('click', () => {
+            if (newEvDateInput && !newEvDateInput.value) {
+                newEvDateInput.value = selectedCalendarDay || todayFormatted;
+            }
+            modal.hidden = false;
+        });
+    }
+    if (btnCloseModal) btnCloseModal.addEventListener('click', closeEventModal);
+    if (btnCancelModal) btnCancelModal.addEventListener('click', closeEventModal);
+
+    if (newEventForm) {
+        newEventForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                municipality: currentCity,
+                category: document.getElementById('new-ev-category').value,
+                title: document.getElementById('new-ev-title').value.trim(),
+                descShort: document.getElementById('new-ev-desc').value.trim().slice(0, 120),
+                descFull: document.getElementById('new-ev-desc').value.trim(),
+                date: document.getElementById('new-ev-date').value,
+                startTime: document.getElementById('new-ev-start').value,
+                endTime: document.getElementById('new-ev-end').value,
+                locationShort: document.getElementById('new-ev-location').value.trim(),
+                locationFull: document.getElementById('new-ev-location').value.trim(),
+                audience: document.getElementById('new-ev-audience').value.trim(),
+                before: 'Evento publicado manualmente no mural municipal.',
+                sourceType: 'MANUAL'
+            };
+
+            try {
+                const resp = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!resp.ok) {
+                    const msg = await resp.text();
+                    alert(msg || 'Erro ao salvar evento.');
+                    return;
+                }
+                newEventForm.reset();
+                closeEventModal();
+                await renderEvents();
+            } catch (err) {
+                alert('Não foi possível conectar ao backend para salvar o evento.');
+            }
+        });
+    }
+
     // INICIALIZAÇÃO
+    renderCalendar();
     renderEvents();
 });

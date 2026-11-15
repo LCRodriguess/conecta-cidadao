@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.conectacidadao.application.services.EventService;
+import br.com.conectacidadao.application.services.EventSyncService;
 import br.com.conectacidadao.domain.entities.Event;
 import br.com.conectacidadao.domain.entities.enums.EventCategory;
 
@@ -17,10 +18,12 @@ import br.com.conectacidadao.domain.entities.enums.EventCategory;
 public class EventController 
 {
     private final EventService eventService;
+    private final EventSyncService eventSyncService;
 
-    public EventController(EventService eventService) 
+    public EventController(EventService eventService, EventSyncService eventSyncService) 
     {
         this.eventService = eventService;
+        this.eventSyncService = eventSyncService;
     }
 
     @GetMapping("/{municipality}")
@@ -84,5 +87,21 @@ public class EventController
     {
         eventService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/sync")
+    public ResponseEntity<List<EventSyncService.SyncResult>> syncAll()
+    {
+        return ResponseEntity.ok(eventSyncService.syncAll());
+    }
+
+    @PostMapping("/sync/{municipality}")
+    public ResponseEntity<?> syncMunicipality(@PathVariable String municipality)
+    {
+        try {
+            return ResponseEntity.ok(eventSyncService.syncMunicipality(municipality));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
     }
 }

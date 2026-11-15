@@ -1,9 +1,3 @@
-// ==========================================================================
-// CONECTA CIDADÃO - LÓGICA DA PÁGINA PRINCIPAL (main.js)
-// Integra o Design Híbrido (NYC.gov + Unimed) e o Consumo de Dados Reais
-// da pessoa logada (CPF, Cartão SUS, endereço, tributos, agendamentos e 156).
-// ==========================================================================
-
 let currentCityKey = (typeof getActiveCity === 'function') ? getActiveCity() : 'rio-das-ostras';
 let currentTypeFilter = 'all';
 let carouselAutoPlayTimer = null;
@@ -19,10 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccessibilityFeatures();
   initModals();
 
-  // Atualiza todo o conteúdo da tela com a cidade e o cidadão ativo
   updateCityContent(currentCityKey, 'all');
 
-  // Ouve eventos globais de mudança de cidade ou de pessoa logada
   window.addEventListener('conectaCityChanged', (e) => {
     const nextCity = e.detail?.cityKey || getActiveCity();
     updateCityContent(nextCity, currentTypeFilter);
@@ -34,9 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ==========================================================================
-// 1. BUSCA HERO & FAIXA SPOTLIGHT (ESTRATÉGIA NYC.gov + UNIMED)
-// ==========================================================================
 function initHeroSearchAndSpotlight() {
   const heroForm = document.getElementById('hero-search-form');
   const heroInput = document.getElementById('hero-search-input');
@@ -87,9 +76,6 @@ function initHeroSearchAndSpotlight() {
   }
 }
 
-// ==========================================================================
-// 2. WIDGET INTERATIVO DE STATUS DIÁRIO DA CIDADE (ESTRATÉGIA NYC.gov)
-// ==========================================================================
 function initDailyStatusWidget() {
   const dateLabel = document.getElementById('daily-status-date-label');
   const listEl = document.getElementById('daily-status-list');
@@ -161,9 +147,6 @@ function initDailyStatusWidget() {
   }
 }
 
-// ==========================================================================
-// 2.5. MAPA INTERATIVO DE UPAs, UBS, ECOPONTOS E OBRAS NA HOME
-// ==========================================================================
 function initHomeCivicMap() {
   if (typeof window.initCivicMapWidget !== 'function') return;
   window.initCivicMapWidget({
@@ -178,9 +161,6 @@ function initHomeCivicMap() {
   });
 }
 
-// ==========================================================================
-// 3. SELETOR DE MUNICÍPIO (RIO DAS OSTRAS / SAPUCAIA DO SUL)
-// ==========================================================================
 function initMunicipalitySelector() {
   const toggleBtn = document.getElementById('municipality-toggle');
   const menu = document.getElementById('municipality-menu');
@@ -219,9 +199,6 @@ function initMunicipalitySelector() {
   });
 }
 
-// ==========================================================================
-// 4. ATUALIZAÇÃO DE CONTEÚDO COM DADOS REAIS DO CIDADÃO E DO MUNICÍPIO
-// ==========================================================================
 function updateCityContent(cityKey, typeFilter = 'all') {
   currentCityKey = cityKey;
   currentTypeFilter = typeFilter;
@@ -229,7 +206,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
   const citizen = (typeof getActiveCitizen === 'function') ? getActiveCitizen() : null;
   const cityData = (typeof getActiveCityData === 'function') ? getActiveCityData(cityKey) : null;
 
-  // 1. Atualiza Hero com os dados reais da pessoa logada
   if (citizen) {
     const firstName = citizen.name.split(' ')[0];
     const greetingEl = document.getElementById('page-greeting');
@@ -242,9 +218,8 @@ function updateCityContent(cityKey, typeFilter = 'all') {
       summaryEl.innerHTML = `CPF <strong>${citizen.cpf}</strong> · Matrícula <strong>${citizen.enrollment}</strong> · ${citizen.street}, ${citizen.number} (${citizen.neighborhood})`;
     }
     if (tagEl) tagEl.textContent = `SESSÃO VERIFICADA · ${citizen.accountLevel.toUpperCase()}`;
-    if (syncLabel) syncLabel.innerHTML = `Dados reais de: <strong>${citizen.name}</strong> (${citizen.cpf})`;
+    if (syncLabel) syncLabel.innerHTML = `Perfil de demonstração: <strong>${citizen.name}</strong> (${citizen.cpf})`;
 
-    // Mini Card de Perfil na Coluna 1
     const avEl = document.getElementById('dash-cit-avatar');
     const nameEl = document.getElementById('dash-cit-name');
     const lvlEl = document.getElementById('dash-cit-level');
@@ -260,7 +235,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
     if (addrEl) addrEl.textContent = `${citizen.street}, ${citizen.number} · ${citizen.neighborhood}`;
   }
 
-  // 2. Atualiza Widget de Status Diário da Cidade e Bairros na Faixa Spotlight
   if (cityData && cityData.dailyStatus) {
     const wBadge = document.getElementById('status-badge-waste');
     const wkBadge = document.getElementById('status-badge-works');
@@ -281,7 +255,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
     }
   }
 
-  // 3. Atualiza Carrossel de Notícias & Eventos
   const wrapper = document.getElementById('carousel-wrapper');
   const carouselCityName = document.getElementById('carousel-city-name');
   const modalCityBadge = document.getElementById('modal-bill-city');
@@ -307,7 +280,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
     rebuildCarouselDots(visibleCards.length);
   }
 
-  // 4. Atualiza Tributos (Coluna 2) com os boletos reais do Cidadão
   if (citizen && Array.isArray(citizen.bills) && citizen.bills.length > 0) {
     const bill1 = citizen.bills[0];
     const bill2 = citizen.bills[1];
@@ -351,7 +323,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
     }
   }
 
-  // 5. Atualiza Agendamento SUS (Coluna 2) com os dados reais do Cidadão
   if (citizen && citizen.appointment) {
     const app = citizen.appointment;
     const appDay = document.getElementById('main-app-day');
@@ -369,7 +340,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
     if (appSusTag) appSusTag.textContent = `SUS: ${citizen.susCard}`;
   }
 
-  // 6. Atualiza Solicitação 156 e Stepper de 4 Etapas (Coluna 3)
   if (citizen && citizen.activeRequest) {
     const req = citizen.activeRequest;
     const reqCat = document.getElementById('main-req-category');
@@ -392,7 +362,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
       `;
     }
 
-    // Atualiza visualmente o Stepper de 1 a 4
     const activeStep = Number(req.step) || 2;
     const stepEls = document.querySelectorAll('#main-req-stepper .stepper-step');
     const lineEls = document.querySelectorAll('#main-req-stepper .stepper-line');
@@ -419,9 +388,6 @@ function updateCityContent(cityKey, typeFilter = 'all') {
   }
 }
 
-// ==========================================================================
-// 5. CARROSSEL DE NOTÍCIAS & EVENTOS
-// ==========================================================================
 function initNewsCarousel() {
   const wrapper = document.getElementById('carousel-wrapper');
   const prevBtn = document.getElementById('carousel-prev');
@@ -517,9 +483,6 @@ function stopCarouselAutoPlay() {
   }
 }
 
-// ==========================================================================
-// 6. RECURSOS DE ACESSIBILIDADE & LEITURA DE VOZ PERSONALIZADA
-// ==========================================================================
 function initAccessibilityFeatures() {
   const btnFont = document.getElementById('btn-increase-font');
   if (btnFont) {
@@ -595,9 +558,6 @@ function initAccessibilityFeatures() {
   }
 }
 
-// ==========================================================================
-// 7. MODAIS INTERATIVOS (GUIA PIX E AGENDAMENTO SUS DO CIDADÃO)
-// ==========================================================================
 function initModals() {
   const modalBill = document.getElementById('modal-bill');
   const btnCloseBill = document.getElementById('modal-bill-close');
@@ -736,12 +696,9 @@ function initModals() {
   const btnHelp = document.getElementById('btn-open-help');
   if (btnHelp) {
     btnHelp.addEventListener('click', () => {
-      alert(
-        'Canais Oficiais ConectaCidadão:\n\n' +
-        '• Central 156 / 311: Atendimento gratuito 24h\n' +
-        '• Ouvidoria Municipal: ouvidoria@conectacidadao.gov.br\n' +
-        '• Atendimento Presencial: Segunda a Sexta, das 08h às 17h'
-      );
+      if (typeof window.openOfficialChannelsModal === 'function') {
+        window.openOfficialChannelsModal();
+      }
     });
   }
 

@@ -35,4 +35,8 @@ public interface EventRepository extends JpaRepository<Event, UUID>
             String municipality,
             String title
     );
+
+    boolean existsByMunicipalityAndSourceUrl(String municipality, String sourceUrl);
+
+    boolean existsByMunicipalityAndTitleAndDate(String municipality, String title, LocalDate date);
 }

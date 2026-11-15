@@ -626,7 +626,6 @@ document.addEventListener('DOMContentLoaded', () => {
     applicationModal.close();
   }
 
-  // Eventos do modal.
   btnApply.addEventListener('click', openApplicationModal);
 
   document.getElementById('close-application-modal')
@@ -641,14 +640,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Busca.
   searchInput.addEventListener('input', renderJobs);
   btnSearch.addEventListener('click', renderJobs);
 
-  // Modalidade.
   modalitySelect.addEventListener('change', renderJobs);
 
-  // Áreas.
   document.querySelectorAll('.area-chip').forEach(chip => {
     chip.addEventListener('click', () => {
 
@@ -664,7 +660,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Atualiza o seletor de município.
   function updateCitySelector(cityKey) {
     const selectedOption = [...muniOptions].find(option =>
       option.dataset.city === cityKey
@@ -686,7 +681,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-    // Atualiza o nome do município exibido na página.
   function updateCityName(cityKey) {
     const municipalityName = document.getElementById('muni-active-name');
 
@@ -698,7 +692,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Atualiza as vagas quando o município da conta mudar.
   window.addEventListener('conectaCityChanged', event => {
     const cityKey =
       event.detail?.cityKey ||
@@ -720,17 +713,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Botão de suporte.
   document.getElementById('btn-support').addEventListener('click', () => {
-    alert(
-      'Central de Atendimento ao Trabalhador:\n' +
-      'Horário: 08h às 17h\n' +
-      'Telefone: 156\n' +
-      'WhatsApp: (22) 99876-5432'
-    );
+    if (typeof window.openOfficialChannelsModal === 'function') {
+      window.openOfficialChannelsModal({
+        title: 'Central de Atendimento ao Trabalhador',
+        email: 'empregos@conectacidadao.gov.br',
+        phone: '156',
+        extraLabel: 'WhatsApp',
+        extraValue: '(22) 99876-5432',
+        hours: 'Segunda a Sexta, das 08h às 17h',
+        subject: 'Atendimento Balcão de Empregos'
+      });
+    }
   });
 
-  // Inicialização.
   if (!cityNames[activeCity]) {
     activeCity = 'rio-das-ostras';
   }

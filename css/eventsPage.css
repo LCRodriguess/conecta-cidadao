@@ -1,8 +1,3 @@
-/* ==========================================================================
-   eventsPage.css - Estilos da Página de Eventos
-   Baseado nas referências oficiais do Conecta Cidadão
-   ========================================================================== */
-
 @import url('global.css');
 
 .page-container {
@@ -867,4 +862,406 @@ body:is(.alto-contraste, .modo-acessibilidade) button:focus-visible,
 body:is(.alto-contraste, .modo-acessibilidade) input:focus-visible {
   outline: 3px solid #ffff00 !important;
   outline-offset: 3px !important;
+}
+
+/* Mural de eventos: ações, calendário mensal e modal manual */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.results-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.results-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-sync-events,
+.btn-new-event {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-sync-events {
+  background: #ffffff;
+  color: #103FEF;
+  border: 1.5px solid #103FEF;
+}
+
+.btn-sync-events:hover {
+  background: #eff6ff;
+}
+
+.btn-sync-events:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btn-new-event {
+  background: #103FEF;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-new-event:hover {
+  background: #0b2ec4;
+}
+
+.calendar-active-day-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.calendar-active-day-pill[hidden],
+.sync-feedback-banner[hidden] {
+  display: none !important;
+}
+
+.calendar-active-day-pill button {
+  background: none;
+  border: none;
+  color: #1e40af;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sync-feedback-banner {
+  margin-bottom: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.events-calendar-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0.9rem;
+}
+
+.calendar-kicker {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #103FEF;
+}
+
+.calendar-month-title {
+  margin: 2px 0 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calendar-nav-btn,
+.calendar-today-btn {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.calendar-nav-btn:hover,
+.calendar-today-btn:hover {
+  border-color: #103FEF;
+  color: #103FEF;
+  background: #eff6ff;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.calendar-day {
+  min-height: 62px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.calendar-day.empty {
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.calendar-day:not(.empty):hover {
+  border-color: #103FEF;
+  background: #f8fafc;
+}
+
+.calendar-day.today {
+  border-color: #103FEF;
+  background: #eff6ff;
+}
+
+.calendar-day.has-events {
+  border-color: #93c5fd;
+  background: #f0f9ff;
+}
+
+.calendar-day.selected {
+  border-color: #103FEF;
+  background: #103FEF;
+  color: #ffffff;
+}
+
+.calendar-day-num {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.calendar-day.selected .calendar-day-num,
+.calendar-day.selected .calendar-day-preview {
+  color: #ffffff;
+}
+
+.calendar-day-count {
+  align-self: flex-end;
+  margin-top: -18px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: #103FEF;
+  color: #ffffff;
+}
+
+.calendar-day.selected .calendar-day-count {
+  background: #ffffff;
+  color: #103FEF;
+}
+
+.calendar-day-preview {
+  width: 100%;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-source-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.btn-source-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #103FEF;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btn-source-link:hover {
+  background: #dbeafe;
+}
+
+/* Modal de Novo Evento */
+.event-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.event-modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.event-modal-card {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.28);
+}
+
+.event-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.event-modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.event-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.event-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-modal-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.event-modal-form input,
+.event-modal-form select,
+.event-modal-form textarea {
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-family: inherit;
+  font-size: 0.88rem;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.event-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.btn-modal-cancel,
+.btn-modal-submit {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-modal-cancel {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-modal-submit {
+  background: #103FEF;
+  color: #ffffff;
+  border: none;
+}
+
+@media (max-width: 640px) {
+  .calendar-day {
+    min-height: 46px;
+    padding: 4px;
+  }
+  .calendar-day-preview {
+    display: none;
+  }
 }

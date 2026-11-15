@@ -23,14 +23,11 @@
       <span class="current">Área do Cidadão · Login</span>
     </div>
 
-    <section class="auth-split-shell" aria-label="Autenticação e Simulador de Cidadãos Reais">
-      <!-- ====================================================================
-           COLUNA ESQUERDA: COMUNICAÇÃO ACOLHEDORA (UNIMED) + SIMULADOR DE DADOS REAIS
-           ==================================================================== -->
+    <section class="auth-split-shell" aria-label="Autenticação e Perfis de Demonstração">
       <div class="auth-showcase-panel">
         <div class="showcase-top-tag">
           <span class="pulse-lime"></span>
-          <span>IDENTIDADE CÍVICA UNIFICADA · RIO DAS OSTRAS & SAPUCAIA DO SUL</span>
+          <span>RIO DAS OSTRAS · SAPUCAIA DO SUL</span>
         </div>
 
         <h1 class="showcase-title">Cuidar da nossa cidade começa por ouvir você.</h1>
@@ -38,25 +35,23 @@
           Acesse seus protocolos de zeladoria (156), consultas do SUS, carteira de vacinação e guias de IPTU/ISS com uma única conta verificada.
         </p>
 
-        <!-- Simulador Interativo de Consumo de Dados Reais de Pessoas -->
         <div class="real-data-simulator-box">
           <div class="simulator-box-header">
             <div>
-              <span class="simulator-kicker">AMBIENTE DE DADOS REAIS SIMULADOS</span>
-              <h2>Escolha uma pessoa real para simular o acesso</h2>
+              <span class="simulator-kicker">PERFIS DE TESTE</span>
+              <h2>Escolha um perfil de teste para simular o acesso</h2>
             </div>
-            <span class="api-status-chip">API Cidadã Online</span>
+            <span class="api-status-chip">Ambiente Demo</span>
           </div>
           <p class="simulator-helper">
-            Clique em qualquer cidadão abaixo para preencher o formulário automaticamente ou entrar com 1 clique carregando seus dados reais de CPF, Cartão SUS, endereço, tributos e protocolos:
+            Clique em qualquer perfil fictício abaixo para preencher o formulário automaticamente ou entrar com 1 clique com dados simulados de CPF, Cartão SUS, endereço, tributos e protocolos:
           </p>
 
           <div class="demo-citizens-grid" id="demo-citizens-grid">
-            <!-- Preenchido dinamicamente pelo script com os cidadãos reais de cityManager.js -->
+            <!-- Preenchido via cityManager.js -->
           </div>
         </div>
 
-        <!-- Card de Segurança e Prevenção a Fraudes (Estratégia Unimed) -->
         <div class="unimed-antifraud-callout">
           <div class="antifraud-icon" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -70,9 +65,6 @@
         </div>
       </div>
 
-      <!-- ====================================================================
-           COLUNA DIREITA: FORMULÁRIO DE LOGIN DE ALTO CONTRASTE (ESTÉTICA NYC.gov)
-           ==================================================================== -->
       <div class="auth-form-panel">
         <div class="auth-form-card">
           <div class="auth-card-header">
@@ -81,7 +73,6 @@
             <p>Informe seu CPF ou e-mail cadastrado para carregar seus serviços municipais.</p>
           </div>
 
-          <!-- Feedback de Consumo de Dados / Autenticação -->
           <div class="auth-api-feedback" id="auth-api-feedback" hidden>
             <div class="spinner-dot"></div>
             <span id="auth-api-feedback-text">Sincronizando dados cadastrais...</span>
@@ -129,7 +120,6 @@
               </label>
             </div>
 
-            <!-- CTA Primário em Verde Cuidado (Unimed #00995D) + Formato Pílula (NYC.gov) -->
             <button type="submit" class="btn-pill-care-primary" id="btn-submit-login">
               <span>Entrar e Carregar Meus Dados</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -142,7 +132,6 @@
               <span>ou acesse com identidade federal</span>
             </div>
 
-            <!-- Botão Secundário em Azul Royal Cívico (NYC.gov #103FEF) -->
             <button type="button" class="btn-pill-govbr" id="btn-login-govbr">
               <span class="govbr-mark">gov.br</span>
               <span>Entrar com Conta <strong>gov.br</strong> (Prata ou Ouro)</span>
@@ -188,6 +177,7 @@
         demoGrid.innerHTML = citizens.map(cit => {
           const isCurrent = current && current.id === cit.id;
           const cityBadge = cit.cityKey === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ';
+          const roleTag = cit.roleLabel ? `<span class="demo-cit-current" style="background:#EFF6FF;color:#103FEF;">${cit.roleLabel}</span>` : '';
           return `
             <article class="demo-citizen-card ${isCurrent ? 'active' : ''}" data-id="${cit.id}" data-cpf="${cit.cpf}">
               <div class="demo-cit-top">
@@ -196,6 +186,7 @@
                   <strong>${cit.name}</strong>
                   <span class="demo-cit-city">${cityBadge} · Bairro ${cit.neighborhood}</span>
                 </div>
+                ${roleTag}
                 ${isCurrent ? '<span class="demo-cit-current">Sessão Ativa</span>' : ''}
               </div>
               <div class="demo-cit-data-pills">
@@ -271,11 +262,12 @@
 
         try {
           const citizen = await authenticateCitizenAsync(identifier, passwordInput?.value || '');
+          const isAdm = citizen.role === 'ti' || citizen.role === 'zeladoria' || citizen.role === 'suporte';
           if (feedbackText) {
-            feedbackText.textContent = `Acesso liberado! Bem-vindo(a), ${citizen.name} (${citizen.enrollment}). Redirecionando...`;
+            feedbackText.textContent = `Acesso liberado! Bem-vindo(a), ${citizen.name} (${citizen.roleLabel || citizen.enrollment}). Redirecionando...`;
           }
           setTimeout(() => {
-            window.location.href = 'mainPage.html';
+            window.location.href = isAdm ? 'adminPage.html' : 'mainPage.html';
           }, 550);
         } catch (err) {
           if (feedbackBox && feedbackText) {

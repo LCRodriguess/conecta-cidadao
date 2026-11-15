@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         SinalizacaoTransito: 'Sinalização de trânsito'
     };
 
-    // 1. Pré-seleciona categoria se vier pela URL (?cat=AsfaltoBuracos)
+    // Pré-seleciona a categoria se vier pela URL (?cat=AsfaltoBuracos)
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('cat');
     if (catParam && reverseCategoryMap[catParam]) {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Preenche endereço automaticamente com os dados reais da pessoa logada
+    // Preenche o endereço com os dados do cidadão logado, caso os campos estejam vazios
     function fillCitizenAddress() {
         const citizen = (typeof getActiveCitizen === 'function') ? getActiveCitizen() : null;
         if (!citizen) return;
@@ -52,14 +52,71 @@ document.addEventListener('DOMContentLoaded', () => {
     fillCitizenAddress();
 
     if (btnGeo) {
+        const defaultGeoHtml = btnGeo.innerHTML;
+
         btnGeo.addEventListener('click', () => {
-            const citizen = (typeof getActiveCitizen === 'function') ? getActiveCitizen() : null;
-            if (citizen) {
-                if (streetInput) streetInput.value = citizen.street || '';
-                if (numberInput) numberInput.value = citizen.number || '';
-                if (neighborhoodInput) neighborhoodInput.value = citizen.neighborhood || '';
-                if (referenceInput) referenceInput.value = `Endereço cadastrado de ${citizen.name} (CPF ${citizen.cpf})`;
+            if (!navigator.geolocation) {
+                alert('Seu navegador não suporta geolocalização. Preencha o endereço manualmente.');
+                return;
             }
+
+            btnGeo.disabled = true;
+            btnGeo.style.color = '';
+            btnGeo.textContent = 'Obtendo localização...';
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    let cityLabel = '';
+
+                    try {
+                        const res = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(latitude)}&lon=${encodeURIComponent(longitude)}&addressdetails=1&accept-language=pt-BR`
+                        );
+                        if (res.ok) {
+                            const data = await res.json();
+                            const addr = data.address || {};
+                            const road = addr.road || addr.street || addr.pedestrian || addr.footway || addr.path || '';
+                            const houseNumber = addr.house_number || '';
+                            const bairro = addr.suburb || addr.neighbourhood || addr.city_district || addr.quarter || addr.village || '';
+                            cityLabel = addr.city || addr.town || addr.municipality || '';
+
+                            if (streetInput) streetInput.value = road || (data.display_name ? data.display_name.split(',')[0].trim() : '');
+                            if (numberInput) numberInput.value = houseNumber;
+                            if (neighborhoodInput) neighborhoodInput.value = bairro || cityLabel;
+                        }
+                    } catch (err) {
+                        console.warn('Falha ao consultar endereço pelas coordenadas:', err);
+                    }
+
+                    if (referenceInput) {
+                        referenceInput.value = `GPS: ${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+                    }
+
+                    btnGeo.disabled = false;
+                    btnGeo.innerHTML = `
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Localização obtida${cityLabel ? ` (${cityLabel})` : ''}</span>
+                    `;
+                    btnGeo.style.color = '#16a34a';
+                },
+                (err) => {
+                    btnGeo.disabled = false;
+                    btnGeo.innerHTML = defaultGeoHtml;
+                    btnGeo.style.color = '';
+
+                    if (err.code === err.PERMISSION_DENIED) {
+                        alert('Permissão de localização negada. Libere o acesso à localização no navegador ou preencha o endereço manualmente.');
+                    } else if (err.code === err.TIMEOUT) {
+                        alert('Tempo esgotado ao buscar sua localização. Tente novamente ou preencha o endereço manualmente.');
+                    } else {
+                        alert('Não foi possível obter sua localização atual. Verifique o GPS/rede ou preencha manualmente.');
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
         });
     }
 
@@ -73,6 +130,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (!form) return;
+
+    function compressImageFile(file, maxDimension = 960, quality = 0.72) {
+        return new Promise((resolve) => {
+            if (!file || !file.type.startsWith('image/')) {
+                resolve('');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onerror = () => resolve('');
+            reader.onload = () => {
+                const img = new Image();
+                img.onerror = () => resolve('');
+                img.onload = () => {
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxDimension || height > maxDimension) {
+                        if (width >= height) {
+                            height = Math.round((height * maxDimension) / width);
+                            width = maxDimension;
+                        } else {
+                            width = Math.round((width * maxDimension) / height);
+                            height = maxDimension;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -89,6 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const catEnum = categoryMap[selectedCategory?.value] || 'IluminacaoPublica';
         const protocolNum = `SIM-2026-${Math.floor(1000 + Math.random() * 8999)}`;
 
+        const fileInput = document.getElementById('occ-file');
+        const selectedFile = fileInput && fileInput.files && fileInput.files[0];
+        const compressedPhotoUrl = selectedFile ? await compressImageFile(selectedFile) : '';
+
         const occurrence = {
             title: document.getElementById('occ-title').value,
             description: document.getElementById('occ-description').value,
@@ -98,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             number: numberInput.value,
             neighborhood: neighborhoodInput.value,
             referencePoint: referenceInput.value,
-            photoUrl: ''
+            photoUrl: compressedPhotoUrl
         };
 
         let savedProtocol = protocolNum;
@@ -122,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Fallback local');
             }
         } catch (error) {
-            // Salva no simulador local vinculado ao cidadão ativo caso o backend Java esteja offline
+            // Se o backend estiver offline, salva localmente para manter o fluxo funcionando
             try {
                 const raw = localStorage.getItem('conecta_cidadao_local_occurrences');
                 const list = raw ? JSON.parse(raw) : [];
@@ -138,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     number: occurrence.number,
                     neighborhood: occurrence.neighborhood,
                     referencePoint: occurrence.referencePoint,
+                    photoUrl: occurrence.photoUrl,
                     citizenName: citizen?.name || 'Cidadão Verificado',
                     citizenCpf: citizen?.cpf || '',
                     createdAt: new Date().toISOString(),

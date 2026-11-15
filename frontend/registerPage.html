@@ -26,9 +26,7 @@
     </div>
 
     <div class="register-layout">
-      <!-- ====================================================================
-           COLUNA ESQUERDA: FORMULÁRIO DE CADASTRO CIDADÃO (NYC.gov + Unimed)
-           ==================================================================== -->
+      
       <section class="register-form-card" aria-label="Formulário de Cadastro Cidadão">
         <div class="register-card-top">
           <div class="register-badges">
@@ -41,12 +39,12 @@
           </p>
         </div>
 
-        <!-- Barra de Simulação de Consumo de Dados Reais (Preenchimento Rápido) -->
+        <!-- Barra de Preenchimento Rápido (Dados Fictícios) -->
         <div class="real-person-generator-bar">
           <div class="generator-info">
-            <span class="generator-tag">SIMULADOR DE DADOS REAIS (RECEITA / CADSUS)</span>
+            <span class="generator-tag">PREENCHIMENTO RÁPIDO</span>
             <strong>Quer testar um novo cadastro rapidamente?</strong>
-            <span>Gere dados realistas de moradores de Rio das Ostras ou Sapucaia do Sul com 1 clique:</span>
+            <span>Preencha o formulário com um perfil de exemplo:</span>
           </div>
           <div class="generator-buttons">
             <button type="button" class="btn-gen-person" data-city="rio-das-ostras">
@@ -194,9 +192,7 @@
         </form>
       </section>
 
-      <!-- ====================================================================
-           COLUNA DIREITA: BENEFÍCIOS & COMUNICAÇÃO VISUAL (UNIMED + NYC.gov)
-           ==================================================================== -->
+      
       <aside class="register-sidebar">
         <div class="sidebar-care-card">
           <span class="care-kicker">POR QUE SE CADASTRAR?</span>
@@ -395,7 +391,7 @@
 
           if (feedbackBanner && feedbackText) {
             feedbackBanner.removeAttribute('hidden');
-            feedbackText.textContent = `Dados reais simulados carregados para ${person.name} (${targetCity === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ'}). Clique em "Concluir Cadastro" abaixo!`;
+            feedbackText.textContent = `Perfil de exemplo carregado para ${person.name} (${targetCity === 'sapucaia' ? 'Sapucaia do Sul · RS' : 'Rio das Ostras · RJ'}). Clique em "Concluir Cadastro" abaixo!`;
           }
         });
       });

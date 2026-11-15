@@ -18,28 +18,17 @@
 </head>
 
 <body>
-  <!-- Barra de Navegação Híbrida (NYC.gov + Unimed) -->
   <app-navbar></app-navbar>
 
   <main class="home-container">
-    <!-- ====================================================================
-         1. SPLIT FUNCTIONAL HERO (ESTRATÉGIA VISUAL NYC.gov + ACOLHIMENTO UNIMED)
-         ==================================================================== -->
     <section class="nyc-split-hero" aria-label="Boas-vindas, Busca e Status Diário da Cidade">
-      <!-- Lado Esquerdo: Saudação Personalizada com Dados Reais + Busca + Município -->
       <div class="hero-left-pane">
-        <div class="hero-care-pill">
-          <span class="care-dot"></span>
-          <span id="hero-citizen-tag">SESSÃO VERIFICADA · CONTA CIDADÃ NÍVEL OURO</span>
-        </div>
-
         <h1 class="header-title" id="page-greeting">Olá, Mariana! O que você precisa resolver hoje?</h1>
         <p class="header-subtitle" id="page-citizen-summary">
           CPF <strong>142.890.517-34</strong> · Matrícula <strong>RO-2026-9812</strong> · Rua das Gaivotas, 124 (Costa
           Azul)
         </p>
 
-        <!-- Barra de Busca Direta em Formato Pílula (NYC.gov + Unimed) -->
         <form class="hero-search-bar" id="hero-search-form" role="search">
           <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -106,15 +95,9 @@
             </svg>
             <span id="listen-btn-text">Ouvir meu resumo</span>
           </button>
-
-          <!-- Atalho para Login / Trocar Cidadão -->
-          <a href="loginPage.html" class="btn-switch-citizen-hero">
-            <span>Trocar Cidadão / Login</span>
-          </a>
         </div>
       </div>
 
-      <!-- Lado Direito: WIDGET INTERATIVO DE STATUS DIÁRIO DA CIDADE (Inspiração NYC.gov) -->
       <aside class="nyc-daily-status-card" id="status-diario" role="region"
         aria-label="Status operacional diário do município" aria-live="polite">
         <div class="daily-status-header">
@@ -193,7 +176,6 @@
           </button>
         </div>
 
-        <!-- Drill-down In-Place (Detalhes ao clicar em um indicador, igual ao NYC.gov) -->
         <div class="daily-status-detail-box" id="daily-status-detail-box" hidden>
           <button type="button" class="btn-status-back" id="btn-status-back">‹ Voltar aos indicadores</button>
           <strong id="daily-detail-title">Coleta de Lixo e Reciclagem</strong>
@@ -215,9 +197,7 @@
       </aside>
     </section>
 
-    <!-- ====================================================================
-         2. FAIXA SPOTLIGHT DE AUTOATENDIMENTO LOCAL (INSPIRAÇÃO "GUIA MÉDICO" UNIMED)
-         ==================================================================== -->
+    
     <section class="unimed-spotlight-strip" aria-label="Busca rápida por bairro e serviço">
       <div class="spotlight-copy">
         <span class="spotlight-badge">GUIA RÁPIDO DO SEU BAIRRO</span>
@@ -238,7 +218,7 @@
         <div class="spotlight-field">
           <label for="spotlight-service">O que você procura?</label>
           <select id="spotlight-service">
-            <option value="#mapa-operacional-section">Mapa Interativo: UPAs 24h, UBS e Pontos de Reciclagem</option>
+            <option value="#mapa-operacional-section">Mapa da Cidade: UBS, Bases Militares e Autoescolas</option>
             <option value="healthPage.html">Unidades de Saúde (UBS / UPA) e Médicos</option>
             <option value="occurrencePage.html">Relatar buraco, luz ou limpeza (156)</option>
             <option value="requestsPage.html">Ocorrências já abertas no bairro</option>
@@ -258,19 +238,12 @@
       </form>
     </section>
 
-    <!-- ====================================================================
-         2.5. MAPA INTERATIVO DE UNIDADES, UPAs 24H, ECOPONTOS E OBRAS
-         (Ruas Reais, CEPs Oficiais e Bolhas com Mini-Fotos)
-         ==================================================================== -->
+    
     <section class="civic-map-section" id="mapa-operacional-section"
       aria-label="Mapa interativo de UPAs, UBS, pontos de reciclagem e obras">
       <div class="civic-map-header">
         <div class="civic-map-title-group">
-          <span class="civic-map-kicker">GEOLOCALIZAÇÃO OFICIAL · RUAS E CEPS REAIS · <span id="home-map-city-label">Rio
-              das Ostras · RJ</span></span>
-          <h2>Mapa da Rede Municipal: UPAs 24h, UBS, Ecopontos de Reciclagem e Vias</h2>
-          <p>Clique nas bolhas com foto no mapa ou nas abas ao lado para consultar rua exata, CEP, telefone de plantão,
-            horário e serviços de cada unidade.</p>
+          <h2>Mapa de serviços</h2>
         </div>
 
         <div class="civic-map-tabs" id="home-civic-map-tabs" role="tablist" aria-label="Categorias do mapa municipal">
@@ -282,7 +255,7 @@
               <line x1="16" y1="6" x2="16" y2="22"></line>
             </svg>
             <span>Todos os Pontos no Mapa</span>
-            <span class="tab-count">15</span>
+            <span class="tab-count">30</span>
           </button>
 
           <button type="button" class="civic-map-tab" data-map-cat="health" role="tab" aria-selected="false">
@@ -291,7 +264,39 @@
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
             <span>UPAs 24h, Hospital e UBS</span>
-            <span class="tab-count">7</span>
+            <span class="tab-count">8</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="security" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Bases Militares e Segurança</span>
+            <span class="tab-count">5</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="transit" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            <span>Autoescolas e DETRAN</span>
+            <span class="tab-count">5</span>
+          </button>
+
+          <button type="button" class="civic-map-tab" data-map-cat="civicService" role="tab" aria-selected="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18"></path>
+              <path d="M5 21V7l7-4 7 4v14"></path>
+              <path d="M9 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"></path>
+            </svg>
+            <span>Prefeitura e Cidadania</span>
+            <span class="tab-count">4</span>
           </button>
 
           <button type="button" class="civic-map-tab" data-map-cat="waste" role="tab" aria-selected="false">
@@ -300,7 +305,7 @@
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            <span>Pontos de Reciclagem e Coleta</span>
+            <span>Pontos de Reciclagem</span>
             <span class="tab-count">4</span>
           </button>
 
@@ -342,13 +347,10 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         3. GRID "SERVIÇOS MAIS BUSCADOS" (8 CARDS EM LINGUAGEM SIMPLES — NYC.gov)
-         ==================================================================== -->
+    
     <section class="nyc-popular-services-section" aria-label="Serviços mais buscados pelos cidadãos">
       <div class="section-header-row">
         <div>
-          <span class="section-kicker">ARQUITETURA ORIENTADA A TAREFAS</span>
           <h2 class="section-main-title">Serviços mais buscados</h2>
         </div>
         <a href="occurrencePage.html" class="section-see-all-link">Ver todos os serviços municipais →</a>
@@ -421,9 +423,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         4. MÓDULO DEDICADO "CENTRAL 156 / 311 DE ZELADORIA" (ESTRATÉGIA NYC.gov 311)
-         ==================================================================== -->
+    
     <section class="nyc-311-banner" aria-label="Central 156 de Zeladoria Urbana">
       <div class="nyc-311-left">
         <div class="nyc-311-badge-group">
@@ -459,30 +459,24 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         5. PAINEL PESSOAL DO CIDADÃO (CONSUMO DE DADOS REAIS EM 3 COLUNAS)
-         ==================================================================== -->
-    <section class="citizen-real-dashboard-section" aria-label="Painel Pessoal de Dados Reais do Cidadão">
+    
+    <section class="citizen-real-dashboard-section" aria-label="Painel Pessoal do Perfil de Demonstração">
       <div class="section-header-row">
         <div>
-          <span class="section-kicker">CONSUMO DE DADOS REAIS SINCRONIZADOS</span>
-          <h2 class="section-main-title">Seu Painel Cidadão Personalizado</h2>
+          <h2 class="section-main-title">Seu Painel Cidadão</h2>
         </div>
         <div class="citizen-sync-pill">
           <span class="sync-green-dot"></span>
-          <span id="dashboard-sync-label">Dados carregados de: <strong>Mariana Costa Almeida</strong></span>
+          <span id="dashboard-sync-label">Perfil ativo: <strong>Mariana Costa Almeida</strong></span>
         </div>
       </div>
 
       <div class="main-dashboard-grid">
-        <!-- ==========================================
-             COLUNA 1: Identidade Cidadã & Ações Diretas
-             ========================================== -->
+        
         <div class="dash-col dash-col-left">
           <div class="dash-card need-card">
             <h2 class="card-title">Cadastro & Ações</h2>
 
-            <!-- Resumo de Dados Reais da Pessoa Logada -->
             <div class="citizen-mini-profile-box">
               <div class="cit-mini-top">
                 <div class="cit-mini-avatar" id="dash-cit-avatar">MA</div>
@@ -595,9 +589,7 @@
           </div>
         </div>
 
-        <!-- ==========================================
-             COLUNA 2: Suas Pendências & Seus Agendamentos (Dados Reais do CPF)
-             ========================================== -->
+        
         <div class="dash-col dash-col-center">
           <!-- Bloco 1: Sua pendência -->
           <div class="dash-block">
@@ -718,9 +710,7 @@
           </div>
         </div>
 
-        <!-- ==========================================
-             COLUNA 3: Sua solicitação de zeladoria
-             ========================================== -->
+        
         <div class="dash-col dash-col-right">
           <div class="block-header">
             <h2 class="block-title">Sua solicitação (156)</h2>
@@ -791,8 +781,8 @@
                 </svg>
               </a>
               <button type="button" id="btn-main-print-protocol"
-                style="background: #EEF3FF; color: #103FEF; border: 1.5px solid #103FEF; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
-                Imprimir Comprovante 156
+                style="background: #EEF3FF; color: #103FEF; border: 1.5px solid #103FEF; border-radius: 8px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Imprimir Comprovante
               </button>
             </div>
           </div>
@@ -800,10 +790,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         6. SEÇÃO EDITORIAL "CIDADE VIVA · VIVER BEM" (ESTRATÉGIA DE COMUNICAÇÃO UNIMED)
-         Fundo Verde Profundo (#004E4C) + Cards Brancos + Botões Verde-Lima (#B1D34B)
-         ==================================================================== -->
+    
     <section class="unimed-wellness-section" id="cidade-viva"
       aria-label="Programa Cidade Viva de Prevenção e Qualidade de Vida">
       <div class="wellness-header">
@@ -866,9 +853,7 @@
       </div>
     </section>
 
-    <!-- ====================================================================
-         7. SISTEMA DE BANNER DINÂMICO (NOTÍCIAS & EVENTOS DE RIO DAS OSTRAS E SAPUCAIA)
-         ==================================================================== -->
+    
     <section class="banner-carousel-section" aria-label="Notícias e Eventos das Cidades">
       <div class="carousel-top-bar">
         <div class="carousel-heading-group">
@@ -1009,9 +994,7 @@
       <div class="carousel-dots" id="carousel-dots"></div>
     </section>
 
-    <!-- ====================================================================
-         8. TRÍADE DE UTILIDADE PÚBLICA, TRANSPARÊNCIA E ANTIFRAUDE (ESTRATÉGIA UNIMED)
-         ==================================================================== -->
+    
     <section class="unimed-utility-trio" id="utilidade-antifraude"
       aria-label="Avisos de Utilidade Pública e Prevenção a Fraudes">
       <!-- Card 1: Prevenção a Golpes e Fraudes -->
@@ -1064,9 +1047,7 @@
     </footer>
   </main>
 
-  <!-- ====================================================================
-       MODAL DE GUIA E PAGAMENTO PIX
-       ==================================================================== -->
+  
   <dialog class="app-modal" id="modal-bill">
     <div class="modal-card">
       <div class="modal-header">
@@ -1137,9 +1118,7 @@
     </div>
   </dialog>
 
-  <!-- ====================================================================
-       MODAL DE DETALHES DO AGENDAMENTO SUS
-       ==================================================================== -->
+  
   <dialog class="app-modal" id="modal-appointment">
     <div class="modal-card">
       <div class="modal-header">
