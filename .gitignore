@@ -42,6 +42,6 @@ replay_pid*
 
 # Local Tooling & External Agent Caches
 .postman/
+postman/
 skills-lock.json
-.agents/skills/supabase/
-.agents/skills/supabase-postgres-best-practices/
+.agents/
