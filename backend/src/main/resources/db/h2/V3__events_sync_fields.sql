@@ -6,5 +6,5 @@ alter table events
     add column if not exists source_type varchar(50) not null default 'MANUAL';
 
 alter table events
-    add column if not exists source_url clob;
+    add column if not exists source_url varchar(1000);
 

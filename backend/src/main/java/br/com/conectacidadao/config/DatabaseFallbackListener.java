@@ -22,7 +22,7 @@ public class DatabaseFallbackListener implements ApplicationListener<Application
         String user = env.getProperty("SUPABASE_DB_USER", "").trim();
         String pass = env.getProperty("SUPABASE_DB_PASSWORD", "").trim();
 
-        if (!url.isBlank() && canConnect(url, user, pass)) {
+        if (!url.isBlank() && !user.isBlank() && !pass.isBlank() && canConnect(url, user, pass)) {
             log.info("Conexão com Supabase PostgreSQL verificada com sucesso.");
             return;
         }
