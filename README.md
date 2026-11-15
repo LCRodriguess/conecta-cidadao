@@ -119,3 +119,6 @@ Projeto ConectaCidadao/
 - **Troca de cidade e perfil:** use o menu superior na barra preta para alternar entre perfis de demonstração ou acessar o **Painel Admin**.
 - **Perfis Administrativos:** no **Painel Admin** (`frontend/adminPage.html`), utilize o seletor **Visão** (ou entre pelo login com um dos perfis internos) para explorar separadamente as áreas de **Admin TI / Infra**, **Equipe de Zeladoria** e **Equipe de Suporte**.
 
+
+> **Prévia estática (GitHub Pages):** caso queira apenas visualizar a interface e a responsividade sem rodar um servidor local para o frontend, o projeto também está publicado no GitHub Pages em `https://lcrodriguess.github.io/conecta-cidadao/`.  
+> *(Nota: por ser hospedagem estática e o backend rodar localmente em `http://localhost:8080`, as funcionalidades integradas à API e ao banco exigem que o backend Spring Boot esteja em execução na sua máquina.)*
